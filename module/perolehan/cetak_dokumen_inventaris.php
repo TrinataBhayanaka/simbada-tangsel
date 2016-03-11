@@ -52,11 +52,11 @@ $USERAUTH->FrontEnd_check_akses_menu($menu_id,$SessionUser);
 						<li><a href="#rekapbarang" data-toggle="tab">Rekapitulasi Barang</a></li>
 						<li><a href="#rekapsensusbarang" data-toggle="tab">Rekapitulasi Sensus Barang</a></li>
 						<li><a href="#kir" data-toggle="tab">KIR</a></li>
-						<li><a href="#biskpd" data-toggle="tab">Buku Inventaris SKPD</a></li>
+						<!--<li><a href="#biskpd" data-toggle="tab">Buku Inventaris SKPD</a></li>-->
 						<li><a href="#biskpdgab" data-toggle="tab">Buku Inventaris Gabungan SKPD</a></li>
-						<li><a href="#rbiskpd" data-toggle="tab">Rekapitulasi Buku Inventaris SKPD</a></li>
+						<!--<li><a href="#rbiskpd" data-toggle="tab">Rekapitulasi Buku Inventaris SKPD</a></li>
 						<li><a href="#biid" data-toggle="tab">Buku Induk Inventaris Daerah</a></li>
-						<li><a href="#rbiid" data-toggle="tab">Rekapitulasi Buku Induk Inventaris Daerah</a></li>
+						<li><a href="#rbiid" data-toggle="tab">Rekapitulasi Buku Induk Inventaris Daerah</a></li>-->
 						<li><a href="#label" data-toggle="tab">Label Kode Barang</a></li>
 						<li><a href="#kb" data-toggle="tab">Kartu Barang</a></li>
 						<li><a href="#lpri" data-toggle="tab">Laporan Inventaris</a></li>
@@ -71,7 +71,7 @@ $USERAUTH->FrontEnd_check_akses_menu($menu_id,$SessionUser);
 						 <script>
 						$(document).ready(function() {
 							$( "#tglPerolehan_1,#tglPerolehan_2,#tglPerolehan_awal_kir,#tglPerolehan_akhir_kir,#tglawalPerolehan_bis,#tglakhirPerolehan_bis,#tglPerolehan_Awal_biid,#tglPerolehan_Akhir_biid,#tglPerolehan_awal_intra,#tglPerolehan_akhir_intra,#tglPerolehan_awal_ekstra,#tglPerolehan_akhir_ekstra,#tglPerolehan_awal_rekapbis,#tglPerolehan_akhir_rekapbis,#tglPerolehan_awal_induk,#tglPerolehan_akhir_induk,#tglCetakKib,#tglCetakRekapKib,#tglCetakKir,#tglCetakBiv,#tglCetakRekapBiv,#tglCetakBivIndk,#tglCetakRekapBivIndk,#tglPerolehan_awal_kb,#tglPerolehan_akhir_kb,#tglCetakKb,#tglawalPerolehan_bisgab,#tglakhirPerolehan_bisgab,#tglCetakBivgab,#tglawalPerolehan_li,#tglpembukuan_li,#tglawalLabel,#tglakhirlLabel").mask('9999-99-99');
-							$( "#tahun_label,#tahun_rekap_kib,#tahun_rekap").mask('9999');
+							$( "#tahun_label,#tahun_rekap_kib,#tahun_rekap,#tahun_kb").mask('9999');
 							$( "#tglPerolehan_1,#tglPerolehan_2,#tglPerolehan_awal_kir,#tglPerolehan_akhir_kir,#tglawalPerolehan_bis,#tglakhirPerolehan_bis,#tglPerolehan_Awal_biid,#tglPerolehan_Akhir_biid,#tglPerolehan_awal_intra,#tglPerolehan_akhir_intra,#tglPerolehan_awal_ekstra,#tglPerolehan_akhir_ekstra,#tglPerolehan_awal_rekapbis,#tglPerolehan_akhir_rekapbis,#tglPerolehan_awal_induk,#tglPerolehan_akhir_induk,#tglCetakKib,#tglCetakRekapKib,#tglCetakKir,#tglCetakBiv,#tglCetakRekapBiv,#tglCetakBivIndk,#tglCetakRekapBivIndk,#tglPerolehan_awal_kb,#tglPerolehan_akhir_kb,#tglCetakKb,#tglawalPerolehan_bisgab,#tglakhirPerolehan_bisgab,#tglCetakBivgab,#tglawalPerolehan_li,#tglpembukuan_li,#tglawalLabel,#tglakhirlLabel" ).datepicker({ dateFormat: 'yy-mm-dd' });
 						});
 						
@@ -462,7 +462,9 @@ $USERAUTH->FrontEnd_check_akses_menu($menu_id,$SessionUser);
 									</div>
 								</div>
 							</li>
-							<li>
+							<?php selectAllAset('kelompok_id3','235',true,false); ?>
+							<li>&nbsp;</li>
+							<!--<li>
 								<span class="span2">Kelompok</span>
 								<div class="input-append">
 									<input type="text" name="lda_kelompok3" id="lda_kelompok3" class="span5" readonly="readonly" value="" placeholder="(Semua Kelompok)">
@@ -470,15 +472,15 @@ $USERAUTH->FrontEnd_check_akses_menu($menu_id,$SessionUser);
 									<div class="inner" style="display:none;">
 										
 										<?php
-											$alamat_simpul_kelompok="$url_rewrite/function/dropdown/radio_simpul_kelompok.php";
-											$alamat_search_kelompok="$url_rewrite/function/dropdown/radio_search_kelompok.php";
-											js_radiokelompok($alamat_simpul_kelompok, $alamat_search_kelompok,"lda_kelompok3","kelompok_id3",'kelompok3','ldakelompokfilter3');
-											$style="style=\"width:525px; height:220px; overflow:auto; border: 1px solid #dddddd;\"";
-											radiokelompok($style,"kelompok_id3",'kelompok3','ldakelompokfilter3');
+											// $alamat_simpul_kelompok="$url_rewrite/function/dropdown/radio_simpul_kelompok.php";
+											// $alamat_search_kelompok="$url_rewrite/function/dropdown/radio_search_kelompok.php";
+											// js_radiokelompok($alamat_simpul_kelompok, $alamat_search_kelompok,"lda_kelompok3","kelompok_id3",'kelompok3','ldakelompokfilter3');
+											// $style="style=\"width:525px; height:220px; overflow:auto; border: 1px solid #dddddd;\"";
+											// radiokelompok($style,"kelompok_id3",'kelompok3','ldakelompokfilter3');
 										?>
 									</div>
 								</div>
-							</li>
+							</li>-->
 							<li>
 							<?php //selectAllSatker('kodeSatker3','255',true,false); 
 					
@@ -518,7 +520,7 @@ $USERAUTH->FrontEnd_check_akses_menu($menu_id,$SessionUser);
 						</form>
 						</div>
 						
-						<div class="tab-pane" id="rbiskpd">
+						<!--<div class="tab-pane" id="rbiskpd">
 						<div class="breadcrumb">
 							<div class="titleTab">Rekapitulasi Buku Inventaris SKPD</div>
 						</div>
@@ -528,7 +530,7 @@ $USERAUTH->FrontEnd_check_akses_menu($menu_id,$SessionUser);
 							<!--<li>
 								<span class="span2">Tahun</span>
 								<input name="tahun_rekap_buku_inventaris_skpd" id="tahun_rekap_buku_inventaris_skpd" maxlength="4" type="text" value="<?php echo date('Y')?>" required>
-							</li>-->
+							</li>
 							<li>
 								<span class="span2">Tanggal Awal</span>
 								<div class="control">
@@ -546,12 +548,12 @@ $USERAUTH->FrontEnd_check_akses_menu($menu_id,$SessionUser);
 										<input type="text" class="span2 full" name="tglPerolehan_akhir_rekapbis" id="tglPerolehan_akhir_rekapbis" value="" required/>
 									</div>
 								</div>
-							</li>
+							</li>-->
 							<?php //selectAllSatker('kodeSatker4','255',true,false);
 						
-									selectAllSatker('kodeSatker4','255',true,false,false,true);
+									//selectAllSatker('kodeSatker4','255',true,false,false,true);
 							?>
-							<br>
+							<!--<br>
 							<li>
 								<span class="span2">Tanggal Cetak</span>
 								<div class="control">
@@ -561,7 +563,7 @@ $USERAUTH->FrontEnd_check_akses_menu($menu_id,$SessionUser);
 									</div>
 								</div>
 							</li>
-							<!--<li>
+							<li>
 								<span class="span2">Nama Skpd</span>
 								<div class="input-append">
 										 <input type="hidden" name="idgetkelompok" id="idgetkelompok" value="">
@@ -571,11 +573,11 @@ $USERAUTH->FrontEnd_check_akses_menu($menu_id,$SessionUser);
 										<div style="width:525px; height:220px; overflow:auto; border: 1px solid #dddddd;">
 								   
 											<?php
-											$alamat_simpul_skpd="$url_rewrite/function/dropdown/radio_simpul_skpd.php";
+											/*$alamat_simpul_skpd="$url_rewrite/function/dropdown/radio_simpul_skpd.php";
 											$alamat_search_skpd="$url_rewrite/function/dropdown/radio_search_skpd.php";
 											js_radioskpd($alamat_simpul_skpd, $alamat_search_skpd,"lda_skpd4","skpd_id4",'skpd_d', 'skpd4');
 											$style="style=\"width:525px; height:220px; overflow:auto; border: 1px solid #dddddd;\"";
-											radioskpd($style,"skpd_id4",'skpd_d', 'skpd4');
+											radioskpd($style,"skpd_id4",'skpd_d', 'skpd4');*/
 											?>  
 											
 										</div>
@@ -585,7 +587,7 @@ $USERAUTH->FrontEnd_check_akses_menu($menu_id,$SessionUser);
 							<!--<li>
 								<span class="span2">Tanggal Cetak Report</span>
 								<input type="text"  input id="tanggal4"  name="cdi_rekskpd_tglreport" value="" >(format tanggal : dd/mm/yyyy)
-							</li>-->
+							</li>
 							
 							<li>
 								<span class="span2">&nbsp;</span>
@@ -597,7 +599,7 @@ $USERAUTH->FrontEnd_check_akses_menu($menu_id,$SessionUser);
 						<input type="hidden" name="mode" value="1">
 						<input type="hidden" name="tab" value="4">
 						</form>
-						</div>
+						</div>-->
 						
 						<div class="tab-pane" id="biid">
 						<div class="breadcrumb">
@@ -794,16 +796,18 @@ $USERAUTH->FrontEnd_check_akses_menu($menu_id,$SessionUser);
 							<li>&nbsp;
 							</li>
 							<li>
-								<span class="span2">Tanggal Awal</span>
+								<!--<span class="span2">Tanggal Perolehan</span>
 								<div class="control">
 									<div class="input-prepend">
 										<span class="add-on"><i class="fa fa-calendar"></i></span>
 										<input type="text" class="span2 full" name="tglPerolehan_awal_kb" id="tglPerolehan_awal_kb" value="" required/>
 									</div>
-								</div>
+								</div>-->
+								<span class="span2">Tahun</span>
+								<input type="text" class="span2 full" name="tahun_kb" id="tahun_kb" value="" required/>
 							</li>
 							<li>
-								<span class="span2">Tanggal Akhir</span>
+								<span class="span2">Tanggal Perubahan</span>
 								<div class="control">
 									<div class="input-prepend">
 										<span class="add-on"><i class="fa fa-calendar"></i></span>
@@ -811,7 +815,7 @@ $USERAUTH->FrontEnd_check_akses_menu($menu_id,$SessionUser);
 									</div>
 								</div>
 							</li>
-							<li>
+							<!--<li>
 								<span class="span2">Kelompok</span>
 								<div class="input-append">
 										<input type="text" name="lda_kelompok4" id="lda_kelompok4" class="span5" readonly="readonly" value="" placeholder="(Semua Kelompok)">
@@ -819,15 +823,17 @@ $USERAUTH->FrontEnd_check_akses_menu($menu_id,$SessionUser);
 										<div class="inner" style="display:none;">
 										
 											<?php
-												$alamat_simpul_kelompok="$url_rewrite/function/dropdown/radio_simpul_kelompok.php";
+												/*$alamat_simpul_kelompok="$url_rewrite/function/dropdown/radio_simpul_kelompok.php";
 												$alamat_search_kelompok="$url_rewrite/function/dropdown/radio_search_kelompok.php";
 												js_radiokelompok($alamat_simpul_kelompok, $alamat_search_kelompok,"lda_kelompok4","kelompok_id4",'kelompok4','ldakelompokfilter4');
 												$style="style=\"width:525px; height:220px; overflow:auto; border: 1px solid #dddddd;\"";
-												radiokelompok($style,"kelompok_id4",'kelompok4','ldakelompokfilter4');
+												radiokelompok($style,"kelompok_id4",'kelompok4','ldakelompokfilter4');*/
 											?>
 										</div>
 								</div>
-							</li>
+							</li>-->
+							<?php selectAset('kelompok_id4','235',true,false); ?>
+							<li>&nbsp;</li>
 							<?php selectAllSatker('kodeSatker10','255',true,false,false,true); ?>
 							<br />
 							<li>
