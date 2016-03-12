@@ -119,7 +119,7 @@ function store_aset($data,$link,$totaldata)
         $tblAset['TipeAset'] = $data['TipeAset'];
         $tblAset['GUID'] = $data['GUID'];
         // if(intval($tblAset['Tahun']) < 2008){
-        //     $tblAset['kodeKA'] = 1;
+            // $tblAset['kodeKA'] = 1;
         // }else {
             if($data['TipeAset'] == 'B'){
                 if($tblAset['NilaiPerolehan'] < 1000000){
@@ -134,7 +134,7 @@ function store_aset($data,$link,$totaldata)
                     $tblAset['kodeKA'] = 1;
                 }
             } else {
-            	$tblAset['kodeKA'] = 0;
+            	$tblAset['kodeKA'] = 1;
             }
         // }
         $tblAset['AsalUsul'] = $data['AsalUsul'];
