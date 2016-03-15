@@ -335,7 +335,7 @@ $menu_id = 10;
 								<div class="control">
 									<div class="input-prepend">
 										<span class="add-on"><i class="fa fa-calendar"></i></span>
-										<input type="text" class="span2 datepicker" placeholder="yyyy-mm-dd" id="datepicker" name="TglPerolehan" value="<?=($kontrak[0]['tipeAset'] == '3')? $aset[0]['TglPerolehan'] : ''?>" required <?=($kontrak[0]['tipeAset'] == '3')? readonly : ''?>/>
+										<input type="text" class="span2 datepicker" placeholder="yyyy-mm-dd" id="datepicker" name="TglPerolehan" value=""/>
 									</div>
 								</div>
 							</li>
@@ -398,12 +398,12 @@ $menu_id = 10;
 			var spk = $("#spk").val();
 			var str = parseInt(spk.replace(/[^0-9\.]+/g, ""));
 			if(tipe == "mesin"){
-				if(str < 300000){
+				if(str < 0){
 					alert("Maaf nilai kontrak anda tidak sesuai dengan aturan. Untuk jenis barang mesin minimal Rp. 300.000. Silahkan edit kontrak anda.");
 					window.location.replace("kontrak_simbada.php");
 				} 
 			}else if(tipe == "bangunan"){
-				if(str < 10000000){
+				if(str < 0){
 					alert("Maaf nilai kontrak anda tidak sesuai dengan aturan. Untuk jenis bangunan minimal Rp. 10.000.000. Silahkan edit kontrak anda.");
 					window.location.replace("kontrak_simbada.php");
 				} 

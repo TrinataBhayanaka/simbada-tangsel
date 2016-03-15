@@ -56,7 +56,7 @@ while ($dataSP2D = mysql_fetch_assoc($sql)){
     logFile($updateAset);
     if(!$execquery){
       $DBVAR->rollback();
-      echo "<script>alert('ERROR #001 :Data gagal masuk. Silahkan coba lagi');</script><meta http-equiv=\"Refresh\" content=\"0; url={$url_rewrite}/module/perolehan/kontrak_posting.php\">";
+      echo "<script>alert('Data gagal masuk. Silahkan coba lagi');</script><meta http-equiv=\"Refresh\" content=\"0; url={$url_rewrite}/module/perolehan/kontrak_posting.php\">";
       exit;
     }  
     if($data['TipeAset']=="A"){
@@ -93,11 +93,11 @@ while ($dataSP2D = mysql_fetch_assoc($sql)){
       logFile($sql);
       if(!$execquery){
         $DBVAR->rollback();
-        echo "<script>alert('ERROR #002 :Data gagal masuk. Silahkan coba lagi');</script><meta http-equiv=\"Refresh\" content=\"0; url={$url_rewrite}/module/perolehan/kontrak_posting.php\">";
+        echo "<script>alert('Data gagal masuk. Silahkan coba lagi');</script><meta http-equiv=\"Refresh\" content=\"0; url={$url_rewrite}/module/perolehan/kontrak_posting.php\">";
         exit;
       }
 
-      if($tabel != "aset"){ 
+      if($tabel != "aset"){  
         //log
         $sqlkib = "SELECT * FROM {$tabel} WHERE Aset_ID = '{$data['Aset_ID']}'";
         $sqlquery = mysql_query($sqlkib);
@@ -109,7 +109,6 @@ while ($dataSP2D = mysql_fetch_assoc($sql)){
         $kib['action'] = 'posting';
         $kib['operator'] = $_SESSION['ses_uoperatorid'];
         $kib['NilaiPerolehan_Awal'] = $kib['NilaiPerolehan'];
-        $kib['Info'] = addslashes($kib['Info']);
         if($tabel == "kdp") $kib['Kd_Riwayat'] = 20; else $kib['Kd_Riwayat'] = 0;    
 
        
@@ -117,7 +116,7 @@ while ($dataSP2D = mysql_fetch_assoc($sql)){
               unset($tmpValue);
               foreach ($kib as $key => $val) {
                 $tmpField[] = $key;
-                $tmpValue[] = "'".$val."'";
+                $tmpValue[] = "'".trim(addslashes($val))."'";
               }
                
               $fileldImp = implode(',', $tmpField);
@@ -128,10 +127,10 @@ while ($dataSP2D = mysql_fetch_assoc($sql)){
                 logFile($sql);
               if(!$execquery){
                 $DBVAR->rollback();
-                echo "<script>alert('ERROR #003 :Data gagal masuk. Silahkan coba lagi');</script><meta http-equiv=\"Refresh\" content=\"0; url={$url_rewrite}/module/perolehan/kontrak_posting.php\">";              
+                echo "<script>alert('Data gagal masuk. Silahkan coba lagi');</script><meta http-equiv=\"Refresh\" content=\"0; url={$url_rewrite}/module/perolehan/kontrak_posting.php\">";              
                 exit;
               }   
-      } 
+        }
            
   }
   // exit;

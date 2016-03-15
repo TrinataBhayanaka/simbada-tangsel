@@ -127,49 +127,49 @@ function store_aset($data,$link,$totaldata)
         $tblAset['GUID'] = $data['GUID'];
 
         //Penyusutan
+        $tb = '2015';
+        $ta = $tblAset['Tahun'];
+        $na = $tblAset['NilaiPerolehan'];
         $kd_aset = explode('.', $tblAset['kodeKelompok']);
-        if($kd_aset[0] == '02'){
-            $tb = '2015';
-            $ta = $tblAset['Tahun'];
-            $na = $tblAset['NilaiPerolehan'];
-            $sql = "SELECT masa_manfaat FROM ref_masamanfaat WHERE kd_aset1 = '{$kd_aset[0]}' AND kd_aset2 = '{$kd_aset[1]}' AND kd_aset3 = '{$kd_aset[2]}'";
-            $result = $link->query($sql);
-            while($row = mysqli_fetch_assoc($result)) {
-              $mm = $row['masa_manfaat'];
-            }
-
-            $range = $tb - $ta;
-            $pp = $na/$mm;
-            $ap = $pp * $range;
-            $nb = $na - $ap;
-
-            $tblAset['MasaManfaat'] = $mm;
-            $tblAset['AkumulasiPenyusutan'] = $ap;
-            $tblAset['PenyusutanPertaun'] = $pp;
-            $tblAset['NilaiBuku'] = $nb;
-            $tblAset['UmurEkonomis'] = $mm - $range;
-            $tblAset['TahunPenyusutan'] = '2014';
+        $sql = "SELECT masa_manfaat FROM ref_masamanfaat WHERE kd_aset1 = '{$kd_aset[0]}' AND kd_aset2 = '{$kd_aset[1]}' AND kd_aset3 = '{$kd_aset[2]}'";
+        echo $sql;
+        $result = $link->query($sql);
+        while($row = mysqli_fetch_assoc($result)) {
+          $mm = $row['masa_manfaat'];
         }
 
-        if(intval($tblAset['Tahun']) < 2008){
-            $tblAset['kodeKA'] = 1;
-        }else {
-            if($data['TipeAset'] == 'B'){
-                if($tblAset['NilaiPerolehan'] < 300000){
-                    $tblAset['kodeKA'] = 0;
-                } else {
-                    $tblAset['kodeKA'] = 1;
-                }
-            } elseif ($data['TipeAset'] == 'C') {
-                if($tblAset['NilaiPerolehan'] < 10000000){
-                    $tblAset['kodeKA'] = 0;
-                } else {
-                    $tblAset['kodeKA'] = 1;
-                }
-            } else {
-            	$tblAset['kodeKA'] = 0;
-            }
-        }
+        $range = $tb - $ta;
+        $pp = $na/$mm['masa_manfaat'];
+        $ap = $pp * $range;
+        $nb = $na - $ap;
+
+        $tblAset['MasaManfaat'] = $mm['masa_manfaat'];
+        $tblAset['AkumulasiPenyusutan'] = $ap;
+        $tblAset['PenyusutanPertaun'] = $pp;
+        $tblAset['NilaiBuku'] = $nb;
+        $tblAset['UmurEkonomis'] = $mm['masa_manfaat'] - $range;
+        $tblAset['TahunPenyusutan'] = '2014';
+
+        // if(intval($tblAset['Tahun']) < 2008){
+        //     $tblAset['kodeKA'] = 1;
+        // }else {
+        //     if($data['TipeAset'] == 'B'){
+        //         if($tblAset['NilaiPerolehan'] < 300000){
+        //             $tblAset['kodeKA'] = 0;
+        //         } else {
+        //             $tblAset['kodeKA'] = 1;
+        //         }
+        //     } elseif ($data['TipeAset'] == 'C') {
+        //         if($tblAset['NilaiPerolehan'] < 10000000){
+        //             $tblAset['kodeKA'] = 0;
+        //         } else {
+        //             $tblAset['kodeKA'] = 1;
+        //         }
+        //     } else {
+        //     	$tblAset['kodeKA'] = 0;
+        //     }
+        // }
+        $tblAset['kodeKA'] = 1;
         $tblAset['AsalUsul'] = $data['AsalUsul'];
 
         if(isset($data['xls'])) {
@@ -326,14 +326,12 @@ function store_aset($data,$link,$totaldata)
                 $tblKib['StatusTampil'] = 1;
                 $tblKib['GUID'] = $data['GUID'];
 
-                if($kd_aset[0] == '02'){
-                    $tblKib['MasaManfaat'] = $mm;
-                    $tblKib['AkumulasiPenyusutan'] = $ap;
-                    $tblKib['PenyusutanPerTahun'] = $pp;
-                    $tblKib['NilaiBuku'] = $nb;
-                    $tblKib['UmurEkonomis'] = $mm - $range;
-                    $tblKib['TahunPenyusutan'] = '2014';
-                }
+                $tblKib['MasaManfaat'] = $mm['masa_manfaat'];
+                $tblKib['AkumulasiPenyusutan'] = $ap;
+                $tblKib['PenyusutanPertaun'] = $pp;
+                $tblKib['NilaiBuku'] = $nb;
+                $tblKib['UmurEkonomis'] = $mm['masa_manfaat'] - $range;
+                $tblKib['TahunPenyusutan'] = '2014';
 
             }
             
@@ -455,7 +453,7 @@ function store_aset($data,$link,$totaldata)
                   $kib['TglPerubahan'] = $kib['TglPerolehan'];    
                   $kib['changeDate'] = date("Y-m-d");
                   $kib['action'] = 'posting';
-                  $kib['operator'] = $data['UserNm'];
+                  $kib['operator'] = 1;
                   $kib['NilaiPerolehan_Awal'] = $kib['NilaiPerolehan'];
                   if($tabel == "kdp") $kib['Kd_Riwayat'] = 20; else $kib['Kd_Riwayat'] = 0;    
 
@@ -474,14 +472,14 @@ function store_aset($data,$link,$totaldata)
                         $sql = "INSERT INTO log_{$tabel} ({$fileldImp}) VALUES ({$dataImp})" or die("Error in the consult.." . mysqli_error($link));
                        	$exec = $link->query($sql);
 
-                if($kd_aset[0] == '02'){
-                    echo "Creating Log for penyusutan";
+
+                echo "Creating Log for penyusutan";
                     //First Log
                     $kib['MasaManfaat'] = 0;
                     $kib['AkumulasiPenyusutan'] = 0;
-                    $kib['PenyusutanPerTahun'] = 0;
+                    $kib['PenyusutanPertaun'] = 0;
                     $kib['NilaiBuku'] = 0;
-                    $kib['UmurEkonomis'] = $mm;
+                    $kib['UmurEkonomis'] = $mm['masa_manfaat'];
                     $kib['TahunPenyusutan'] = '2014';
                     $kib['Kd_Riwayat'] = 50;
 
@@ -499,11 +497,11 @@ function store_aset($data,$link,$totaldata)
                     $exec = $link->query($sql); 
 
                     //Second Log
-                    $kib['MasaManfaat'] = $mm;
+                    $kib['MasaManfaat'] = $mm['masa_manfaat'];
                     $kib['AkumulasiPenyusutan'] = $ap;
-                    $kib['PenyusutanPerTahun'] = $pp;
+                    $kib['PenyusutanPertaun'] = $pp;
                     $kib['NilaiBuku'] = $nb;
-                    $kib['UmurEkonomis'] = $mm - $range;
+                    $kib['UmurEkonomis'] = $mm['masa_manfaat'] - $range;
                     $kib['TahunPenyusutan'] = '2014';
                     $kib['Kd_Riwayat'] = 50;
 
@@ -518,9 +516,7 @@ function store_aset($data,$link,$totaldata)
                     $dataImp = implode(',', $tmpValue);
 
                     $sql = "INSERT INTO log_{$tabel} ({$fileldImp}) VALUES ({$dataImp})" or die("Error in the consult.." . mysqli_error($link));
-                    $exec = $link->query($sql);  
-                }
-                
+                    $exec = $link->query($sql);
 
                        	echo "Baris selesai : ".$xlsxount."\n";
                        	echo "Jumlah data yang masuk : ".$totaldata."\n";
