@@ -126,7 +126,7 @@ function store_aset($data,$link,$totaldata)
         $tblAset['GUID'] = $data['GUID'];
 
         //Penyusutan
-        $kd_aset = explode('.', $tblAset['kodeKelompok']);
+        /*$kd_aset = explode('.', $tblAset['kodeKelompok']);
         if($kd_aset[0] == '02'){
             $tb = '2015';
             $ta = $tblAset['Tahun'];
@@ -138,9 +138,17 @@ function store_aset($data,$link,$totaldata)
             }
 
             $range = $tb - $ta;
-            $pp = $na/$mm;
-            $ap = $pp * $range;
-            $nb = $na - $ap;
+            // $pp = $na/$mm;
+            $pp = round($na/$mm);
+			if($range >= $mm){
+				$ap = $na;
+				$nb = 0;
+			}else{
+				 $ap = $pp * $range;
+				 $nb = $na - $ap;
+			}
+           
+           
 
             $tblAset['MasaManfaat'] = $mm;
             $tblAset['AkumulasiPenyusutan'] = $ap;
@@ -148,7 +156,7 @@ function store_aset($data,$link,$totaldata)
             $tblAset['NilaiBuku'] = $nb;
             $tblAset['UmurEkonomis'] = $mm - $range;
             $tblAset['TahunPenyusutan'] = '2014';
-        }
+        }*/
 
         // if(intval($tblAset['Tahun']) < 2008){
         // $tblAset['kodeKA'] = 1;
@@ -166,7 +174,7 @@ function store_aset($data,$link,$totaldata)
                     $tblAset['kodeKA'] = 1;
                 }
             } else {
-            	$tblAset['kodeKA'] = 0;
+            	$tblAset['kodeKA'] = 1;
             }
     // }
         $tblAset['AsalUsul'] = $data['AsalUsul'];
@@ -473,7 +481,7 @@ function store_aset($data,$link,$totaldata)
                         $sql = "INSERT INTO log_{$tabel} ({$fileldImp}) VALUES ({$dataImp})" or die("Error in the consult.." . mysqli_error($link));
                        	$exec = $link->query($sql);
 
-                if($kd_aset[0] == '02'){
+                /*if($kd_aset[0] == '02'){
                     echo "Creating Log for penyusutan";
                     //First Log
                     $kib['MasaManfaat'] = 0;
@@ -518,7 +526,7 @@ function store_aset($data,$link,$totaldata)
 
                     $sql = "INSERT INTO log_{$tabel} ({$fileldImp}) VALUES ({$dataImp})" or die("Error in the consult.." . mysqli_error($link));
                     $exec = $link->query($sql);  
-                }
+                }*/
                 
 
                        	echo "Baris selesai : ".$xlsxount."\n";
