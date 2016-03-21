@@ -2322,6 +2322,10 @@ $id_kapitalisasi_aset=  get_auto_increment("KapitalisasiAset");
         $tblAset['Alamat'] = $data['Alamat'];
         $tblAset['UserNm'] = $data['UserNm'];
         $tblAset['TipeAset'] = $data['TipeAset'];
+        if($data['TipeAset'] == 'G'){
+            $tblAset['kondisi'] = 3;
+            $tblAset['Status_Validasi_Barang'] = 1;
+        }
         // if(intval($tblAset['Tahun']) < 2008){
         //     $tblAset['kodeKA'] = 1;
         // }else {
@@ -2443,10 +2447,12 @@ $id_kapitalisasi_aset=  get_auto_increment("KapitalisasiAset");
                 $logtabel = "log_kdp";
                 $idkey = "KDP_ID";
             } elseif ($data['TipeAset']=="G") {
-                echo "<meta http-equiv=\"Refresh\" content=\"0; url={$url_rewrite}/module/perolehan/kontrak_barang.php?id={$data['id']}\">";
+                $this->commit();
+                echo "<script>alert('Data Berhasil masuk.');</script><meta http-equiv=\"Refresh\" content=\"0; url={$url_rewrite}/module/inventarisasi/entri/entri_hasil_inventarisasi.php\">";
                 exit;
             } elseif ($data['TipeAset']=="H") {
-                echo "<meta http-equiv=\"Refresh\" content=\"0; url={$url_rewrite}/module/perolehan/kontrak_barang.php?id={$data['id']}\">";
+                $this->commit();
+                echo "<script>alert('Data Berhasil masuk.');</script><meta http-equiv=\"Refresh\" content=\"0; url={$url_rewrite}/module/inventarisasi/entri/entri_hasil_inventarisasi.php\">";
                 exit;
             }
 
