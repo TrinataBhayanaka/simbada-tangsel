@@ -663,7 +663,7 @@ for($i=0;$i<2;$i++){
             //akhir untuk log sblm penyusutan
           
           
-        
+        /*
         //untuk mengecek bila ada trasaksi
              $query_perubahan="select kd_riwayat,log_id,kodeKelompok,kodeSatker,Aset_ID,NilaiPerolehan,NilaiPerolehan_Awal,Tahun,Kd_Riwayat,"
                      . "(NilaiPerolehan-NilaiPerolehan_Awal) as selisih,AkumulasiPenyusutan,"
@@ -674,6 +674,7 @@ for($i=0;$i<2;$i++){
              $count=0;
              $qlog=$DBVAR->query($query_perubahan) or die($DBVAR->error());
              $kapitalisasi=0;
+             
              while($Data_Log=$DBVAR->fetch_object($qlog)){
                  echo "masuk-logg \n";
                  $log_id=$Data_Log->log_id;
@@ -722,7 +723,7 @@ for($i=0;$i<2;$i++){
                      
                  }
                  $status_perubahan_kap=0;
-                 if($kib=="B" && $selisih<300000 )
+                 if($kib=="B" && $selisih<1000000 )
                  {
                      if($kd_riwayat==28)
                           $status_perubahan_kap=1;
@@ -731,7 +732,7 @@ for($i=0;$i<2;$i++){
                      
                     
                  }
-                 if($kib=="C" && $selisih<10000000 )
+                 if($kib=="C" && $selisih<20000000 )
                  {
                       if($kd_riwayat==28)
                           $status_perubahan_kap=1;
@@ -987,7 +988,7 @@ for($i=0;$i<2;$i++){
                  $count++;
                  
              }
-             
+             */
              if($status_transaksi!=1){
                  echo "tidak masuk log \n";
                  //bila tidak ada transaksi
