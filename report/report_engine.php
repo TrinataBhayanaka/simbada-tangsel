@@ -29847,7 +29847,8 @@ if($dataArr!="")
                 <td colspan=\"1\" rowspan=\"3\" style=\"text-align:center; font-weight: bold; width: 81px;\">Kondisi Barang (B,KB,RB)</td>
                 <td colspan=\"1\" rowspan=\"3\" style=\"text-align:center; font-weight: bold; width: 81px;\">Akumulasi <br/> Penyusutan</td>
                 <td colspan=\"1\" rowspan=\"3\" style=\"text-align:center; font-weight: bold; width: 81px;\">Nilai <br/> Buku</td>
-                <td colspan=\"1\" rowspan=\"3\" style=\"text-align:center; font-weight: bold; width: 81px;\">Berkurang<br/><hr>Bertambah</td>
+                <td colspan=\"1\" rowspan=\"3\" style=\"text-align:center; font-weight: bold; width: 81px;\">Berkurang</td>
+                <td colspan=\"1\" rowspan=\"3\" style=\"text-align:center; font-weight: bold; width: 81px;\">Bertambah</td>
                 <td colspan=\"2\" rowspan=\"1\" style=\"text-align:center; font-weight: bold;\">SKPD</td>
             </tr>
 			
@@ -29855,6 +29856,7 @@ if($dataArr!="")
                 <td colspan=\"1\" rowspan=\"2\" style=\"text-align:center; font-weight: bold; width: 47px;\">No Urut</td>
                 <td colspan=\"1\" rowspan=\"2\" style=\"text-align:center; font-weight: bold; width: 118px;\">Nama/Jenis Barang</td>
                 <td colspan=\"1\" rowspan=\"2\" style=\"text-align:center; font-weight: bold; width: 64px;\">Kode Barang</td>
+				
                 <td colspan=\"1\" rowspan=\"2\" style=\"text-align:center; font-weight: bold; width: 10px;\">Register</td>
                 <td colspan=\"1\" rowspan=\"2\" style=\"text-align:center; font-weight: bold; width: 120px;\">Merk / Type</td>
                 <td colspan=\"1\" rowspan=\"2\" style=\"text-align:center; font-weight: bold; width: 120px;\">No.Sertifikat<br>No. pabrik<br>No.Chasis Mesin</td>
@@ -29880,6 +29882,7 @@ if($dataArr!="")
                 <td style=\"text-align:center; font-weight: bold; width: 72px;\">11</td>
                 <td style=\"text-align:center; font-weight: bold; width: 72px;\">12</td>
                 <td style=\"text-align:center; font-weight: bold; width: 72px;\">13</td>
+                <td style=\"text-align:center; font-weight: bold; width: 72px;\">14</td>
             </tr>	
 		</thead>";
     }
@@ -29961,7 +29964,8 @@ if($dataArr!="")
 					<td style=\"text-align:center;  width: 70px;\">$ketKondisi</td>
 					<td style=\"text-align:right;  width: 70px;\">$AkumulasiPenyusutan</td>
 					<td style=\"text-align:right;  width: 70px;\">$NilaiBukuFix</td>
-					<td style=\"text-align:right;  width: 70px;\">$nilaiPrlhnFix_kurang<br/><hr>$nilaiPrlhnFix_tambah</td>
+					<td style=\"text-align:right;  width: 70px;\">$nilaiPrlhnFix_kurang</td>
+					<td style=\"text-align:right;  width: 70px;\">$nilaiPrlhnFix_tambah</td>
 					<td style=\"text-align:center;  width: 72px;\">$row->kodeSatker</td>
 					<td style=\"text-align:center;  width: 200px;\">$NamaSatker</td>
                 </tr>";
@@ -29979,7 +29983,8 @@ if($dataArr!="")
             $tabletotal="<tr>
                             <td colspan=\"9\" style=\"font-weight: bold; text-align: center;\">Jumlah</td>
                             <td style=\"text-align: right; font-weight: bold;\">$printperolehanNilaiBuku</td>
-                            <td style=\"text-align: right; font-weight: bold;\">$printperolehanTotal_berkurang<br><hr>$printperolehanTotal_bertambah</td>
+                            <td style=\"text-align: right; font-weight: bold;\">$printperolehanTotal_berkurang</td>
+                            <td style=\"text-align: right; font-weight: bold;\">$printperolehanTotal_bertambah</td>
                             <td  colspan=\"2\">&nbsp;</td>
                         </tr>
                     </table>"; 
