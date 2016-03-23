@@ -22,9 +22,10 @@ $PENGHAPUSAN = new RETRIEVE_PENGHAPUSAN;
 	
 ?><script type="text/javascript" language="javascript" src="<?php echo "$url_rewrite/"; ?>js/bootbox.js"></script>
 
-   
+ 
 	<!-- SQL Sementara -->
 	<?php
+	  // pr($_SESSION);
 			unset($_SESSION['ses_retrieve_filter_'.$menu_id.'_'.$SessionUser['ses_uid']]);
 				$parameter = array('menuID'=>$menu_id,'type'=>'','paging'=>$paging);
 			// $data = $RETRIEVE->retrieve_daftar_usulan_penghapusan($parameter);
@@ -129,7 +130,15 @@ $PENGHAPUSAN = new RETRIEVE_PENGHAPUSAN;
                   );
       });
     </script>
-			<p><a href="filter_aset_usulan_pmd.php" class="btn btn-info btn-small"><i class="icon-plus-sign icon-white"></i>&nbsp;&nbsp;Tambah Usulan</a>
+			<p>
+			<?php
+				if($_SESSION['ses_satkerkode']!=""){
+			?>
+			<a href="#" id="addUsulan" class="btn btn-info btn-small"><i class="icon-plus-sign icon-white"></i>&nbsp;&nbsp;Tambah Usulan</a>
+			<?php
+			}
+			?>
+
 			&nbsp;
 			<div id="demo">
 			<table cellpadding="0" cellspacing="0" border="0" class="display" id="usulan_pmd_table">
@@ -175,7 +184,7 @@ $PENGHAPUSAN = new RETRIEVE_PENGHAPUSAN;
 function BootboxContent(){    
 			// var slect2 ='';
             var frm_str = '<section class="formLegend">'
-			+'<form method="POST" ID="Form2" onsubmit="return confirmValidate()" action="<?php echo "$url_rewrite/module/penghapusan/"; ?>daftar_usulan_penghapusan_usul_proses_pmd.php">'
+			+'<form method="POST" id="fdata" action="<?php echo "$url_rewrite/module/penghapusan/"; ?>daftar_usulan_penghapusan_usul_proses_pmdx.php">'
 			+'<div class="detailLeft">'
 						+'<ul><li>'
 								+'<span  class="labelInfo">No Usulan</span>'
@@ -189,18 +198,9 @@ function BootboxContent(){
 										+'<input name="tanggalUsulan" type="text" class="date" required/>'
 										+'<span class="add-on"><i class="fa fa-calendar"></i></span>'
 									+'</div></li>'
-				                    +'<li>&nbsp;</li>'
-				                    +'<select name="jenisaset[]" style="width:170px" id="jenisaset">'
-										+'<option value="">Pilih Tipe Aset</option>'
-										+'<option value="1">Tanah</option>'
-										+'<option value="2">Mesin</option>'
-										+'<option value="3">Bangunan</option>'
-										+'<option value="4">Jaringan</option>'
-										+'<option value="5">Aset Tetap Lain</option>'
-										+'<option value="6">KDP</option>'
-									+'</select>'
-				                    +'<li>&nbsp;</li>'
-									+'</ul></div></form></section>';
+									+'<li><span class="labelInfo">&nbsp;</span><input type="hidden" name="kdSatkerFilter" value="<?=$_SESSION["ses_satkerkode"]?>"/><input type="submit" class="btn btn-primary" value="Simpan Dokumen Usulan"/> </li>'
+									+'</ul></div>'
+									+'</form></section>';
 
             var object = $('<div/>').html(frm_str).contents();
 
@@ -213,14 +213,61 @@ function BootboxContent(){
 
              return object
         }
-	$("#tes").click(function() {
+	$("#addUsulan").click(function() {
 		bootbox.dialog({
-  title: "Silahkan Buat Dokumen Usulan Terlebih Dulu",
-  message: BootboxContent
-});
+		  title: "Silahkan Buat Dokumen Usulan Terlebih Dulu",
+		  message: BootboxContent
+		});
+
 		// $( ".bootbox-close-button.close" ).trigger( "click" );
 });
+$(document).on('submit','#fdata',function(event) {
+// alert("submit");
+var postData = $(this).serializeArray();
+	    var formURL = $(this).attr("action");
+	    
+        $.ajax({
+            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url         : formURL, // the url where we want to POST
+            data        : postData, // our data object
+            dataType    : 'json', // what type of data do we expect back from the server
+            encode          : true
+        })
+            // using the done promise callback
+            .done(function(data) {
+            		$(document).ready(function() {
+          $('#usulan_pmd_table').dataTable(
+                   {
+                    "aoColumnDefs": [
+                         { "aTargets": [2] }
+                    ],
+                    "aoColumns":[
+                         {"bSortable": false},
+                         // {"bSortable": false,"sClass": "checkbox-column" },
+                         {"bSortable": true},
+                         {"bSortable": false},
+                         {"bSortable": false},
+                         {"bSortable": true},
+                         {"bSortable": false},
+                         {"bSortable": true},
+                         {"bSortable": false},
+                         {"bSortable": false}],
+                    "sPaginationType": "full_numbers",
 
+                    "bProcessing": true,
+                    "bServerSide": true,
+                    "sAjaxSource": "<?=$url_rewrite?>/api_list/api_usulan_pmd.php?<?php echo $par_data_table?>"
+               }
+                  );
+      });
+		// $( ".bootbox-close-button.close" ).trigger( "click" );
+          
+            });
+
+
+        // stop the form from submitting the normal way and refreshing the page
+        event.preventDefault();
+})
 </script>
 <?php
 	include"$path/footer.php";
