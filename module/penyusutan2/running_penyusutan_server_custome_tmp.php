@@ -380,9 +380,9 @@ for($i=0;$i<2;$i++){
                             $AddCondtn_1";
     }
     
-    
+    echo "$i === $sQuery\n";
     $ExeQuery = $DBVAR->query($sQuery) or die($DBVAR->error());
-    //echo "$i === $sQuery\n";
+    
     if($i==0){
         echo "Penyusutan tahun berjalan untuk tahun $newTahun $kodeSatker dengan kondisi penyusutan pertama kali \n"
          . "Aset_ID \t kodeKelompok  \t NilaiPerolehan \t Tahun \t masa_manfaat \t AkumulasiPenyusutan \t NilaiBuku  \t penyusutan_per_tahun \n";
