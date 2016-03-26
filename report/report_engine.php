@@ -75,8 +75,8 @@ public function set_footer_to_png($path,$url_rewrite,$data){
 
 		} 
 
-public function retrieve_html_liat_dftr_aset($dataArr,$skpd_id,$gambar,$tipe){
-         
+public function report_daftar_AsetTakBerwujud($dataArr,$skpd_id,$gambar,$tipe){
+			
 				$detailSatker=$this->get_satker($skpd_id);
 				// pr($detailSatker);
 				$NoBidang = $detailSatker[0];
@@ -168,6 +168,257 @@ public function retrieve_html_liat_dftr_aset($dataArr,$skpd_id,$gambar,$tipe){
 								   <td width=\"20%\">&nbsp;</td>
 							  </tr>";
 				}elseif($hit == 4){
+					$head = "<tr>
+								   <td style=\"font-weight: bold; width=20%\">
+										<p>BIDANG</p>
+								   </td>
+								   <td width=\"60%\">
+
+									   <p>:&nbsp;$Bidang</p>
+								   </td>
+								   <td width=\"20%\">&nbsp;</td>
+							  </tr>
+							  <tr>
+								   <td style=\"font-weight: bold; width=20%\">
+										<p>UNIT ORGANISASI</p>
+								   </td>
+								   <td width=\"60%\">
+
+									   <p>:&nbsp;$UnitOrganisasi</p>
+								   </td>
+								   <td width=\"20%\">&nbsp;</td>
+							  </tr>
+							   <tr>
+								   <td style=\"font-weight: bold; width=20%\">
+										<p>SUB UNIT ORGANISASI</p>
+								   </td>
+								   <td width=\"60%\">
+
+									   <p>:&nbsp;$SubUnitOrganisasi</p>
+								   </td>
+								   <td width=\"20%\">&nbsp;</td>
+							  </tr>
+							  <tr>
+								   <td style=\"font-weight: bold; width=20%\">
+										<p>UPB</p>
+								   </td>
+								   <td width=\"60%\">
+
+									   <p>:&nbsp;$UPB</p>
+								   </td>
+								   <td width=\"20%\">&nbsp;</td>
+							  </tr>";
+				}
+			   //==end new==//
+			   if($tipe == 1){
+					$gmbr = "<td style=\"width: 10%;\"><img style=\"width: 80px; height: 85px;\" alt=\"\" src=\"$gambar\"></td>";
+			   }elseif($tipe == 2){
+					$gmbr = "<td style=\"width: 10%;\"></td>";
+			   }
+			   $html="<html><body>
+                         <table style=\"text-align: left; width: 100%;\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\">
+							<tr>
+								$gmbr
+								<td style=\"width: 90%; text-align: center;\">
+                                        <h3>LAPORAN ASET TAK BERWUJUD</h3>
+                                   </td>
+                              </tr>
+						</table>
+                         <br />
+                         <br />";
+						 
+                 $html.="<table border=\"0\" style=\" width=100%\" >
+                              <tr align=\"left\" >
+								   <td style=\"font-weight: bold;\">
+										<p>PROVINSI</p>
+								   </td>
+								   <td width=\"65%\">
+										<p>:&nbsp;$this->NAMA_PROVINSI</p>
+								   </td>
+								   <td width=\"20%\">&nbsp;</td>
+							  </tr>
+							  <tr>
+								   <td style=\"font-weight: bold; width=20%\">
+										<p>KABUPATEN/KOTA</p>
+								   </td>
+								   <td width=\"60%\">
+
+									   <p>:&nbsp;$this->NAMA_KABUPATEN </p>
+								   </td>
+								   <td width=\"20%\">&nbsp;</td>
+							  </tr>
+							  $head
+							  </table>
+                              <br />
+                              <br />";
+                                        
+				$html.="<table style=\"text-align: left; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">
+							<thead> 
+								  <tr>
+									   <td style=\"font-weight: bold;  text-align: center;\" colspan=\"1\" >No</td>
+									   <td style=\"font-weight: bold;  text-align: center;\" colspan=\"1\" >Kode Barang</td>
+									   <td style=\"font-weight: bold; text-align: center;\" colspan=\"1\" >Nama Barang</td>
+									   <td colspan=\"1\"  style=\"font-weight: bold; width: ; text-align: center;\">No Register</td>
+									   <td colspan=\"1\"  style=\"font-weight: bold;width: ; text-align: center;\">Tanggal Perolehan</td>
+									   <td colspan=\"1\"  style=\"font-weight: bold;width: ; text-align: center;\">Tanggal Pembukuan</td>
+									   <td style=\"font-weight: bold; width: ; text-align: center;\" colspan=\"1\">Alamat</td>
+									   <td colspan=\"1\"  style=\"font-weight: bold; width: ; text-align: center;\">Nilai Perolehan</td>
+									   <td style=\"font-weight: bold; width: ; text-align: center;\" colspan=\"1\">Info</td>
+									</tr>
+								  <tr>
+									   <td style=\"text-align: center; font-weight: bold;\">1</td>
+									   <td style=\"text-align: center; font-weight: bold;\">2</td>
+									   <td style=\"text-align: center; font-weight: bold;\">3</td>
+									   <td style=\"text-align: center; font-weight: bold;\">4</td>
+									   <td style=\"text-align: center; font-weight: bold;\">5</td>
+									   <td style=\"text-align: center; font-weight: bold;\">6</td>
+									   <td style=\"text-align: center; font-weight: bold;\">7</td>
+									   <td style=\"text-align: center; font-weight: bold;\">8</td>
+									   <td style=\"text-align: center; font-weight: bold;\">9</td>
+									   
+								  </tr>
+							  </thead>";
+					$no = 1;			  
+					foreach ($dataArr as $val => $data)
+					{
+								$perolehan = number_format($data->NilaiPerolehan,2,",",".");
+								$perolehanTotal = $perolehanTotal + $data->NilaiPerolehan;
+								$perolehanTotal_fix = number_format($perolehanTotal,2,",",".");
+								$noReg = sprintf("%04s", $data->noRegister);
+								if($data->TglPerolehan == ''){
+									$tglPrlhn = ''; 
+								}else{
+									list($tahun, $bulan, $tanggal)= explode('-', $data->TglPerolehan);
+									$tglPrlhn = "$tanggal/$bulan/$tahun";
+								}
+								
+								if($data->TglPembukuan == ''){
+									$tglPmbkn = ''; 
+								}else{
+									list($tahun, $bulan, $tanggal)= explode('-', $data->TglPembukuan);
+									$tglPmbkn = "$tanggal/$bulan/$tahun";
+								}
+								
+								$html.="
+								<tr>
+									 <td style=\"text-align: center; \">$no</td>
+									   <td style=\"text-align: ; \">$data->kodeKelompok</td>
+									   <td style=\"text-align: center; \">$data->Uraian</td>
+									   <td style=\"text-align: center; \">$noReg</td>
+									   <td style=\"text-align: center; \">$tglPrlhn</td>
+									   <td style=\"text-align: center; \">$tglPmbkn</td>
+									   <td style=\"text-align: ; \">$data->Alamat</td>
+									   <td style=\"text-align: right;\">$perolehan</td>
+									   <td style=\"text-align: ; \">$data->Info</td>
+								</tr>";
+								$no++;
+								
+					}
+                        $html.="<tr>
+									<td colspan=\"7\"></td>
+									<td style=\"text-align: right;\">$perolehanTotal_fix</td>
+									<td>&nbsp;</td>
+								</tr>";                 
+						$html.="</table></body></html>";		
+					
+						$get_html[]=$html;
+              return $get_html;
+          
+    }		
+		
+public function retrieve_html_liat_dftr_aset($dataArr,$skpd_id,$gambar,$tipe){
+         
+				$detailSatker=$this->get_satker($skpd_id);
+				// pr($detailSatker);
+				$NoBidang = $detailSatker[0];
+				$NoUnitOrganisasi = $detailSatker[1];
+				$NoSubUnitOrganisasi = $detailSatker[2];
+				$NoUPB = $detailSatker[3];
+
+				if($NoBidang !=""){
+					$paramKodeLokasi = $NoBidang;
+				}
+				if($NoBidang !="" && $NoUnitOrganisasi != ""){
+					$paramKodeLokasi = $NoUnitOrganisasi;
+				}
+				if($NoBidang !="" && $NoUnitOrganisasi != "" && $NoSubUnitOrganisasi !=""){
+					$paramKodeLokasi = $NoUnitOrganisasi.".".$NoSubUnitOrganisasi;
+				}
+				if($NoBidang !="" && $NoUnitOrganisasi != "" && $NoSubUnitOrganisasi !="" && $NoUPB !=""){
+					$paramKodeLokasi = $NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
+				}
+				$Bidang = $detailSatker[4][0];
+				$UnitOrganisasi = $detailSatker[4][1];
+				$SubUnitOrganisasi = $detailSatker[4][2];
+				$UPB = $detailSatker[4][3];
+
+				$ex = explode('.',$skpd_id);
+				$hit = count($ex);
+				if($hit == 2){
+					$head = "<tr>
+								   <td style=\"font-weight: bold; width=20%\">
+										<p>BIDANG</p>
+								   </td>
+								   <td width=\"60%\">
+
+									   <p>:&nbsp;$Bidang</p>
+								   </td>
+								   <td width=\"20%\">&nbsp;</td>
+							  </tr>
+						";
+				}elseif($hit == 3){
+					$head = "<tr>
+								   <td style=\"font-weight: bold; width=20%\">
+										<p>BIDANG</p>
+								   </td>
+								   <td width=\"60%\">
+
+									   <p>:&nbsp;$Bidang</p>
+								   </td>
+								   <td width=\"20%\">&nbsp;</td>
+							  </tr>
+							  <tr>
+								   <td style=\"font-weight: bold; width=20%\">
+										<p>UNIT ORGANISASI</p>
+								   </td>
+								   <td width=\"60%\">
+
+									   <p>:&nbsp;$UnitOrganisasi</p>
+								   </td>
+								   <td width=\"20%\">&nbsp;</td>
+							  </tr>";
+				}elseif($hit == 4){
+					$head = "<tr>
+								   <td style=\"font-weight: bold; width=20%\">
+										<p>BIDANG</p>
+								   </td>
+								   <td width=\"60%\">
+
+									   <p>:&nbsp;$Bidang</p>
+								   </td>
+								   <td width=\"20%\">&nbsp;</td>
+							  </tr>
+							  <tr>
+								   <td style=\"font-weight: bold; width=20%\">
+										<p>UNIT ORGANISASI</p>
+								   </td>
+								   <td width=\"60%\">
+
+									   <p>:&nbsp;$UnitOrganisasi</p>
+								   </td>
+								   <td width=\"20%\">&nbsp;</td>
+							  </tr>
+							   <tr>
+								   <td style=\"font-weight: bold; width=20%\">
+										<p>SUB UNIT ORGANISASI</p>
+								   </td>
+								   <td width=\"60%\">
+
+									   <p>:&nbsp;$SubUnitOrganisasi</p>
+								   </td>
+								   <td width=\"20%\">&nbsp;</td>
+							  </tr>";
+				}elseif($hit == 5){
 					$head = "<tr>
 								   <td style=\"font-weight: bold; width=20%\">
 										<p>BIDANG</p>
@@ -4362,14 +4613,14 @@ if($skpd_id != ''){
 	$ex = explode('.',$skpd_id);
 	$hit = count($ex);
 
-	if($hit == 1){
+	if($hit == 2){
 		$head = "<tr>
 			  <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
 			  <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
 			  <td style=\"width: 873px; font-weight: bold;\">$Bidang</td>
 			</tr>
 			";
-	}elseif($hit == 2){
+	}elseif($hit == 3){
 		$head = "<tr>
 			  <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
 			  <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -4380,7 +4631,7 @@ if($skpd_id != ''){
 			  <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
 			  <td style=\"width: 873px; font-weight: bold;\">$UnitOrganisasi</td>
 			</tr>";
-	}elseif($hit == 3){
+	}elseif($hit == 4){
 		$head = "<tr>
 			  <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
 			  <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -4396,7 +4647,7 @@ if($skpd_id != ''){
 			  <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
 			  <td style=\"width: 873px; font-weight: bold;\">$SubUnitOrganisasi</td>
 			</tr>";
-	}elseif($hit == 4){
+	}elseif($hit == 5){
 		$head = "<tr>
 			  <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
 			  <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -4788,14 +5039,14 @@ if($skpd_id != ''){
 	$ex = explode('.',$skpd_id);
 	$hit = count($ex);
 
-	if($hit == 1){
+	if($hit == 2){
 		$head = "<tr>
 			  <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
 			  <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
 			  <td style=\"width: 873px; font-weight: bold;\">$Bidang</td>
 			</tr>
 			";
-	}elseif($hit == 2){
+	}elseif($hit == 3){
 		$head = "<tr>
 			  <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
 			  <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -4806,7 +5057,7 @@ if($skpd_id != ''){
 			  <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
 			  <td style=\"width: 873px; font-weight: bold;\">$UnitOrganisasi</td>
 			</tr>";
-	}elseif($hit == 3){
+	}elseif($hit == 4){
 		$head = "<tr>
 			  <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
 			  <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -4822,7 +5073,7 @@ if($skpd_id != ''){
 			  <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
 			  <td style=\"width: 873px; font-weight: bold;\">$SubUnitOrganisasi</td>
 			</tr>";
-	}elseif($hit == 4){
+	}elseif($hit == 5){
 		$head = "<tr>
 			  <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
 			  <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -5209,14 +5460,14 @@ $UPB = $detailSatker[4][3];
 $ex = explode('.',$skpd_id);
 $hit = count($ex);
 
-if($hit == 1){
+if($hit == 2){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$Bidang</td>
         </tr>
 		";
-}elseif($hit == 2){
+}elseif($hit == 3){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -5227,7 +5478,7 @@ if($hit == 1){
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$UnitOrganisasi</td>
         </tr>";
-}elseif($hit == 3){
+}elseif($hit == 4){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -5243,7 +5494,7 @@ if($hit == 1){
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$SubUnitOrganisasi</td>
         </tr>";
-}elseif($hit == 4){
+}elseif($hit == 5){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -6013,14 +6264,14 @@ $UPB = $detailSatker[4][3];
 $ex = explode('.',$skpd_id);
 $hit = count($ex);
 
-if($hit == 1){
+if($hit == 2){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$Bidang</td>
         </tr>
 		";
-}elseif($hit == 2){
+}elseif($hit == 3){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -6031,7 +6282,7 @@ if($hit == 1){
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$UnitOrganisasi</td>
         </tr>";
-}elseif($hit == 3){
+}elseif($hit == 4){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -6047,7 +6298,7 @@ if($hit == 1){
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$SubUnitOrganisasi</td>
         </tr>";
-}elseif($hit == 4){
+}elseif($hit == 5){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -6219,14 +6470,14 @@ $UPB = $detailSatker[4][3];
 $ex = explode('.',$skpd_id);
 $hit = count($ex);
 
-if($hit == 1){
+if($hit == 2){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$Bidang</td>
         </tr>
 		";
-}elseif($hit == 2){
+}elseif($hit == 3){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -6237,7 +6488,7 @@ if($hit == 1){
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$UnitOrganisasi</td>
         </tr>";
-}elseif($hit == 3){
+}elseif($hit == 4){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -6253,7 +6504,7 @@ if($hit == 1){
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$SubUnitOrganisasi</td>
         </tr>";
-}elseif($hit == 4){
+}elseif($hit == 5){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -6501,14 +6752,14 @@ $UPB = $detailSatker[4][3];
 $ex = explode('.',$skpd_id);
 $hit = count($ex);
 
-if($hit == 1){
+if($hit == 2){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$Bidang</td>
         </tr>
 		";
-}elseif($hit == 2){
+}elseif($hit == 3){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -6519,7 +6770,7 @@ if($hit == 1){
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$UnitOrganisasi</td>
         </tr>";
-}elseif($hit == 3){
+}elseif($hit == 4){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -6535,7 +6786,7 @@ if($hit == 1){
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$SubUnitOrganisasi</td>
         </tr>";
-}elseif($hit == 4){
+}elseif($hit == 5){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -6779,14 +7030,14 @@ $UPB = $detailSatker[4][3];
 $ex = explode('.',$skpd_id);
 $hit = count($ex);
 
-if($hit == 1){
+if($hit == 2){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$Bidang</td>
         </tr>
 		";
-}elseif($hit == 2){
+}elseif($hit == 3){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -6797,7 +7048,7 @@ if($hit == 1){
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$UnitOrganisasi</td>
         </tr>";
-}elseif($hit == 3){
+}elseif($hit == 4){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -6813,7 +7064,7 @@ if($hit == 1){
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$SubUnitOrganisasi</td>
         </tr>";
-}elseif($hit == 4){
+}elseif($hit == 5){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -7057,14 +7308,14 @@ $UPB = $detailSatker[4][3];
 $ex = explode('.',$skpd_id);
 $hit = count($ex);
 
-if($hit == 1){
+if($hit == 2){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$Bidang</td>
         </tr>
 		";
-}elseif($hit == 2){
+}elseif($hit == 3){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -7075,7 +7326,7 @@ if($hit == 1){
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$UnitOrganisasi</td>
         </tr>";
-}elseif($hit == 3){
+}elseif($hit == 4){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -7091,7 +7342,7 @@ if($hit == 1){
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$SubUnitOrganisasi</td>
         </tr>";
-}elseif($hit == 4){
+}elseif($hit == 5){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -7266,14 +7517,14 @@ $UPB = $detailSatker[4][3];
 $ex = explode('.',$skpd_id);
 $hit = count($ex);
 
-if($hit == 1){
+if($hit == 2){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$Bidang</td>
         </tr>
 		";
-}elseif($hit == 2){
+}elseif($hit == 3){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -7284,7 +7535,7 @@ if($hit == 1){
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$UnitOrganisasi</td>
         </tr>";
-}elseif($hit == 3){
+}elseif($hit == 4){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -7300,7 +7551,7 @@ if($hit == 1){
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$SubUnitOrganisasi</td>
         </tr>";
-}elseif($hit == 4){
+}elseif($hit == 5){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -7470,14 +7721,14 @@ $UPB = $detailSatker[4][3];
 $ex = explode('.',$skpd_id);
 $hit = count($ex);
 
-if($hit == 1){
+if($hit == 2){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$Bidang</td>
         </tr>
 		";
-}elseif($hit == 2){
+}elseif($hit == 3){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -7488,7 +7739,7 @@ if($hit == 1){
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$UnitOrganisasi</td>
         </tr>";
-}elseif($hit == 3){
+}elseif($hit == 4){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -7504,7 +7755,7 @@ if($hit == 1){
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$SubUnitOrganisasi</td>
         </tr>";
-}elseif($hit == 4){
+}elseif($hit == 5){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -7675,14 +7926,14 @@ $UPB = $detailSatker[4][3];
 $ex = explode('.',$skpd_id);
 $hit = count($ex);
 
-if($hit == 1){
+if($hit == 2){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$Bidang</td>
         </tr>
 		";
-}elseif($hit == 2){
+}elseif($hit == 3){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -7693,7 +7944,7 @@ if($hit == 1){
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$UnitOrganisasi</td>
         </tr>";
-}elseif($hit == 3){
+}elseif($hit == 4){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -7709,7 +7960,7 @@ if($hit == 1){
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$SubUnitOrganisasi</td>
         </tr>";
-}elseif($hit == 4){
+}elseif($hit == 5){
 	$head = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -7918,7 +8169,7 @@ public function retrieve_html_rencana_pengadaan_barang($dataArr,$gambar,$skpd_id
 				}
 				$ex = explode('.',$skpd_id);
 				$hit = count($ex);
-				if($hit == 1){
+				if($hit == 2){
 					$head = "<tr>
 								   <td style=\"font-weight: bold; width=20%\">
 										<p>BIDANG</p>
@@ -7930,7 +8181,7 @@ public function retrieve_html_rencana_pengadaan_barang($dataArr,$gambar,$skpd_id
 								   <td width=\"20%\">&nbsp;</td>
 							  </tr>
 						";
-				}elseif($hit == 2){
+				}elseif($hit == 3){
 					$head = "<tr>
 								   <td style=\"font-weight: bold; width=20%\">
 										<p>BIDANG</p>
@@ -7951,7 +8202,7 @@ public function retrieve_html_rencana_pengadaan_barang($dataArr,$gambar,$skpd_id
 								   </td>
 								   <td width=\"20%\">&nbsp;</td>
 							  </tr>";
-				}elseif($hit == 3){
+				}elseif($hit == 4){
 					$head = "<tr>
 								   <td style=\"font-weight: bold; width=20%\">
 										<p>BIDANG</p>
@@ -7982,7 +8233,7 @@ public function retrieve_html_rencana_pengadaan_barang($dataArr,$gambar,$skpd_id
 								   </td>
 								   <td width=\"20%\">&nbsp;</td>
 							  </tr>";
-				}elseif($hit == 4){
+				}elseif($hit == 5){
 					$head = "<tr>
 								   <td style=\"font-weight: bold; width=20%\">
 										<p>BIDANG</p>
@@ -8267,7 +8518,7 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 				}
 				$ex = explode('.',$skpd_id);
 				$hit = count($ex);
-				if($hit == 1){
+				if($hit == 2){
 					$head = "<tr>
 								   <td style=\"font-weight: bold; width=20%\">
 										<p>BIDANG</p>
@@ -8279,7 +8530,7 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 								   <td width=\"20%\">&nbsp;</td>
 							  </tr>
 						";
-				}elseif($hit == 2){
+				}elseif($hit == 3){
 					$head = "<tr>
 								   <td style=\"font-weight: bold; width=20%\">
 										<p>BIDANG</p>
@@ -8300,7 +8551,7 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 								   </td>
 								   <td width=\"20%\">&nbsp;</td>
 							  </tr>";
-				}elseif($hit == 3){
+				}elseif($hit == 4){
 					$head = "<tr>
 								   <td style=\"font-weight: bold; width=20%\">
 										<p>BIDANG</p>
@@ -8331,7 +8582,7 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 								   </td>
 								   <td width=\"20%\">&nbsp;</td>
 							  </tr>";
-				}elseif($hit == 4){
+				}elseif($hit == 5){
 					$head = "<tr>
 								   <td style=\"font-weight: bold; width=20%\">
 										<p>BIDANG</p>
@@ -8569,7 +8820,7 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 
 				$ex = explode('.',$skpd_id);
 				$hit = count($ex);
-				if($hit == 1){
+				if($hit == 2){
 					$head = "<tr>
 								   <td style=\"font-weight: bold; width=20%\">
 										<p>BIDANG</p>
@@ -8581,7 +8832,7 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 								   <td width=\"20%\">&nbsp;</td>
 							  </tr>
 						";
-				}elseif($hit == 2){
+				}elseif($hit == 3){
 					$head = "<tr>
 								   <td style=\"font-weight: bold; width=20%\">
 										<p>BIDANG</p>
@@ -8602,7 +8853,7 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 								   </td>
 								   <td width=\"20%\">&nbsp;</td>
 							  </tr>";
-				}elseif($hit == 3){
+				}elseif($hit == 4){
 					$head = "<tr>
 								   <td style=\"font-weight: bold; width=20%\">
 										<p>BIDANG</p>
@@ -8633,7 +8884,7 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 								   </td>
 								   <td width=\"20%\">&nbsp;</td>
 							  </tr>";
-				}elseif($hit == 4){
+				}elseif($hit == 5){
 					$head = "<tr>
 								   <td style=\"font-weight: bold; width=20%\">
 										<p>BIDANG</p>
@@ -8898,7 +9149,7 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 
 							$ex = explode('.',$skpd_id);
 							$hit = count($ex);
-							if($hit == 1){
+							if($hit == 2){
 								$head = "<tr>
 											   <td style=\"font-weight: bold; width=20%\">
 													<p>BIDANG</p>
@@ -8910,7 +9161,7 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   <td width=\"20%\">&nbsp;</td>
 										  </tr>
 									";
-							}elseif($hit == 2){
+							}elseif($hit == 3){
 								$head = "<tr>
 											   <td style=\"font-weight: bold; width=20%\">
 													<p>BIDANG</p>
@@ -8931,7 +9182,7 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   </td>
 											   <td width=\"20%\">&nbsp;</td>
 										  </tr>";
-							}elseif($hit == 3){
+							}elseif($hit == 4){
 								$head = "<tr>
 											   <td style=\"font-weight: bold; width=20%\">
 													<p>BIDANG</p>
@@ -8962,7 +9213,7 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   </td>
 											   <td width=\"20%\">&nbsp;</td>
 										  </tr>";
-							}elseif($hit == 4){
+							}elseif($hit == 5){
 								$head = "<tr>
 											   <td style=\"font-weight: bold; width=20%\">
 													<p>BIDANG</p>
@@ -9214,7 +9465,7 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 
 				$ex = explode('.',$skpd_id);
 				$hit = count($ex);
-				if($hit == 1){
+				if($hit == 2){
 					$head = "<tr>
 								   <td style=\"font-weight: bold; width=20%\">
 										<p>BIDANG</p>
@@ -9226,7 +9477,7 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 								   <td width=\"20%\">&nbsp;</td>
 							  </tr>
 						";
-				}elseif($hit == 2){
+				}elseif($hit == 3){
 					$head = "<tr>
 								   <td style=\"font-weight: bold; width=20%\">
 										<p>BIDANG</p>
@@ -9247,7 +9498,7 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 								   </td>
 								   <td width=\"20%\">&nbsp;</td>
 							  </tr>";
-				}elseif($hit == 3){
+				}elseif($hit == 4){
 					$head = "<tr>
 								   <td style=\"font-weight: bold; width=20%\">
 										<p>BIDANG</p>
@@ -9278,7 +9529,7 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 								   </td>
 								   <td width=\"20%\">&nbsp;</td>
 							  </tr>";
-				}elseif($hit == 4){
+				}elseif($hit == 5){
 					$head = "<tr>
 								   <td style=\"font-weight: bold; width=20%\">
 										<p>BIDANG</p>
@@ -9522,7 +9773,7 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 
 				$ex = explode('.',$skpd_id);
 				$hit = count($ex);
-				if($hit == 1){
+				if($hit == 2){
 					$head = "<tr>
 								   <td style=\"font-weight: bold; width=20%\">
 										<p>BIDANG</p>
@@ -9534,7 +9785,7 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 								   <td width=\"20%\">&nbsp;</td>
 							  </tr>
 						";
-				}elseif($hit == 2){
+				}elseif($hit == 3){
 					$head = "<tr>
 								   <td style=\"font-weight: bold; width=20%\">
 										<p>BIDANG</p>
@@ -9555,7 +9806,7 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 								   </td>
 								   <td width=\"20%\">&nbsp;</td>
 							  </tr>";
-				}elseif($hit == 3){
+				}elseif($hit == 4){
 					$head = "<tr>
 								   <td style=\"font-weight: bold; width=20%\">
 										<p>BIDANG</p>
@@ -9586,7 +9837,7 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 								   </td>
 								   <td width=\"20%\">&nbsp;</td>
 							  </tr>";
-				}elseif($hit == 4){
+				}elseif($hit == 5){
 					$head = "<tr>
 								   <td style=\"font-weight: bold; width=20%\">
 										<p>BIDANG</p>
@@ -9854,7 +10105,140 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 				   foreach ($dataArr as $row)
 				   {
 						if ($skpdeh == "" && $no==1){
-												
+						$body="";
+					$skpdeh = $row->kodeSatker;
+					$detailSatker=$this->get_satker($skpd_id);
+					// pr($detailSatker);
+					$NoBidang = $detailSatker[0];
+					$NoUnitOrganisasi = $detailSatker[1];
+					$NoSubUnitOrganisasi = $detailSatker[2];
+					$NoUPB = $detailSatker[3];
+
+					if($NoBidang !=""){
+						$paramKodeLokasi = $NoBidang;
+					}
+					if($NoBidang !="" && $NoUnitOrganisasi != ""){
+						$paramKodeLokasi = $NoUnitOrganisasi;
+					}
+					if($NoBidang !="" && $NoUnitOrganisasi != "" && $NoSubUnitOrganisasi !=""){
+						$paramKodeLokasi = $NoUnitOrganisasi.".".$NoSubUnitOrganisasi;
+					}
+					if($NoBidang !="" && $NoUnitOrganisasi != "" && $NoSubUnitOrganisasi !="" && $NoUPB !=""){
+						$paramKodeLokasi = $NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
+					}
+					$Bidang = $detailSatker[4][0];
+					$UnitOrganisasi = $detailSatker[4][1];
+					$SubUnitOrganisasi = $detailSatker[4][2];
+					$UPB = $detailSatker[4][3];
+
+					$ex = explode('.',$skpd_id);
+					$hit = count($ex);
+					if($hit == 2){
+						$head = "<tr>
+									   <td style=\"font-weight: bold; width=20%\">
+											<p>BIDANG</p>
+									   </td>
+									   <td width=\"60%\">
+
+										   <p>:&nbsp;$Bidang</p>
+									   </td>
+									   <td width=\"20%\">&nbsp;</td>
+								  </tr>
+							";
+					}elseif($hit == 3){
+						$head = "<tr>
+									   <td style=\"font-weight: bold; width=20%\">
+											<p>BIDANG</p>
+									   </td>
+									   <td width=\"60%\">
+
+										   <p>:&nbsp;$Bidang</p>
+									   </td>
+									   <td width=\"20%\">&nbsp;</td>
+								  </tr>
+								  <tr>
+									   <td style=\"font-weight: bold; width=20%\">
+											<p>UNIT ORGANISASI</p>
+									   </td>
+									   <td width=\"60%\">
+
+										   <p>:&nbsp;$UnitOrganisasi</p>
+									   </td>
+									   <td width=\"20%\">&nbsp;</td>
+								  </tr>";
+					}elseif($hit == 4){
+						$head = "<tr>
+									   <td style=\"font-weight: bold; width=20%\">
+											<p>BIDANG</p>
+									   </td>
+									   <td width=\"60%\">
+
+										   <p>:&nbsp;$Bidang</p>
+									   </td>
+									   <td width=\"20%\">&nbsp;</td>
+								  </tr>
+								  <tr>
+									   <td style=\"font-weight: bold; width=20%\">
+											<p>UNIT ORGANISASI</p>
+									   </td>
+									   <td width=\"60%\">
+
+										   <p>:&nbsp;$UnitOrganisasi</p>
+									   </td>
+									   <td width=\"20%\">&nbsp;</td>
+								  </tr>
+								   <tr>
+									   <td style=\"font-weight: bold; width=20%\">
+											<p>SUB UNIT ORGANISASI</p>
+									   </td>
+									   <td width=\"60%\">
+
+										   <p>:&nbsp;$SubUnitOrganisasi</p>
+									   </td>
+									   <td width=\"20%\">&nbsp;</td>
+								  </tr>";
+					}elseif($hit == 5){
+						$head = "<tr>
+									   <td style=\"font-weight: bold; width=20%\">
+											<p>BIDANG</p>
+									   </td>
+									   <td width=\"60%\">
+
+										   <p>:&nbsp;$Bidang</p>
+									   </td>
+									   <td width=\"20%\">&nbsp;</td>
+								  </tr>
+								  <tr>
+									   <td style=\"font-weight: bold; width=20%\">
+											<p>UNIT ORGANISASI</p>
+									   </td>
+									   <td width=\"60%\">
+
+										   <p>:&nbsp;$UnitOrganisasi</p>
+									   </td>
+									   <td width=\"20%\">&nbsp;</td>
+								  </tr>
+								   <tr>
+									   <td style=\"font-weight: bold; width=20%\">
+											<p>SUB UNIT ORGANISASI</p>
+									   </td>
+									   <td width=\"60%\">
+
+										   <p>:&nbsp;$SubUnitOrganisasi</p>
+									   </td>
+									   <td width=\"20%\">&nbsp;</td>
+								  </tr>
+								  <tr>
+									   <td style=\"font-weight: bold; width=20%\">
+											<p>UPB</p>
+									   </td>
+									   <td width=\"60%\">
+
+										   <p>:&nbsp;$UPB</p>
+									   </td>
+									   <td width=\"20%\">&nbsp;</td>
+								  </tr>";
+					}							
                                         
 					$html="
 						<body>
@@ -9891,8 +10275,7 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 								   </td>
 								   <td width=\"20%\">&nbsp;</td>
 							  </tr>
-							  
-							  
+							  $head
 							  </table>
 							  <br />
 							  <br />
@@ -10122,7 +10505,7 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 
 					$ex = explode('.',$skpd_id);
 					$hit = count($ex);
-					if($hit == 1){
+					if($hit == 2){
 						$head = "<tr>
 									   <td style=\"font-weight: bold; width=20%\">
 											<p>BIDANG</p>
@@ -10134,7 +10517,7 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 									   <td width=\"20%\">&nbsp;</td>
 								  </tr>
 							";
-					}elseif($hit == 2){
+					}elseif($hit == 3){
 						$head = "<tr>
 									   <td style=\"font-weight: bold; width=20%\">
 											<p>BIDANG</p>
@@ -10155,7 +10538,7 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 									   </td>
 									   <td width=\"20%\">&nbsp;</td>
 								  </tr>";
-					}elseif($hit == 3){
+					}elseif($hit == 4){
 						$head = "<tr>
 									   <td style=\"font-weight: bold; width=20%\">
 											<p>BIDANG</p>
@@ -10186,7 +10569,7 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 									   </td>
 									   <td width=\"20%\">&nbsp;</td>
 								  </tr>";
-					}elseif($hit == 4){
+					}elseif($hit == 5){
 						$head = "<tr>
 									   <td style=\"font-weight: bold; width=20%\">
 											<p>BIDANG</p>
@@ -10519,7 +10902,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 			   $SubUnitOrganisasi = $detailSatker[4][2];
 			   $UPB = $detailSatker[4][3];
 			   $noReg=substr($row->kodeLokasi,0,17);
-			   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+			   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+			   $noKdLks=substr($row->kodeLokasi,0,3);
+			   $noKodeLokasi=$noKdLks.'28.08';
 			   $thnLokasi= substr($row->Tahun,2,4);
 			   $kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 			   //==end new==//
@@ -10824,7 +11209,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 		   $SubUnitOrganisasi = $detailSatker[4][2];
 		   $UPB = $detailSatker[4][3];
 		   $noReg=substr($row->	kodeLokasi,0,17);
-			$noKodeLokasi=substr($row->kodeLokasi,0,8);
+			// $noKodeLokasi=substr($row->kodeLokasi,0,8);
+			$noKdLks=substr($row->kodeLokasi,0,3);
+			$noKodeLokasi=$noKdLks.'28.08';
 			$thnLokasi= substr($row->Tahun,2,4);
 			$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 			   
@@ -11223,7 +11610,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
 											   $noReg=substr($row->NomorReg,0,17);
-											   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+												$noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 												$thnLokasi= substr($row->Tahun,2,4);
 												$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   //==end new==//
@@ -11517,7 +11906,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
 											   $noReg=substr($row->NomorReg,0,17);
-											   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   $noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 												$thnLokasi= substr($row->Tahun,2,4);
 												$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   //==end new==//
@@ -11910,7 +12301,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
 											   $noReg=substr($row->NomorReg,0,17);
-											   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   $noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 												$thnLokasi= substr($row->Tahun,2,4);
 												$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   
@@ -12214,7 +12607,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
 											   $noReg=substr($row->NomorReg,0,17);
-											   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   $noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 												$thnLokasi= substr($row->Tahun,2,4);
 												$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   //==end new==//
@@ -12624,7 +13019,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
 											   $noReg=substr($row->NomorReg,0,17);
-											   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   $noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 											   $thnLokasi= substr($row->Tahun,2,4);
 											   $kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   //==end new==//
@@ -12945,7 +13342,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
 											   $noReg=substr($row->NomorReg,0,17);
-											   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   $noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 												$thnLokasi= substr($row->Tahun,2,4);
 												$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   //==end new==//
@@ -13371,7 +13770,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $UnitOrganisasi = $detailSatker[4][1];
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
-											    $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											    // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+												$noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 												$thnLokasi= substr($row->Tahun,2,4);
 												$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   //==end new==//
@@ -13686,7 +14087,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $UnitOrganisasi = $detailSatker[4][1];
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
-											    $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											    // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+												$noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 											$thnLokasi= substr($row->Tahun,2,4);
 											$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   //==end new==//
@@ -14119,7 +14522,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
 											   $noReg=substr($row->NomorReg,0,17);
-											   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   $noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 												$thnLokasi= substr($row->Tahun,2,4);
 												$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$thnLokasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   //==end new==//
@@ -14428,7 +14833,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
 											   $noReg=substr($row->NomorReg,0,17);
-											   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   $noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 												$thnLokasi= substr($row->Tahun,2,4);
 												$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$thnLokasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   //==end new==//
@@ -14830,7 +15237,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 			   $SubUnitOrganisasi = $detailSatker[4][2];
 			   $UPB = $detailSatker[4][3];
 			   $noReg=substr($row->kodeLokasi,0,17);
-			   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+			   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+			   $noKdLks=substr($row->kodeLokasi,0,3);
+				$noKodeLokasi=$noKdLks.'28.08';
 			   $thnLokasi= substr($row->Tahun,2,4);
 			   $kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 			   //==end new==//
@@ -15150,7 +15559,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 		   $SubUnitOrganisasi = $detailSatker[4][2];
 		   $UPB = $detailSatker[4][3];
 		   $noReg=substr($row->	kodeLokasi,0,17);
-			$noKodeLokasi=substr($row->kodeLokasi,0,8);
+			// $noKodeLokasi=substr($row->kodeLokasi,0,8);
+			$noKdLks=substr($row->kodeLokasi,0,3);
+			$noKodeLokasi=$noKdLks.'28.08';
 			$thnLokasi= substr($row->Tahun,2,4);
 			$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 			   
@@ -15574,7 +15985,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
 											   $noReg=substr($row->NomorReg,0,17);
-											   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   $noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 												$thnLokasi= substr($row->Tahun,2,4);
 												$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   //==end new==//
@@ -15880,7 +16293,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
 											   $noReg=substr($row->NomorReg,0,17);
-											   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   $noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 												$thnLokasi= substr($row->Tahun,2,4);
 												$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   //==end new==//
@@ -16291,7 +16706,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
 											   $noReg=substr($row->NomorReg,0,17);
-											   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   $noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 												$thnLokasi= substr($row->Tahun,2,4);
 												$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   
@@ -16609,7 +17026,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
 											   $noReg=substr($row->NomorReg,0,17);
-											   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   $noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 												$thnLokasi= substr($row->Tahun,2,4);
 												$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   //==end new==//
@@ -17040,7 +17459,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
 											   $noReg=substr($row->NomorReg,0,17);
-											   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   $noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 											   $thnLokasi= substr($row->Tahun,2,4);
 											   $kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   //==end new==//
@@ -17375,7 +17796,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
 											   $noReg=substr($row->NomorReg,0,17);
-											   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   $noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 												$thnLokasi= substr($row->Tahun,2,4);
 												$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   //==end new==//
@@ -17827,7 +18250,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $UnitOrganisasi = $detailSatker[4][1];
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
-											    $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											    // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+												$noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 												$thnLokasi= substr($row->Tahun,2,4);
 												$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   //==end new==//
@@ -18156,7 +18581,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $UnitOrganisasi = $detailSatker[4][1];
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
-											    $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											    // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+												$noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 											$thnLokasi= substr($row->Tahun,2,4);
 											$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   //==end new==//
@@ -18601,7 +19028,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
 											   $noReg=substr($row->NomorReg,0,17);
-											   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   $noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 												$thnLokasi= substr($row->Tahun,2,4);
 												$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$thnLokasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   //==end new==//
@@ -18922,7 +19351,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
 											   $noReg=substr($row->NomorReg,0,17);
-											   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   $noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 												$thnLokasi= substr($row->Tahun,2,4);
 												$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$thnLokasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   //==end new==//
@@ -19336,7 +19767,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 			   $SubUnitOrganisasi = $detailSatker[4][2];
 			   $UPB = $detailSatker[4][3];
 			   $noReg=substr($row->kodeLokasi,0,17);
-			   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+			   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+			   $noKdLks=substr($row->kodeLokasi,0,3);
+				$noKodeLokasi=$noKdLks.'28.08';
 			   $thnLokasi= substr($row->Tahun,2,4);
 			   $kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$thnLokasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 			   //==end new==//
@@ -19649,7 +20082,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 		   $SubUnitOrganisasi = $detailSatker[4][2];
 		   $UPB = $detailSatker[4][3];
 		   $noReg=substr($row->	kodeLokasi,0,17);
-			$noKodeLokasi=substr($row->kodeLokasi,0,8);
+			// $noKodeLokasi=substr($row->kodeLokasi,0,8);
+			$noKdLks=substr($row->kodeLokasi,0,3);
+			$noKodeLokasi=$noKdLks.'28.08';
 			$thnLokasi= substr($row->Tahun,2,4);
 			$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$thnLokasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 			   
@@ -20053,7 +20488,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
 											   $noReg=substr($row->NomorReg,0,17);
-											   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   $noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 												$thnLokasi= substr($row->Tahun,2,4);
 												$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$thnLokasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   //==end new==//
@@ -20354,7 +20791,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
 											   $noReg=substr($row->NomorReg,0,17);
-											   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   $noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 												$thnLokasi= substr($row->Tahun,2,4);
 												$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$thnLokasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   //==end new==//
@@ -20761,7 +21200,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
 											   $noReg=substr($row->NomorReg,0,17);
-											   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   $noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 												$thnLokasi= substr($row->Tahun,2,4);
 												$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$thnLokasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   
@@ -21070,7 +21511,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
 											   $noReg=substr($row->NomorReg,0,17);
-											   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   $noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 												$thnLokasi= substr($row->Tahun,2,4);
 												$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$thnLokasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   //==end new==//
@@ -21492,7 +21935,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
 											   $noReg=substr($row->NomorReg,0,17);
-											   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   $noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 											   $thnLokasi= substr($row->Tahun,2,4);
 											   $kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$thnLokasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   //==end new==//
@@ -21821,7 +22266,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
 											   $noReg=substr($row->NomorReg,0,17);
-											   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   $noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 												$thnLokasi= substr($row->Tahun,2,4);
 												$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$thnLokasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   //==end new==//
@@ -22259,7 +22706,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $UnitOrganisasi = $detailSatker[4][1];
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
-											    $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											    // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+												$noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 												$thnLokasi= substr($row->Tahun,2,4);
 												$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$thnLokasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   //==end new==//
@@ -22582,7 +23031,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $UnitOrganisasi = $detailSatker[4][1];
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
-											    $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											    // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+												$noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 											$thnLokasi= substr($row->Tahun,2,4);
 											$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$thnLokasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   //==end new==//
@@ -23022,7 +23473,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
 											   $noReg=substr($row->NomorReg,0,17);
-											   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   $noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 												$thnLokasi= substr($row->Tahun,2,4);
 												$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$thnLokasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   //==end new==//
@@ -23339,7 +23792,9 @@ public function retrieve_html_rencana_pemeliharaan_barang($dataArr,$gambar,$skpd
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
 											   $noReg=substr($row->NomorReg,0,17);
-											   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   $noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 												$thnLokasi= substr($row->Tahun,2,4);
 												$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$thnLokasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 											   //==end new==//
@@ -23746,7 +24201,9 @@ $perolehanTotal=0;
 					   $SubUnitOrganisasi = $detailSatker[4][2];
 					   $UPB = $detailSatker[4][3];
 					   $noReg=substr($row->NomorReg,0,17);
-					   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+					   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+					   $noKdLks=substr($row->kodeLokasi,0,3);
+						$noKodeLokasi=$noKdLks.'28.08';
 						$thnLokasi= substr($row->Tahun,2,4);
 						$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 					   //==end new==//
@@ -24052,7 +24509,9 @@ $footer ="
 			   $SubUnitOrganisasi = $detailSatker[4][2];
 			   $UPB = $detailSatker[4][3];
 			   $noReg=substr($row->NomorReg,0,17);
-			   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+			   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+			   $noKdLks=substr($row->kodeLokasi,0,3);
+				$noKodeLokasi=$noKdLks.'28.08';
 				$thnLokasi= substr($row->Tahun,2,4);
 				$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 					   
@@ -24519,7 +24978,9 @@ $perolehanTotal=0;
 					   $SubUnitOrganisasi = $detailSatker[4][2];
 					   $UPB = $detailSatker[4][3];
 					   $noReg=substr($row->NomorReg,0,17);
-					   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+					   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+					   $noKdLks=substr($row->kodeLokasi,0,3);
+						$noKodeLokasi=$noKdLks.'28.08';
 						$thnLokasi= substr($row->Tahun,2,4);
 						$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 					   //==end new==//
@@ -24813,7 +25274,9 @@ $footer ="
 			   $SubUnitOrganisasi = $detailSatker[4][2];
 			   $UPB = $detailSatker[4][3];
 			   $noReg=substr($row->NomorReg,0,17);
-			   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+			   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+			   $noKdLks=substr($row->kodeLokasi,0,3);
+				$noKodeLokasi=$noKdLks.'28.08';
 				$thnLokasi= substr($row->Tahun,2,4);
 				$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$thnLokasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 					   
@@ -25925,7 +26388,9 @@ if($dataArr!="")
 	   $UnitOrganisasi = $detailSatker[4][1];
 	   $SubUnitOrganisasi = $detailSatker[4][2];
 	   $UPB = $detailSatker[4][3];
-	   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+	   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+	   $noKdLks=substr($row->kodeLokasi,0,3);
+		$noKodeLokasi=$noKdLks.'28.08';
 	   $thnLokasi= substr($row->Tahun,2,4);
 	   $kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 
@@ -26270,7 +26735,9 @@ $kodePemilik= '';
 					   $SubUnitOrganisasi = $detailSatker[4][2];
 					   $UPB = $detailSatker[4][3];
 					   $noReg=substr($row->NomorReg,0,17);
-					   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+					   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+					   $noKdLks=substr($row->kodeLokasi,0,3);
+						$noKodeLokasi=$noKdLks.'28.08';
 						$thnLokasi= substr($row->Tahun,2,4);
 						/*$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$thnLokasi.".".$NoSubUnitOrganisasi.".".$NoUPB;*/
 					$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;	
@@ -26566,7 +27033,9 @@ $footer ="
 			   $SubUnitOrganisasi = $detailSatker[4][2];
 			   $UPB = $detailSatker[4][3];
 			   $noReg=substr($row->NomorReg,0,17);
-			   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+			   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+			   $noKdLks=substr($row->kodeLokasi,0,3);
+				$noKodeLokasi=$noKdLks.'28.08';
 				$thnLokasi= substr($row->Tahun,2,4);
 				/*$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$thnLokasi.".".$NoSubUnitOrganisasi.".".$NoUPB;*/
 				$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;	   
@@ -27329,7 +27798,9 @@ if($dataArr!="")
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
 											   $noReg=substr($row->NomorReg,0,17);
-											   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   $noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 												$thnLokasi= substr($row->Tahun,2,4);
 												// $kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 												$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$thnLokasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
@@ -27654,7 +28125,9 @@ if($dataArr!="")
 											   $SubUnitOrganisasi = $detailSatker[4][2];
 											   $UPB = $detailSatker[4][3];
 											   $noReg=substr($row->NomorReg,0,17);
-											   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+											   $noKdLks=substr($row->kodeLokasi,0,3);
+												$noKodeLokasi=$noKdLks.'28.08';
 												$thnLokasi= substr($row->Tahun,2,4);
 												// $kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 												$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$thnLokasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
@@ -29035,7 +29508,9 @@ $perolehanTotalMutasi=0;
 					   $SubUnitOrganisasi = $detailSatker[4][2];
 					   $UPB = $detailSatker[4][3];
 					   $noReg=substr($row->NomorReg,0,17);
-					   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+					   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+					   $noKdLks=substr($row->kodeLokasi,0,3);
+						$noKodeLokasi=$noKdLks.'28.08';
 						$thnLokasi= substr($row->Tahun,2,4);
 						// $kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$thnLokasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 						$kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
@@ -29708,7 +30183,9 @@ if($dataArr!="")
 	   $SubUnitOrganisasi = $detailSatker[4][2];
 	   $UPB = $detailSatker[4][3];
 	   // $noReg=substr($row->NomorReg,0,17);
-	   $noKodeLokasi=substr($row->kodeLokasi,0,8);
+	   // $noKodeLokasi=substr($row->kodeLokasi,0,8);
+	   $noKdLks=substr($row->kodeLokasi,0,3);
+		$noKodeLokasi=$noKdLks.'28.08';
 	   $thnLokasi= substr($row->kodeLokasi,15,2);
 	   // $kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$thnLokasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
 	   $kodeLokasi = $noKodeLokasi.".".$NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
@@ -37867,7 +38344,7 @@ return $hasil_html;
 		case 1:
 			// echo "lv1";
 			//cek lvl 1		
-				$querylv1="select KodeSektor,KodeSatker,KodeUnit,Gudang,NamaSatker from satker 
+				$querylv1="select KodeSektor,KodeSatker,KodeUnit,Gudang,NamaSatker,urusan from satker 
 						where kode='$satker' 
 						AND KodeSektor is not null 
 						AND KodeSatker is null 
@@ -37880,21 +38357,23 @@ return $hasil_html;
 				if($resultlv1 !=""){
 					foreach($resultlv1 as $valuelv1){
 						$KodeSektor=$valuelv1->KodeSektor;
+						$urusan=$valuelv1->urusan;
 					}
 						//cek lvl 2
 						if($KodeSektor != ""){
-							$query2="select KodeSektor,KodeSatker,KodeUnit,Gudang,NamaSatker from satker 
+							$query2="select KodeSektor,KodeSatker,KodeUnit,Gudang,NamaSatker,urusan from satker 
 									where kode='$satker' 
 									AND KodeSektor = '$KodeSektor'
 									AND KodeSatker IS NULL
 									AND KodeUnit IS NULL
 									AND Gudang IS NULL 
+									AND urusan = '$urusan'
 									ORDER BY Satker_ID ASC";	
 						}
 						$result2=$this->retrieve_query($query2);
 							if($result2 !=""){
 								foreach($result2 as $value2){
-									$KodeSektor=$value2->KodeSektor;
+									$KodeSektor=$value2->urusan.'.'.$value2->KodeSektor;
 									$KodeSatker=$value2->KodeSatker;
 									$KodeUnit=$value2->KodeUnit;
 									$Gudang=$value2->Gudang;
@@ -37907,7 +38386,7 @@ return $hasil_html;
 		case 2:
 			// echo "lv2";
 				//cek lvl 2		
-				$querylv2="select KodeSektor,KodeSatker,KodeUnit,Gudang,NamaSatker from satker 
+				$querylv2="select KodeSektor,KodeSatker,KodeUnit,Gudang,NamaSatker,urusan from satker 
 						where kode='$satker' 
 						AND KodeSektor is not null 
 						AND KodeSatker is not null  
@@ -37921,21 +38400,23 @@ return $hasil_html;
 					foreach($resultlv2 as $valuelv2){
 						$KodeSektor=$valuelv2->KodeSektor;
 						$KodeSatker=$valuelv2->KodeSatker;
+						$urusan=$valuelv2->urusan;
 					}
 						//cek lvl 3
 						if($KodeSatker != ""){
-							$query2="select KodeSektor,KodeSatker,KodeUnit,Gudang,NamaSatker from satker 
+							$query2="select KodeSektor,KodeSatker,KodeUnit,Gudang,NamaSatker,urusan from satker 
 									where KodeSektor = '$KodeSektor'
 									AND (KodeSatker = '$KodeSatker' OR KodeSatker IS NULL)
 									AND KodeUnit IS NULL
-									AND Gudang IS NULL 		
+									AND Gudang IS NULL
+									AND urusan = '$urusan'
 									ORDER BY Satker_ID ASC";	
 						}
 						$result2=$this->retrieve_query($query2);
 							if($result2 !=""){
 								foreach($result2 as $value2){
-									$KodeSektor=$value2->KodeSektor;
-									$KodeSatker=$value2->KodeSatker;
+									$KodeSektor=$value2->urusan;
+									$KodeSatker=$value2->urusan.'.'.$value2->KodeSatker;
 									$KodeUnit=$value2->KodeUnit;
 									$Gudang=$value2->Gudang;
 									$NamaSatker[]=$value2->NamaSatker;
@@ -37948,7 +38429,7 @@ return $hasil_html;
 			// echo "lv3";
 			// echo "masukkk";	
 				//cek lvl 3		
-				$querylv3="select KodeSektor,KodeSatker,KodeUnit,Gudang,NamaSatker from satker 
+				$querylv3="select KodeSektor,KodeSatker,KodeUnit,Gudang,NamaSatker,urusan from satker 
 						where kode='$satker' 
 						AND KodeSektor is not null 
 						AND KodeSatker is not null  
@@ -37963,14 +38444,16 @@ return $hasil_html;
 						$KodeSektor=$valuelv3->KodeSektor;
 						$KodeSatker=$valuelv3->KodeSatker;
 						$KodeUnit=$valuelv3->KodeUnit;
+						$urusan=$valuelv3->urusan;
 					}
 						//cek lvl 4
 						if($KodeUnit != ""){
-							$query2="select KodeSektor,KodeSatker,KodeUnit,Gudang,NamaSatker from satker 
+							$query2="select KodeSektor,KodeSatker,KodeUnit,Gudang,NamaSatker,urusan from satker 
 									where KodeSektor = '$KodeSektor'
 									AND (KodeSatker = '$KodeSatker' OR KodeSatker IS NULL) 
 									AND (KodeUnit = '$KodeUnit' OR KodeUnit IS NULL)
-									AND Gudang IS NULL		
+									AND Gudang IS NULL
+									AND urusan = '$urusan'									
 									ORDER BY Satker_ID ASC";	
 						}
 						// pr($query2);
@@ -37978,8 +38461,8 @@ return $hasil_html;
 						// pr($result2);
 							if($result2 !=""){
 								foreach($result2 as $value2){
-									$KodeSektor=$value2->KodeSektor;
-									$KodeSatker=$value2->KodeSatker;
+									$KodeSektor=$value2->urusan;
+									$KodeSatker=$value2->urusan.'.'.$value2->KodeSatker;
 									$KodeUnit=$value2->KodeUnit;
 									$Gudang=$value2->Gudang;
 									$NamaSatker[]=$value2->NamaSatker;
@@ -37991,7 +38474,7 @@ return $hasil_html;
 		case 4:
 			// echo "lv4";
 				//cek lvl 4		
-				$querylv4="select KodeSektor,KodeSatker,KodeUnit,Gudang,NamaSatker from satker 
+				$querylv4="select KodeSektor,KodeSatker,KodeUnit,Gudang,NamaSatker,urusan from satker 
 						where kode='$satker' 
 						AND KodeSektor is not null 
 						AND KodeSatker is not null  
@@ -38008,15 +38491,17 @@ return $hasil_html;
 						$KodeSatker=$valuelv4->KodeSatker;
 						$KodeUnit=$valuelv4->KodeUnit;
 						$Gudang=$valuelv4->Gudang;
+						$urusan=$valuelv4->urusan;
 					}
 						//cek lvl 4
 						if($KodeUnit != ""){
-							$query2="select KodeSektor,KodeSatker,KodeUnit,Gudang,NamaSatker from satker 
+							$query2="select KodeSektor,KodeSatker,KodeUnit,Gudang,NamaSatker,urusan from satker 
 									where KodeSektor = '$KodeSektor'
 									AND (KodeSatker = '$KodeSatker' OR KodeSatker IS NULL) 
 									AND (KodeUnit = '$KodeUnit' OR KodeUnit IS NULL)
 									AND (Gudang = '$Gudang' OR Gudang IS NULL)
-									AND Kd_Ruang is null										
+									AND Kd_Ruang is null
+									AND urusan = '$urusan'
 									ORDER BY Satker_ID ASC";	
 						}
 						// pr($query2);
@@ -38024,8 +38509,8 @@ return $hasil_html;
 						// pr($result2);
 							if($result2 !=""){
 								foreach($result2 as $value2){
-									$KodeSektor=$value2->KodeSektor;
-									$KodeSatker=$value2->KodeSatker;
+									$KodeSektor=$value2->urusan;
+									$KodeSatker=$value2->urusan.'.'.$value2->KodeSatker;
 									$KodeUnit=$value2->KodeUnit;
 									$Gudang=$value2->Gudang;
 									$NamaSatker[]=$value2->NamaSatker;

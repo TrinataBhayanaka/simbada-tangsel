@@ -86,14 +86,14 @@ $UPB = $detailSatker[4][3];
    
 $ex = explode('.',$skpd_id);
 $hit = count($ex);
-if($hit == 1){
+if($hit == 2){
 	$header = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$Bidang</td>
         </tr>
 		";
-}elseif($hit == 2){
+}elseif($hit == 3){
 	$header = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -104,7 +104,7 @@ if($hit == 1){
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$UnitOrganisasi</td>
         </tr>";
-}elseif($hit == 3){
+}elseif($hit == 4){
 	$header = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -120,7 +120,7 @@ if($hit == 1){
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$SubUnitOrganisasi</td>
         </tr>";
-}elseif($hit == 4){
+}elseif($hit == 5){
 	$header = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
