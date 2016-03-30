@@ -4580,7 +4580,481 @@ foreach ($dataArr as $asetID => $value)
 	return $hasil_html;
 }
 	
+public function retrieve_html_rekap_barang_skpd_detail($dataArr,$gambar,$skpd_id,$tglawalperolehan,$tglakhirperolehan)
+{	
+	// pr($dataArr);
+	// exit;
+if($skpd_id != ''){	
+	$detailSatker=$this->get_satker($skpd_id);
+	$NoBidang = $detailSatker[0];
+	$NoUnitOrganisasi = $detailSatker[1];
+	$NoSubUnitOrganisasi = $detailSatker[2];
+	$NoUPB = $detailSatker[3];
+
+	if($NoBidang !=""){
+		$paramKodeLokasi = $NoBidang;
+	}
+	if($NoBidang !="" && $NoUnitOrganisasi != ""){
+		$paramKodeLokasi = $NoUnitOrganisasi;
+	}
+	if($NoBidang !="" && $NoUnitOrganisasi != "" && $NoSubUnitOrganisasi !=""){
+		$paramKodeLokasi = $NoUnitOrganisasi.".".$NoSubUnitOrganisasi;
+	}
+	if($NoBidang !="" && $NoUnitOrganisasi != "" && $NoSubUnitOrganisasi !="" && $NoUPB !=""){
+		$paramKodeLokasi = $NoUnitOrganisasi.".".$NoSubUnitOrganisasi.".".$NoUPB;
+	}
+	$Bidang = $detailSatker[4][0];
+	$UnitOrganisasi = $detailSatker[4][1];
+	$SubUnitOrganisasi = $detailSatker[4][2];
+	$UPB = $detailSatker[4][3];
+	   
+	$ex = explode('.',$skpd_id);
+	$hit = count($ex);
+
+	if($hit == 2){
+		$head = "<tr>
+			  <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
+			  <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
+			  <td style=\"width: 873px; font-weight: bold;\">$Bidang</td>
+			</tr>
+			";
+	}elseif($hit == 3){
+		$head = "<tr>
+			  <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
+			  <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
+			  <td style=\"width: 873px; font-weight: bold;\">$Bidang</td>
+			</tr>
+			<tr>
+			  <td style=\"width: 200px; font-weight: bold; text-align: left;\">UNIT ORGANISASI</td>
+			  <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
+			  <td style=\"width: 873px; font-weight: bold;\">$UnitOrganisasi</td>
+			</tr>";
+	}elseif($hit == 4){
+		$head = "<tr>
+			  <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
+			  <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
+			  <td style=\"width: 873px; font-weight: bold;\">$Bidang</td>
+			</tr>
+			<tr>
+			  <td style=\"width: 200px; font-weight: bold; text-align: left;\">UNIT ORGANISASI</td>
+			  <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
+			  <td style=\"width: 873px; font-weight: bold;\">$UnitOrganisasi</td>
+			</tr>
+			<tr>
+			  <td style=\"width: 200px; font-weight: bold; text-align: left;\">SUB UNIT ORGANISASI</td>
+			  <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
+			  <td style=\"width: 873px; font-weight: bold;\">$SubUnitOrganisasi</td>
+			</tr>";
+	}elseif($hit == 5){
+		$head = "<tr>
+			  <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
+			  <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
+			  <td style=\"width: 873px; font-weight: bold;\">$Bidang</td>
+			</tr>
+			<tr>
+			  <td style=\"width: 200px; font-weight: bold; text-align: left;\">UNIT ORGANISASI</td>
+			  <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
+			  <td style=\"width: 873px; font-weight: bold;\">$UnitOrganisasi</td>
+			</tr>
+			<tr>
+			  <td style=\"width: 200px; font-weight: bold; text-align: left;\">SUB UNIT ORGANISASI</td>
+			  <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
+			  <td style=\"width: 873px; font-weight: bold;\">$SubUnitOrganisasi</td>
+			</tr>
+			<tr>
+			  <td style=\"width: 200px; font-weight: bold; text-align: left;\">UPB</td>
+			  <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
+			  <td style=\"width: 873px; font-weight: bold;\">$UPB</td>
+			</tr>";
+	}
+}else{
+	$head = '';
+}
+	$html = "<html>
+        <head>
+      <meta content=\"text/html; charset=UTF-8\"
+     http-equiv=\"content-type\">
+      <title></title>
+    </head>
+    <body>
+    <table style=\"text-align: left; width: 100%;\" border=\"0\"
+     cellpadding=\"2\" cellspacing=\"2\">
+      <tbody>
+        <tr>
+          <td style=\"width: 150px; text-align: LEFT;\"></td>
+          <td style=\"width: 902px; text-align: center;\">
+          <h3>REKAPITULASI BARANG PER SKPD DETAIL</h3>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>";
+	$html .="
+    <table style=\"text-align: left; width: 100%;\" border=\"0\"
+     cellpadding=\"2\" cellspacing=\"2\">
+      <tbody>
+        <tr>
+          <td style=\"width: 200px; font-weight: bold; text-align: left;\">KABUPATEN / KOTA</td>
+          <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
+          <td style=\"width: 873px; font-weight: bold;\">$this->NAMA_KABUPATEN</td>
+        </tr>
+        <tr>
+          <td style=\"width: 200px; font-weight: bold; text-align: left;\">PROVINSI</td>
+          <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
+          <td style=\"width: 873px; font-weight: bold;\">$this->NAMA_PROVINSI</td>
+        </tr>
+		$head
+      </tbody>
+    </table><br>
+	<table style=\"text-align: left; width: 100%;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">
+	<tr>
+		<td style=\"text-align: center; font-weight: bold;\">KODE SKPD</td>
+		<td style=\"text-align: center; font-weight: bold;\">NAMA SKPD </td>
+		
+		<td style=\"text-align: center; font-weight: bold;\">TANAH</td>
+		<td style=\"text-align: center; font-weight: bold;\">PENYUSUTAN<BR>PER TAHUN <BR> TANAH</td>
+		<td style=\"text-align: center; font-weight: bold;\">AKUMULASI<BR>PENYUSUTAN <BR> TANAH</td>
+		<td style=\"text-align: center; font-weight: bold;\">NILAI<BR>BUKU <BR> TANAH</td>
+		
+		<td style=\"text-align: center; font-weight: bold;\">PERALATAN DAN <br>MESIN</td>
+		<td style=\"text-align: center; font-weight: bold;\">PENYUSUTAN<BR>PER TAHUN <BR>PERALATAN DAN <br>MESIN</td>
+		<td style=\"text-align: center; font-weight: bold;\">AKUMULASI<BR>PENYUSUTAN <BR>PERALATAN DAN <br>MESIN</td>
+		<td style=\"text-align: center; font-weight: bold;\">NILAI<BR>BUKU <BR>PERALATAN DAN <br>MESIN</td>
+		
+		<td style=\"text-align: center; font-weight: bold;\">BANGUNAN DAN <br>GEDUNG</td>
+		<td style=\"text-align: center; font-weight: bold;\">PENYUSUTAN<BR>PER TAHUN <BR>BANGUNAN DAN <br>GEDUNG</td>
+		<td style=\"text-align: center; font-weight: bold;\">AKUMULASI<BR>PENYUSUTAN <BR>BANGUNAN DAN <br>GEDUNG</td>
+		<td style=\"text-align: center; font-weight: bold;\">NILAI<BR>BUKU <BR>BANGUNAN DAN <br>GEDUNG</td>
+		
+		<td style=\"text-align: center; font-weight: bold;\">JALAN, <br>JARINGAN DAN IRIGASI</td>
+		<td style=\"text-align: center; font-weight: bold;\">PENYUSUTAN<BR>PER TAHUN <BR>JALAN, <br>JARINGAN DAN IRIGASI</td>
+		<td style=\"text-align: center; font-weight: bold;\">AKUMULASI<BR>PENYUSUTAN <BR>JALAN, <br>JARINGAN DAN IRIGASI</td>
+		<td style=\"text-align: center; font-weight: bold;\">NILAI<BR>BUKU <BR>JALAN, <br>JARINGAN DAN IRIGASI</td>
+		
+		<td style=\"text-align: center; font-weight: bold;\">ASET TETAP <br>LAINNNYA</td>
+		<td style=\"text-align: center; font-weight: bold;\">PENYUSUTAN<BR>ASET TETAP <br>LAINNNYA</td>
+		<td style=\"text-align: center; font-weight: bold;\">AKUMULASI<BR>ASET TETAP <br>LAINNNYA</td>
+		<td style=\"text-align: center; font-weight: bold;\">NILAI<BR>BUKU ASET TETAP <br>LAINNNYA</td>
+		
+		<td style=\"text-align: center; font-weight: bold;\">KDP</td>
+		<td style=\"text-align: center; font-weight: bold;\">PENYUSUTAN<BR>KDP</td>
+		<td style=\"text-align: center; font-weight: bold;\">AKUMULASI<BR>KDP</td>
+		<td style=\"text-align: center; font-weight: bold;\">NILAI<BR>BUKU KDP</td>
+		
+		<td style=\"text-align: center; font-weight: bold;\">ASET LAIN</td>
+		<td style=\"text-align: center; font-weight: bold;\">NON ASET</td>
+	</tr>";
 	
+	foreach ($dataArr as $data=>$value)
+	{
+		$exp = explode('_',$data);
+		$kodeSatker = $exp[0];
+		$namaSatker = end($exp);
+		
+		$cekjmlArray = count($value); 
+		if($cekjmlArray ==  11){
+			
+			//tanah
+			$ex_nilai_tanah = explode('_',$value[0]);
+			$nilai_tanah =$ex_nilai_tanah[0];
+			//PENYUSUTAN TANAH
+			$nilai_tanah_PP = 0;
+			$nilai_tanah_AP = 0;
+			$nilai_tanah_NB = $ex_nilai_tanah[0];
+			
+			//mesin <2008
+			$ex_nilai_mesin_1 = explode('_',$value[1]);
+			$nilai_mesin_1 = $ex_nilai_mesin_1[0];
+			$nilai_mesin_PP_1 = $ex_nilai_mesin_1[1];
+			$nilai_mesin_AP_1 = $ex_nilai_mesin_1[2];
+			if($nilai_mesin_AP_1 != 0){
+				$nilai_mesin_NB_1 = $ex_nilai_mesin_1[3];
+			}else{
+				$nilai_mesin_NB_1 = $ex_nilai_mesin_1[0];
+			}
+			
+			//mesin >2008
+			$ex_nilai_mesin_2 = explode('_',$value[2]);
+			$nilai_mesin_2 = $ex_nilai_mesin_2[0];
+			$nilai_mesin_PP_2 = $ex_nilai_mesin_2[1];
+			$nilai_mesin_AP_2 = $ex_nilai_mesin_2[2];
+			if($nilai_mesin_AP_2 != 0){
+				$nilai_mesin_NB_2 = $ex_nilai_mesin_2[3];
+			}else{
+				$nilai_mesin_NB_2 = $ex_nilai_mesin_2[0];
+			}
+			//PENYUSUTAN MESIN
+			$nilai_mesin =$nilai_mesin_1 + $nilai_mesin_2;
+			$nilai_mesin_PP = $nilai_mesin_PP_1 + $nilai_mesin_PP_2;
+			$nilai_mesin_AP = $nilai_mesin_AP_1 + $nilai_mesin_AP_2;
+			$nilai_mesin_NB = $nilai_mesin_NB_1 + $nilai_mesin_NB_2;
+			
+			
+			//bangunan < 2008
+			$ex_nilai_bangunan_1 = explode('_',$value[3]);
+			$nilai_bangunan_1 	 = $ex_nilai_bangunan_1[0];
+			$nilai_bangunan_PP_1 = $ex_nilai_bangunan_1[1];
+			$nilai_bangunan_AP_1 = $ex_nilai_bangunan_1[2];
+			if($nilai_bangunan_AP_1 != 0){
+				$nilai_bangunan_NB_1 = $ex_nilai_bangunan_1[3];
+			}else{
+				$nilai_bangunan_NB_1 = $ex_nilai_bangunan_1[0];
+			}
+			
+			//bangunan >2008
+			$ex_nilai_bangunan_2 = explode('_',$value[4]);
+			$nilai_bangunan_2 	 = $ex_nilai_bangunan_2[0];
+			$nilai_bangunan_PP_2 = $ex_nilai_bangunan_2[1];
+			$nilai_bangunan_AP_2 = $ex_nilai_bangunan_2[2];
+			if($nilai_bangunan_AP_2 != 0){
+				$nilai_bangunan_NB_2 = $ex_nilai_bangunan_2[3];
+			}else{
+				$nilai_bangunan_NB_2 = $ex_nilai_bangunan_2[0];
+			}
+			
+			$nilai_bangunan =$nilai_bangunan_1 + $nilai_bangunan_2;
+			//PENYUSUTAN BANGUNAN
+			$nilai_bangunan_PP = $nilai_bangunan_PP_1 + $nilai_bangunan_PP_2;
+			$nilai_bangunan_AP = $nilai_bangunan_AP_1 + $nilai_bangunan_AP_2;
+			$nilai_bangunan_NB = $nilai_bangunan_NB_1 + $nilai_bangunan_NB_2;
+			
+			//jaringan
+			$ex_nilai_jaringan = explode('_',$value[5]);
+			$nilai_jaringan 	=$ex_nilai_jaringan[0];
+			//PENYUSUTAN JARINGAN
+			$nilai_jaringan_PP =$ex_nilai_jaringan[1];
+			$nilai_jaringan_AP =$ex_nilai_jaringan[2];
+			if($nilai_jaringan_AP != 0){
+				$nilai_jaringan_NB =$ex_nilai_jaringan[3];
+			}else{
+				$nilai_jaringan_NB =$ex_nilai_jaringan[0];
+			}
+			
+			
+			//aset tetap lain
+			$ex_nilai_aset_tetap_lain = explode('_',$value[6]);
+			$nilai_asettetaplain =$ex_nilai_aset_tetap_lain[0];
+			$nilai_asettetaplain_PP =0;
+			$nilai_asettetaplain_AP =0;
+			$nilai_asettetaplain_NB =$ex_nilai_aset_tetap_lain[0];
+			
+			//kdp
+			$ex_nilai_kdp = explode('_',$value[7]);
+			$nilai_kdp =$ex_nilai_kdp[0];
+			$nilai_kdp_PP =0;
+			$nilai_kdp_AP =0;
+			$nilai_kdp_NB =$ex_nilai_kdp[0];
+			
+			//aset lain
+			$ex_nilai_aset_lain = explode('_',$value[8]);
+			$nilai_asetlain =$ex_nilai_aset_lain[0];
+			
+			//non aset
+			$ex_nilai_non_aset_1 = explode('_',$value[9]);
+			$nonAset_1 = $ex_nilai_non_aset_1[0];
+			
+			$ex_nilai_non_aset_2 = explode('_',$value[10]);
+			$nonAset_2 = $ex_nilai_non_aset_2[0];
+			
+			$nonAset = $nonAset_1 + $nonAset_2;
+			
+		}else{
+			
+			//tanah
+			$ex_nilai_tanah = explode('_',$value[0]);
+			$nilai_tanah =$ex_nilai_tanah[0];
+			//PENYUSUTAN TANAH
+			$nilai_tanah_PP = 0;
+			$nilai_tanah_AP = 0;
+			$nilai_tanah_NB = $ex_nilai_tanah[0];
+			
+			//mesin
+			$ex_nilai_mesin_1 = explode('_',$value[1]);
+			$nilai_mesin_1 = $ex_nilai_mesin_1[0];
+			$nilai_mesin_PP_1 = $ex_nilai_mesin_1[1];
+			$nilai_mesin_AP_1 = $ex_nilai_mesin_1[2];
+			if($nilai_mesin_AP_1 != 0){
+				$nilai_mesin_NB_1 = $ex_nilai_mesin_1[3];
+			}else{
+				$nilai_mesin_NB_1 = $ex_nilai_mesin_1[0];
+			}
+			$nilai_mesin = $nilai_mesin_1;
+			//PENYUSUTAN MESIN
+			$nilai_mesin_PP = $nilai_mesin_PP_1;
+			$nilai_mesin_AP = $nilai_mesin_AP_1;
+			$nilai_mesin_NB = $nilai_mesin_NB_1;
+			
+			//bangunan
+			$ex_nilai_bangunan_1 = explode('_',$value[2]);
+			$nilai_bangunan_1 	 = $ex_nilai_bangunan_1[0];
+			$nilai_bangunan_PP_1 = $ex_nilai_bangunan_1[1];
+			$nilai_bangunan_AP_1 = $ex_nilai_bangunan_1[2];
+			if($nilai_bangunan_AP_1 != 0){
+				$nilai_bangunan_NB_1 = $ex_nilai_bangunan_1[3];
+			}else{
+				$nilai_bangunan_NB_1 = $ex_nilai_bangunan_1[0];
+			}
+			$nilai_bangunan =$nilai_bangunan_1;
+			//PENYUSUTAN BANGUNAN
+			$nilai_bangunan_PP = $nilai_bangunan_PP_1;
+			$nilai_bangunan_AP = $nilai_bangunan_AP_1;
+			$nilai_bangunan_NB = $nilai_bangunan_NB_1;
+			
+			//jaringan
+			$ex_nilai_jaringan = explode('_',$value[3]);
+			$nilai_jaringan 	=$ex_nilai_jaringan[0];
+			$nilai_jaringan_PP =$ex_nilai_jaringan[1];
+			$nilai_jaringan_AP =$ex_nilai_jaringan[2];
+			if($nilai_jaringan_AP != 0){
+				$nilai_jaringan_NB =$ex_nilai_jaringan[3];
+			}else{
+				$nilai_jaringan_NB =$ex_nilai_jaringan[0];
+			}
+			
+			
+			//aset tetap lain
+			$ex_nilai_aset_tetap_lain = explode('_',$value[4]);
+			$nilai_asettetaplain = $ex_nilai_aset_tetap_lain[0];
+			$nilai_asettetaplain_PP =0;
+			$nilai_asettetaplain_AP =0;
+			$nilai_asettetaplain_NB = $ex_nilai_aset_tetap_lain[0];
+			
+			//kdp
+			$ex_nilai_kdp = explode('_',$value[5]);
+			$nilai_kdp =$ex_nilai_kdp[0];
+			$nilai_kdp_PP =0;
+			$nilai_kdp_AP =0;
+			$nilai_kdp_NB = $ex_nilai_kdp[0];
+			
+			//aset lain
+			$ex_nilai_aset_lain = explode('_',$value[6]);
+			$nilai_asetlain =$ex_nilai_aset_lain[0];
+			
+			//non aset
+			$ex_nilai_non_aset_1 = explode('_',$value[7]);
+			$nonAset_1 = $ex_nilai_non_aset_1[0];
+			
+			$ex_nilai_non_aset_2 = explode('_',$value[8]);
+			$nonAset_2 = $ex_nilai_non_aset_2[0];
+			
+			$nonAset = $nonAset_1 + $nonAset_2;	
+			
+		}
+		
+		$html.="<tr>
+					<td style=\" text-align: center;\">$kodeSatker</td>
+					<td style=\"width: 300px; text-align: left;\">$namaSatker</td>
+					<td style=\"text-align: right; \">".number_format($nilai_tanah,2,",",".")."</td>
+					<td style=\"text-align: right; \">".number_format($nilai_tanah_PP,2,",",".")."</td>
+					<td style=\"text-align: right; \">".number_format($nilai_tanah_AP,2,",",".")."</td>
+					<td style=\"text-align: right; \">".number_format($nilai_tanah_NB,2,",",".")."</td>
+					
+					<td style=\"text-align: right;\">".number_format($nilai_mesin,2,",",".")."</td>
+					<td style=\"text-align: right;\">".number_format($nilai_mesin_PP,2,",",".")."</td>
+					<td style=\"text-align: right;\">".number_format($nilai_mesin_AP,2,",",".")."</td>
+					<td style=\"text-align: right;\">".number_format($nilai_mesin_NB,2,",",".")."</td>
+					
+					<td style=\"text-align: right;\">".number_format($nilai_bangunan,2,",",".")."</td>
+					<td style=\"text-align: right;\">".number_format($nilai_bangunan_PP,2,",",".")."</td>
+					<td style=\"text-align: right;\">".number_format($nilai_bangunan_AP,2,",",".")."</td>
+					<td style=\"text-align: right;\">".number_format($nilai_bangunan_NB,2,",",".")."</td>
+					
+					<td style=\"text-align: right;\">".number_format($nilai_jaringan,2,",",".")."</td>
+					<td style=\"text-align: right;\">".number_format($nilai_jaringan_PP,2,",",".")."</td>
+					<td style=\"text-align: right;\">".number_format($nilai_jaringan_AP,2,",",".")."</td>
+					<td style=\"text-align: right;\">".number_format($nilai_jaringan_NB,2,",",".")."</td>
+					
+					<td style=\"text-align: right;\">".number_format($nilai_asettetaplain,2,",",".")."</td>
+					<td style=\"text-align: right;\">".number_format($nilai_asettetaplain_PP,2,",",".")."</td>
+					<td style=\"text-align: right;\">".number_format($nilai_asettetaplain_AP,2,",",".")."</td>
+					<td style=\"text-align: right;\">".number_format($nilai_asettetaplain_NB,2,",",".")."</td>
+					
+					<td style=\"text-align: right;\">".number_format($nilai_kdp,2,",",".")."</td>
+					<td style=\"text-align: right;\">".number_format($nilai_kdp_PP,2,",",".")."</td>
+					<td style=\"text-align: right;\">".number_format($nilai_kdp_AP,2,",",".")."</td>
+					<td style=\"text-align: right;\">".number_format($nilai_kdp_NB,2,",",".")."</td>
+					
+					<td style=\"text-align: right;\">".number_format($nilai_asetlain,2,",",".")."</td>
+					<td style=\"text-align: right;\">".number_format($nonAset,2,",",".")."</td>
+				</tr>
+			";
+		$total = 0;
+		$TotAllFix += $TotAll;
+		
+		$totalTanah += $nilai_tanah; 	
+		$totalTanahPP += $nilai_tanah_PP; 	
+		$totalTanahAP += $nilai_tanah_AP; 	
+		$totalTanahNB += $nilai_tanah_NB; 	
+		
+		$totalMesin += $nilai_mesin; 	
+		$totalMesinPP += $nilai_mesin_PP; 	
+		$totalMesinAP += $nilai_mesin_AP; 	
+		$totalMesinNB += $nilai_mesin_NB; 
+		
+		$totalBangunan += $nilai_bangunan; 	
+		$totalBangunanPP += $nilai_bangunan_PP; 	
+		$totalBangunanAP += $nilai_bangunan_AP; 	
+		$totalBangunanNB += $nilai_bangunan_NB;
+		
+		$totalJaringan += $nilai_jaringan; 	
+		$totalJaringanPP += $nilai_jaringan_PP; 	
+		$totalJaringanAP += $nilai_jaringan_AP; 	
+		$totalJaringanNB += $nilai_jaringan_NB;
+		
+		$totalAsetTetap += $nilai_asettetaplain; 	
+		$totalAsetTetapPP += $nilai_asettetaplain_PP; 	
+		$totalAsetTetapAP += $nilai_asettetaplain_AP; 	
+		$totalAsetTetapNB += $nilai_asettetaplain_NB; 	
+		
+		$totalKdp += $nilai_kdp; 	
+		$totalKdpPP += $nilai_kdp_PP; 	
+		$totalKdpAP += $nilai_kdp_AP; 	
+		$totalKdpNB += $nilai_kdp_NB; 	
+		
+		$totalAsetLain += $nilai_asetlain; 
+		$totalNonAset += $nonAset;
+		
+	}
+	$html.="<tr>
+				<td colspan =\"2\" style=\"text-align: center; \">JUMLAH</td>
+				<td style=\"text-align: right; \">".number_format($totalTanah,2,",",".")."</td>
+				<td style=\"text-align: right; \">".number_format($totalTanahPP,2,",",".")."</td>
+				<td style=\"text-align: right; \">".number_format($totalTanahAP,2,",",".")."</td>
+				<td style=\"text-align: right; \">".number_format($totalTanahNB,2,",",".")."</td>
+				
+				<td style=\"text-align: right;\">".number_format($totalMesin,2,",",".")."</td>
+				<td style=\"text-align: right;\">".number_format($totalMesinPP,2,",",".")."</td>
+				<td style=\"text-align: right;\">".number_format($totalMesinAP,2,",",".")."</td>
+				<td style=\"text-align: right;\">".number_format($totalMesinNB,2,",",".")."</td>
+				
+				<td style=\"text-align: right;\">".number_format($totalBangunan,2,",",".")."</td>
+				<td style=\"text-align: right;\">".number_format($totalBangunanPP,2,",",".")."</td>
+				<td style=\"text-align: right;\">".number_format($totalBangunanAP,2,",",".")."</td>
+				<td style=\"text-align: right;\">".number_format($totalBangunanNB,2,",",".")."</td>
+				
+				<td style=\"text-align: right;\">".number_format($totalJaringan,2,",",".")."</td>
+				<td style=\"text-align: right;\">".number_format($totalJaringanPP,2,",",".")."</td>
+				<td style=\"text-align: right;\">".number_format($totalJaringanAP,2,",",".")."</td>
+				<td style=\"text-align: right;\">".number_format($totalJaringanNB,2,",",".")."</td>
+				
+				<td style=\"text-align: right;\">".number_format($totalAsetTetap,2,",",".")."</td>
+				<td style=\"text-align: right;\">".number_format($totalAsetTetapPP,2,",",".")."</td>
+				<td style=\"text-align: right;\">".number_format($totalAsetTetapAP,2,",",".")."</td>
+				<td style=\"text-align: right;\">".number_format($totalAsetTetapNB,2,",",".")."</td>
+				
+				<td style=\"text-align: right;\">".number_format($totalKdp,2,",",".")."</td>
+				<td style=\"text-align: right;\">".number_format($totalKdpPP,2,",",".")."</td>
+				<td style=\"text-align: right;\">".number_format($totalKdpAP,2,",",".")."</td>
+				<td style=\"text-align: right;\">".number_format($totalKdpNB,2,",",".")."</td>
+				
+				<td style=\"text-align: right;\">".number_format($totalAsetLain,2,",",".")."</td>
+				<td style=\"text-align: right;\">".number_format($totalNonAset,2,",",".")."</td>
+				
+			</tr>";
+	$html.="</table></body></html>";
+	 $hasil_html[]=$html;
+return $hasil_html;
+}			
 		
 public function retrieve_html_rekap_barang_skpd($dataArr,$gambar,$skpd_id,$tglawalperolehan,$tglakhirperolehan)
 {	

@@ -71,6 +71,7 @@ $USERAUTH->FrontEnd_check_akses_menu($menu_id, $SessionUser);
 						<li><a href="#neraca" data-toggle="tab">Rekapitulasi Barang Ke Neraca</a></li>
 						<li><a href="#rekapneraca" data-toggle="tab">Rekapitulasi Rincian Barang Ke Neraca</a></li>
 						<li><a href="#rekapskpd" data-toggle="tab">Rekapitulasi Barang Per SKPD</a></li>
+						<li><a href="#rekapskpddetail" data-toggle="tab">Rekapitulasi Barang Per SKPD Detail</a></li>
 						<li><a href="#rekapupb" data-toggle="tab">Rekapitulasi Barang Per UPB</a></li>
 						<li><a href="#lapmutasi" data-toggle="tab">Laporan Mutasi</a></li>
 						<li><a href="#lapmutasiskpd" data-toggle="tab">Laporan Mutasi Antar SKPD</a></li>
@@ -629,6 +630,44 @@ $USERAUTH->FrontEnd_check_akses_menu($menu_id, $SessionUser);
 							<?php //selectAllSatker('kodeSatker13','255',true,false); 
 					
 								selectAllSatker('kodeSatker13','255',true,false,false,true);
+							?>
+							<br>
+							<li>
+								<span class="span2">&nbsp;</span>
+								<input type="submit" name="pengadaanbmd" class="btn btn-primary" value="Lanjut" />&nbsp;
+								<input type="reset" name="reset" class="btn" value="Bersihkan Filter" />
+							</li>
+						</ul>
+						</form>
+						</div>
+						
+						<div class="tab-pane" id="rekapskpddetail">
+						<div class="breadcrumb">
+							<div class="titleTab">Rekapitulasi Barang Per SKPD Detail</div>
+						</div>
+						 <form method="post" name="form" action="<?php echo "$url_rewrite/report/template/PEROLEHAN/rekapbarangskpddetail.php"; ?>">
+						<ul>
+							<li>
+								<span class="span2">Tanggal Awal</span>
+								<div class="control">
+									<div class="input-prepend">
+										<span class="add-on"><i class="fa fa-calendar"></i></span>
+										<input type="text" class="span2 full" name="tglPerolehanAwalrbp" id="tglPerolehanAwalrbp" value="" />
+									</div>
+								</div>
+							</li>
+							<li>
+								<span class="span2">Tanggal Akhir</span>
+								<div class="control">
+									<div class="input-prepend">
+										<span class="add-on"><i class="fa fa-calendar"></i></span>
+										<input type="text" class="span2 full" name="tglPerolehanAkhirrbp" id="tglPerolehanAkhirrbp" value="" required/>
+									</div>
+								</div>
+							</li>
+							<?php //selectAllSatker('kodeSatker13','255',true,false); 
+					
+								selectAllSatker('kodeSatker20','255',true,false,false,true);
 							?>
 							<br>
 							<li>
