@@ -239,7 +239,7 @@ class core_api_report extends DB {
 				$query_tgl_akhir = " T.TglPerolehan <= '$tglakhirperolehan' ";
 				// $query_satker_fix = " T.kodeSatker LIKE '$skpd_id%'";
 				$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "T.kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "T.kodeSatker like '$skpd_id%'";
@@ -254,7 +254,7 @@ class core_api_report extends DB {
 				$query_tgl_akhir = " M.TglPerolehan <= '$tglakhirperolehan' ";
 				// $query_satker_fix = " M.kodeSatker LIKE '$skpd_id%'";
 				$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "M.kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "M.kodeSatker like '$skpd_id%'";
@@ -268,7 +268,7 @@ class core_api_report extends DB {
 				$query_tgl_akhir = " B.TglPerolehan <= '$tglakhirperolehan' ";
 				// $query_satker_fix = " B.kodeSatker LIKE '$skpd_id%'";
 				$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "B.kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "B.kodeSatker like '$skpd_id%'";
@@ -282,7 +282,7 @@ class core_api_report extends DB {
 				$query_tgl_akhir = " J.TglPerolehan <= '$tglakhirperolehan' ";
 				// $query_satker_fix = " J.kodeSatker LIKE '$skpd_id%'";
 				$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "J.kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "J.kodeSatker like '$skpd_id%'";
@@ -296,7 +296,7 @@ class core_api_report extends DB {
 				$query_tgl_akhir = " AL.TglPerolehan <= '$tglakhirperolehan' ";
 				// $query_satker_fix = " AL.kodeSatker LIKE '$skpd_id%'";
 				$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "AL.kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "AL.kodeSatker like '$skpd_id%'";
@@ -310,7 +310,7 @@ class core_api_report extends DB {
 				$query_tgl_akhir = " KDPA.TglPerolehan <= '$tglakhirperolehan' ";
 				// $query_satker_fix = " KDPA.kodeSatker LIKE '$skpd_id%'";
 				$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "KDPA.kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "KDPA.kodeSatker like '$skpd_id%'";
@@ -356,7 +356,7 @@ class core_api_report extends DB {
 					$query_tahun = " $param.Tahun = '$tahun' ";
 					
 					$splitKodeSatker = explode ('.',$skpd_id);
-					if(count($splitKodeSatker) == 4){	
+					if(count($splitKodeSatker) == 5){	
 						$paramSatker = " $param.kodeSatker = '$skpd_id'";
 					}else{
 						$paramSatker = " $param.kodeSatker like '$skpd_id%'";
@@ -385,7 +385,7 @@ class core_api_report extends DB {
 					// $query_satker_fix = " $param.kodeSatker LIKE '$skpd_id%'";
 					$query_tahun = " $param.Tahun = '$tahun' ";
 					$splitKodeSatker = explode ('.',$skpd_id);
-					if(count($splitKodeSatker) == 4){	
+					if(count($splitKodeSatker) == 5){	
 						$paramSatker = " $param.kodeSatker = '$skpd_id'";
 					}else{
 						$paramSatker = " $param.kodeSatker like '$skpd_id%'";
@@ -403,7 +403,7 @@ class core_api_report extends DB {
 				// $query_satker_fix = " T.kodeSatker LIKE '$skpd_id%'";
 				
 				$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "T.kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "T.kodeSatker like '$skpd_id%'";
@@ -417,7 +417,7 @@ class core_api_report extends DB {
 			{
 				// $query_satker_fix = " M.kodeSatker LIKE '$skpd_id%'";
 				$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "M.kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "M.kodeSatker like '$skpd_id%'";
@@ -431,7 +431,7 @@ class core_api_report extends DB {
 			{
 				// $query_satker_fix = " B.kodeSatker LIKE '$skpd_id%'";
 				$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "B.kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "B.kodeSatker like '$skpd_id%'";
@@ -445,7 +445,7 @@ class core_api_report extends DB {
 			{
 				// $query_satker_fix = " J.kodeSatker LIKE '$skpd_id%'";
 				$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "J.kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "J.kodeSatker like '$skpd_id%'";
@@ -459,7 +459,7 @@ class core_api_report extends DB {
 			{
 				// $query_satker_fix = " AL.kodeSatker LIKE '$skpd_id%'";
 				$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "AL.kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "AL.kodeSatker like '$skpd_id%'";
@@ -473,7 +473,7 @@ class core_api_report extends DB {
 			{
 				// $query_satker_fix = " KDPA.kodeSatker LIKE '$skpd_id%'";
 				$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "KDPA.kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "KDPA.kodeSatker like '$skpd_id%'";
@@ -504,7 +504,7 @@ class core_api_report extends DB {
 			{
 				// $query_satker_fix = " M.kodeSatker LIKE '$skpd_id%'";
 				$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "M.kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "M.kodeSatker like '$skpd_id%'";
@@ -518,7 +518,7 @@ class core_api_report extends DB {
 			{
 				// $query_satker_fix = " B.kodeSatker LIKE '$skpd_id%'";
 				$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "B.kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "B.kodeSatker like '$skpd_id%'";
@@ -532,7 +532,7 @@ class core_api_report extends DB {
 			{
 				// $query_satker_fix = " J.kodeSatker LIKE '$skpd_id%'";
 				$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "J.kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "J.kodeSatker like '$skpd_id%'";
@@ -546,7 +546,7 @@ class core_api_report extends DB {
 			{
 				// $query_satker_fix = " AL.kodeSatker LIKE '$skpd_id%'";
 				$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "AL.kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "AL.kodeSatker like '$skpd_id%'";
@@ -560,7 +560,7 @@ class core_api_report extends DB {
 			{
 				// $query_satker_fix = " KDPA.kodeSatker LIKE '$skpd_id%'";
 				$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "KDPA.kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "KDPA.kodeSatker like '$skpd_id%'";
@@ -579,7 +579,7 @@ class core_api_report extends DB {
 				// $query_satker_fix = " T.kodeSatker LIKE '$skpd_id%'";
 				if($skpd_id != ''){
 				$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "T.kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "T.kodeSatker like '$skpd_id%'";
@@ -595,7 +595,7 @@ class core_api_report extends DB {
 				// $query_satker_fix = " M.kodeSatker LIKE '$skpd_id%'";
 				if($skpd_id != ''){
 				$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "M.kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "M.kodeSatker like '$skpd_id%'";
@@ -611,7 +611,7 @@ class core_api_report extends DB {
 				// $query_satker_fix = " B.kodeSatker LIKE '$skpd_id%'";
 				if($skpd_id != ''){
 				$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "B.kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "B.kodeSatker like '$skpd_id%'";
@@ -627,7 +627,7 @@ class core_api_report extends DB {
 				// $query_satker_fix = " J.kodeSatker LIKE '$skpd_id%'";
 				if($skpd_id != ''){
 				$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "J.kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "J.kodeSatker like '$skpd_id%'";
@@ -643,7 +643,7 @@ class core_api_report extends DB {
 				// $query_satker_fix = " AL.kodeSatker LIKE '$skpd_id%'";
 				if($skpd_id != ''){
 				$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "AL.kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "AL.kodeSatker like '$skpd_id%'";
@@ -659,7 +659,7 @@ class core_api_report extends DB {
 				// $query_satker_fix = " KDPA.kodeSatker LIKE '$skpd_id%'";
 				if($skpd_id != ''){
 				$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "KDPA.kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "KDPA.kodeSatker like '$skpd_id%'";
@@ -683,7 +683,7 @@ class core_api_report extends DB {
 				// $query_satker_fix = " kodeSatker LIKE '$skpd_id%'";
 				$queryPemilik = "kodeLokasi like '$pemilik%'";
 				$splitKodeSatker = explode ('.',$skpd_id);
-					if(count($splitKodeSatker) == 4){	
+					if(count($splitKodeSatker) == 5){	
 						$paramSatker = "kodeSatker = '$skpd_id'";
 					}else{
 						$paramSatker = "kodeSatker like '$skpd_id%'";
@@ -707,7 +707,7 @@ class core_api_report extends DB {
 					
 					// $query_satker_fix = " kodeSatker LIKE '$skpd_id%'";
 					$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "kodeSatker like '$skpd_id%'";
@@ -776,7 +776,7 @@ class core_api_report extends DB {
 					$query_tgl_akhir = " TglPerolehan <= '$tglakhirperolehan' ";
 					
 					$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "kodeSatker like '$skpd_id%'";
@@ -799,7 +799,7 @@ class core_api_report extends DB {
 					$query_tgl_akhir = " TglPerolehan <= '$tglakhirperolehan' ";
 					// $query_satker_fix = " kodeSatker LIKE '$skpd_id%'";
 					$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "kodeSatker like '$skpd_id%'";
@@ -852,7 +852,7 @@ class core_api_report extends DB {
 					$query_tgl_akhir = " TglPerolehan <= '$tglakhirperolehan' ";
 					
 					$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "kodeSatker like '$skpd_id%'";
@@ -874,7 +874,7 @@ class core_api_report extends DB {
 					$query_tgl_akhir = " TglPerolehan <= '$tglakhirperolehan' ";
 					
 					$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "kodeSatker like '$skpd_id%'";
@@ -905,7 +905,7 @@ class core_api_report extends DB {
 					$query_kodeRuangan ="kodeRuangan ='$kodeRuangan'";
 					
 					$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "kodeSatker like '$skpd_id%'";
@@ -922,7 +922,7 @@ class core_api_report extends DB {
 					$query_tgl_akhir = " TglPembukuan <= '$tglakhirperolehan' ";
 					
 					$splitKodeSatker = explode ('.',$skpd_id);
-						if(count($splitKodeSatker) == 4){	
+						if(count($splitKodeSatker) == 5){	
 							$paramSatker = "kodeSatker = '$skpd_id'";
 						}else{
 							$paramSatker = "kodeSatker like '$skpd_id%'";
@@ -3907,7 +3907,7 @@ class core_api_report extends DB {
 			$kdSakter = "$satker";
 			$splitKodeSatker = explode ('.',$kdSakter);
 			
-			if(count($splitKodeSatker) == 4){			
+			if(count($splitKodeSatker) == 5){			
 				$query ="SELECT kode FROM satker where kode = '$kdSakter' and KodeUnit is not null and Gudang is not null and Kd_Ruang is NULL";
 			}else{
 				$query ="SELECT kode FROM satker where kode like '$kdSakter%' and KodeUnit is not null and Gudang is not null and Kd_Ruang is NULL";
@@ -4595,7 +4595,7 @@ class core_api_report extends DB {
 	public function perencanaan ($satker_id,$tahun){
 	if($satker_id){
 			$splitKodeSatker = explode ('.',$satker_id);
-				if(count($splitKodeSatker) == 4){	
+				if(count($splitKodeSatker) == 5){	
 					$paramSatker = "kode = '$satker_id'";
 				}else{
 					$paramSatker = "kode like '$satker_id%'";
@@ -4715,7 +4715,7 @@ class core_api_report extends DB {
 	public function pemeliharaan ($satker_id,$tanggalAwal,$tanggalAkhir){
 	if($satker_id){
 			$splitKodeSatker = explode ('.',$satker_id);
-				if(count($splitKodeSatker) == 4){	
+				if(count($splitKodeSatker) == 5){	
 					$paramSatker = "kode = '$satker_id'";
 				}else{
 					$paramSatker = "kode like '$satker_id%'";
@@ -4765,7 +4765,38 @@ class core_api_report extends DB {
 		if($dataPmlhrn) return $dataPmlhrn;
 	
 	}
+	public function getLapAsetTakBerwujud ($skpd_id,$tglawalperolehan,$tglakhirperolehan){
+		$splitKodeSatker = explode ('.',$skpd_id);
+		if(count($splitKodeSatker) == 5){	
+			$paramSatker = "kodeSatker = '$skpd_id'";
+		}else{
+			$paramSatker = "kodeSatker like '$skpd_id%'";
+		}
+		$kodeKelompok = '07.27.01.01.01';
+		$query = "select a.kodeSatker,a.kodeKelompok,k.Uraian,a.noRegister,a.TglPerolehan,a.TglPembukuan,
+						 a.NilaiPerolehan,a.Alamat,a.Info
+				   from aset as a 
+				   inner join kelompok as k on k.Kode = a.kodeKelompok
+				   where kodeKelompok = '{$kodeKelompok}' and kodeSatker like'{$paramSatker}%' 
+				  and TglPerolehan >= '{$tglawalperolehan}' and TglPerolehan <='{$tglakhirperolehan}'
+				  and TglPembukuan >='{$tglawalperolehan}' and TglPembukuan <='{$tglakhirperolehan}'
+				  and kondisi = '3' and kodeKA = '1' and Status_Validasi_Barang = 1
+				  order by TglPerolehan";
+		// pr($query);
+		$exe = $this->query($query) or die ($this->error('error'));
+		$ceck = mysql_num_rows($exe);
+		if($ceck){
+			while ($dataAll = $this->fetch_object($exe))
+				{
+					$getdata[]= $dataAll;
+					
+				}
+		}else{
+			// $getdata[]= '';
+		}
 	
+	return $getdata;
+	}
 	
 	public function ceckGol ($satker,$tglawalperolehan,$tglakhirperolehan,$paramGol){
 			// echo $satker."-".$tglawalperolehan."-".$tglakhirperolehan."-".$paramGol;
@@ -5028,7 +5059,7 @@ class core_api_report extends DB {
 				// {
 					//cek satker
 					$splitKodeSatker = explode ('.',$Satker_ID);
-					if(count($splitKodeSatker) == 4){	
+					if(count($splitKodeSatker) == 5){	
 						$paramSatker = "kodeSatker = '$Satker_ID'";
 					}else{
 						$paramSatker = "kodeSatker like '$Satker_ID%'";
@@ -5071,9 +5102,10 @@ class core_api_report extends DB {
 									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM asetlain_ori WHERE kodeKelompok like '$data2%' and $paramSatker and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi !='3' and Status_Validasi_Barang =1 and StatusTampil = 1";
 								}elseif($data2 == '06.21' || $data2 == '06.22' || $data2 == '06.23' || $data2 == '06.24' || $data2 == '06.25'){
 									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM kdp_ori WHERE kodeKelompok like '$data2%' and $paramSatker and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and Status_Validasi_Barang =1 and StatusTampil = 1";
-								}elseif($data2 == '07.21'){
-									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM aset_lain_3 WHERE $paramSatker and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi ='3' and Status_Validasi_Barang =1";
-								}elseif($data2 == '07.24'){
+								}elseif($data2 == '07.28'){
+									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM aset_lain_3 WHERE $paramSatker and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi ='3' and Status_Validasi_Barang =1 
+													and kodeKelompok not like '07.27.01.01.01%' $KodeKaCondt1";
+								}elseif($data2 == '07.27'){
 									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM aset_lain_3 WHERE kodeKelompok like '$data2%'  and $paramSatker and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi ='3' and Status_Validasi_Barang =1  $KodeKaCondt1";
 									//	Status_Validasi_Barang = 1
 								}else{
@@ -5099,9 +5131,10 @@ class core_api_report extends DB {
 									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM asetlain_ori WHERE kodeKelompok like '$data2%' and $paramSatker and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi !='3' and Status_Validasi_Barang =1 and StatusTampil = 1";
 								}elseif($data2 == '06.21' || $data2 == '06.22' || $data2 == '06.23' || $data2 == '06.24' || $data2 == '06.25'){
 									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM kdp_ori WHERE kodeKelompok like '$data2%' and $paramSatker and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and Status_Validasi_Barang =1 and StatusTampil = 1";
-								}elseif($data2 == '07.21'){
-									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM aset_lain_3 WHERE $paramSatker and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi ='3' and Status_Validasi_Barang =1 ";
-								}elseif($data2 == '07.24'){
+								}elseif($data2 == '07.28'){
+									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM aset_lain_3 WHERE $paramSatker and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi ='3' and Status_Validasi_Barang =1 
+													and kodeKelompok not like '07.27.01.01.01%' $KodeKaCondt1";
+								}elseif($data2 == '07.27'){
 									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM aset_lain_3 WHERE kodeKelompok like '$data2%'  and $paramSatker and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi ='3' and Status_Validasi_Barang =1  $KodeKaCondt1";
 									//	Status_Validasi_Barang = 1
 								}else{
@@ -5141,10 +5174,11 @@ class core_api_report extends DB {
 									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM asetlain_ori WHERE kodeKelompok like '$data2%' and $paramSatker and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi !='3' and Status_Validasi_Barang =1 and StatusTampil = 1";
 								}elseif($data2 == '06.21' || $data2 == '06.22' || $data2 == '06.23' || $data2 == '06.24' || $data2 == '06.25'){
 									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM kdp_ori WHERE kodeKelompok like '$data2%' and $paramSatker and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and Status_Validasi_Barang =1 and StatusTampil = 1 ";
-								}elseif($data2 == '07.21'){
-									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM aset_lain_3 WHERE $paramSatker and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi ='3' and Status_Validasi_Barang =1  $KodeKaCondt1";
+								}elseif($data2 == '07.28'){
+									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM aset_lain_3 WHERE $paramSatker and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi ='3' and Status_Validasi_Barang =1  
+													and kodeKelompok not like '07.27.01.01.01%' $KodeKaCondt1";
 									//	Status_Validasi_Barang = 1
-								}elseif($data2 == '07.24'){
+								}elseif($data2 == '07.27'){
 									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM aset_lain_3 WHERE kodeKelompok like '$data2%'  and $paramSatker and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi ='3' and Status_Validasi_Barang =1  $KodeKaCondt1";
 									//	Status_Validasi_Barang = 1
 								}else{
@@ -5248,14 +5282,14 @@ class core_api_report extends DB {
 									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM asetlain_ori WHERE kodeKelompok like '$data2%' and kodeSatker like '$Satker_ID%' and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi !='3' and Status_Validasi_Barang =1 and StatusTampil = 1";
 								}elseif($data2 == '06.21' || $data2 == '06.22' || $data2 == '06.23' || $data2 == '06.24' || $data2 == '06.25'){
 									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM kdp_ori WHERE kodeKelompok like '$data2%' and kodeSatker like '$Satker_ID%' and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and Status_Validasi_Barang =1 and StatusTampil = 1";
-								}elseif($data2 == '07.21'){
-									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM aset WHERE kodeSatker like '$Satker_ID%' and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi ='3' and Status_Validasi_Barang =1";
-								}elseif($data2 == '07.24'){
-									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM aset WHERE kodeKelompok like '$data2%' and kodeSatker like '$Satker_ID%' and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi ='3' and Status_Validasi_Barang =1  $KodeKaCondt1";
+								}elseif($data2 == '07.28'){
+									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM aset_lain_3 WHERE kodeSatker like '$Satker_ID%' and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi ='3' and Status_Validasi_Barang =1 $KodeKaCondt1 and kodeKelompok not like '07.27.01.01.01%'";
+								}elseif($data2 == '07.27'){
+									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM aset_lain_3 WHERE kodeKelompok like '$data2%' and kodeSatker like '$Satker_ID%' and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi ='3' and Status_Validasi_Barang =1  $KodeKaCondt1";
 								}
                                                                                                               else{
 									//kondisi tidak diketahui 
-									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM aset WHERE kodeSatker like '$Satker_ID%' and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi ='3' and Status_Validasi_Barang is null";
+									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM aset_lain_3 WHERE kodeSatker like '$Satker_ID%' and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi ='3' and Status_Validasi_Barang is null";
 								}
 							}elseif($thnceck >= $thnDefault){
 								if($data2 == '01.01'){
@@ -5276,14 +5310,14 @@ class core_api_report extends DB {
 									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM asetlain_ori WHERE kodeKelompok like '$data2%' and kodeSatker like '$Satker_ID%' and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi !='3' and Status_Validasi_Barang =1 and StatusTampil = 1";
 								}elseif($data2 == '06.21' || $data2 == '06.22' || $data2 == '06.23' || $data2 == '06.24' || $data2 == '06.25'){
 									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM kdp_ori WHERE kodeKelompok like '$data2%' and kodeSatker like '$Satker_ID%' and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and Status_Validasi_Barang =1 and StatusTampil = 1";
-								}elseif($data2 == '07.21'){
-									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM aset WHERE kodeSatker like '$Satker_ID%' and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi ='3' and Status_Validasi_Barang =1 ";
-								}elseif($data2 == '07.24'){
-									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM aset WHERE kodeKelompok like '$data2%' and kodeSatker like '$Satker_ID%' and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi ='3' and Status_Validasi_Barang =1  $KodeKaCondt1";
+								}elseif($data2 == '07.28'){
+									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM aset_lain_3 WHERE kodeSatker like '$Satker_ID%' and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi ='3' and Status_Validasi_Barang =1 $KodeKaCondt1 and kodeKelompok not like '07.27.01.01.01%'";
+								}elseif($data2 == '07.27'){
+									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM aset_lain_3 WHERE kodeKelompok like '$data2%' and kodeSatker like '$Satker_ID%' and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi ='3' and Status_Validasi_Barang =1  $KodeKaCondt1";
 								}
                                                                                                               else{
 									//kondisi tidak diketahui 
-									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM aset WHERE kodeSatker like '$Satker_ID%' and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi ='3' and Status_Validasi_Barang is null";
+									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM aset_lain_3 WHERE kodeSatker like '$Satker_ID%' and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi ='3' and Status_Validasi_Barang is null";
 								}
 							}
 							else{
@@ -5318,14 +5352,14 @@ class core_api_report extends DB {
 									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM asetlain_ori WHERE kodeKelompok like '$data2%' and kodeSatker like '$Satker_ID%' and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi !='3' and Status_Validasi_Barang =1 and StatusTampil = 1";
 								}elseif($data2 == '06.21' || $data2 == '06.22' || $data2 == '06.23' || $data2 == '06.24' || $data2 == '06.25'){
 									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM kdp_ori WHERE kodeKelompok like '$data2%' and kodeSatker like '$Satker_ID%' and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and Status_Validasi_Barang =1 and StatusTampil = 1 ";
-								}elseif($data2 == '07.21'){
-									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM aset WHERE kodeSatker like '$Satker_ID%' and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi ='3' and Status_Validasi_Barang =1  $KodeKaCondt1";
-								}elseif($data2 == '07.24'){
-									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM aset WHERE kodeKelompok like '$data2%' and kodeSatker like '$Satker_ID%' and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi ='3' and Status_Validasi_Barang =1  $KodeKaCondt1";
+								}elseif($data2 == '07.28'){
+									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM aset_lain_3 WHERE kodeSatker like '$Satker_ID%' and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi ='3' and Status_Validasi_Barang =1  $KodeKaCondt1 and kodeKelompok not like '07.27.01.01.01%'";
+								}elseif($data2 == '07.27'){
+									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM aset_lain_3 WHERE kodeKelompok like '$data2%' and kodeSatker like '$Satker_ID%' and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and TglPembukuan >='$tglAwalDefault' and TglPembukuan <='$tglAkhirDefault' and kondisi ='3' and Status_Validasi_Barang =1  $KodeKaCondt1";
 								}
                                                                                                            else{
 									//kondisi tidak diketahui 
-									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM aset WHERE kodeSatker like '$Satker_ID%' and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and kondisi ='3' and Status_Validasi_Barang is null";
+									$queryresult ="SELECT sum(NilaiPerolehan) as nilai, count(Aset_ID) as jumlah FROM aset_lain_3 WHERE kodeSatker like '$Satker_ID%' and kodeLokasi like '12%' and TglPerolehan >='$tglAwalDefault' and TglPerolehan <='$tglAkhirDefault' and kondisi ='3' and Status_Validasi_Barang is null";
 								}
 							}
 							// echo "<br>";
@@ -5435,7 +5469,7 @@ class core_api_report extends DB {
 		foreach ($satker as $data=>$satker_id){
 			//========add
 			$splitSatker = explode ('.',$satker_id);
-			if(count($splitSatker) == 4){	
+			if(count($splitSatker) == 5){	
 				$paramSatkr = "kodeSatker = '$satker_id'";
 			}else{
 				$paramSatkr = "kodeSatker like '$satker_id%'";
@@ -5642,7 +5676,7 @@ class core_api_report extends DB {
 	public function barangupb($satker_id,$tglawalperolehan,$tglakhirperolehan){
 		if($satker_id){
 			$splitKodeSatker = explode ('.',$satker_id);
-				if(count($splitKodeSatker) == 4){	
+				if(count($splitKodeSatker) == 5){	
 					$paramSatker = "kode = '$satker_id'";
 				}else{
 					$paramSatker = "kode like '$satker_id%'";
@@ -5900,7 +5934,7 @@ class core_api_report extends DB {
 		//set parameter
 		//parameter dengan kodeSatker(semua log)
 		$splitKodeSatker = explode ('.',$skpd_id);
-		if(count($splitKodeSatker) == 4){	
+		if(count($splitKodeSatker) == 5){	
 			$paramSatker = "kodeSatker = '$skpd_id'";
 			$paramSatker_mts_tr = "SatkerAwal = '$skpd_id'";
 			$paramSatker_mts_rc = "SatkerTujuan = '$skpd_id'";
@@ -6290,7 +6324,7 @@ class core_api_report extends DB {
 		$thnFix = $ceckTgl[0];
 		
 		$splitKodeSatker = explode ('.',$skpd_id);
-		if(count($splitKodeSatker) == 4){	
+		if(count($splitKodeSatker) == 5){	
 			$paramSatker = "kodeSatker = '$skpd_id'";
 			// $paramSatker_mts_tr = "SatkerAwal = '$skpd_id'";
 			$paramSatker_mts_tr = "SatkerTujuan = '$skpd_id'";
