@@ -58,6 +58,7 @@ foreach ($cleardata as $key => $val) {
 	$data['Material'] = $datatmp['Material'];
 	$data['Ukuran'] = $datatmp['Ukuran'];
 	$data['TglPerolehan'] = $datatmp['TglPerolehan'];
+    $data['TglPembukuan'] = $datatmp['TglPembukuan'];
 	$data['Alamat'] = $datatmp['Alamat'];
 	$data['Kuantitas'] = $datatmp['Jumlah'];
 	$data['Satuan'] = $datatmp['NilaiPerolehan'];
@@ -70,7 +71,7 @@ foreach ($cleardata as $key => $val) {
 	$data['UserNm'] = $argv[1];
 	$data['Tahun'] = $datatmp['Tahun'];
 	$data['TipeAset'] = $datatmp['TipeAset'];
-	$data['AsalUsul'] = 'Pembelian';
+	$data['AsalUsul'] = $datatmp['AsalUsul'];
 	$data['GUID'] = $datatmp['GUID'];
 	$data['xls'] = 1;
 
@@ -108,6 +109,7 @@ function store_aset($data,$link,$totaldata)
         $tblAset['kodeLokasi'] = "12.11.33.".$kodeSatker[0].".".$kodeSatker[1].".".substr($tahun[0],-2).".".$kodeSatker[2].".".$kodeSatker[3];
         $tblAset['noKontrak'] = $data['noKontrak'];
         $tblAset['TglPerolehan'] = $data['TglPerolehan'];
+        $tblAset['TglPembukuan'] = $data['TglPembukuan'];
         $tblAset['NilaiPerolehan'] = $data['Satuan'];
         $tblAset['NilaiBuku'] = $data['Satuan'];
         $tblAset['kondisi'] = $data['kondisi'];
@@ -140,7 +142,7 @@ function store_aset($data,$link,$totaldata)
         $tblAset['AsalUsul'] = $data['AsalUsul'];
 
         if(isset($data['xls'])) {
-            $tblAset['TglPembukuan'] = $data['TglPerolehan'];
+            $tblAset['TglPembukuan'] = $data['TglPembukuan'];
             $tblAset['StatusValidasi'] = 1;
             $tblAset['Status_Validasi_Barang'] = 1;
 
@@ -278,6 +280,7 @@ function store_aset($data,$link,$totaldata)
             $tblKib['kodeSatker'] = $data['kodeSatker'];
             $tblKib['kodeLokasi'] = $tblAset['kodeLokasi'];
             $tblKib['TglPerolehan'] = $data['TglPerolehan'];
+            $tblKib['TglPembukuan'] = $data['TglPembukuan'];
             $tblKib['NilaiPerolehan'] = $tblAset['NilaiPerolehan'];
             $tblKib['NilaiBuku'] = $tblAset['NilaiPerolehan'];
             $tblKib['kondisi'] = $data['kondisi'];
@@ -288,7 +291,7 @@ function store_aset($data,$link,$totaldata)
             $tblKib['noRegister'] = $tblAset['noRegister'];
             $tblKib['AsalUsul'] = $data['AsalUsul'];
             if(isset($data['xls'])) {
-                $tblKib['TglPembukuan'] = $data['TglPerolehan'];
+                $tblKib['TglPembukuan'] = $data['TglPembukuan'];
                 $tblKib['StatusValidasi'] = 1;
                 $tblKib['Status_Validasi_Barang'] = 1;
                 $tblKib['StatusTampil'] = 1;
@@ -335,7 +338,7 @@ function store_aset($data,$link,$totaldata)
                 $kib['kodeKA'] = $tblAset['kodeKA'];
                 $kib['noRegister'] = $tblAset['noRegister'];
                 $kib['AsalUsul'] = $data['AsalUsul'];
-                $kib['TglPembukuan'] = $data['TglPerolehan'];
+                $kib['TglPembukuan'] = $data['TglPembukuan'];
                 $kib['StatusValidasi'] = 1;
                 $kib['Status_Validasi_Barang'] = 1;
                 $kib['Kuantitas'] = 1;
@@ -350,7 +353,7 @@ function store_aset($data,$link,$totaldata)
                 $kib['kodeLokasi'] = $tblAset['kodeLokasi'];
                 $kib['noRegister'] = $tblAset['noRegister'];
                 $kib['TglPerolehan'] = $data['TglPerolehan'];
-                $kib['TglPembukuan'] = $data['TglPerolehan'];
+                $kib['TglPembukuan'] = $data['TglPembukuan'];
                 $kib['kodeKA'] = $tblAset['kodeKA'];
                 $kib['kodeRuangan'] = $data['kodeRuangan'];
                 $kib['StatusValidasi'] = 1;
@@ -383,7 +386,7 @@ function store_aset($data,$link,$totaldata)
 					// $kib = $row;
 				 //  }
                       
-                  $kib['TglPerubahan'] = $kib['TglPerolehan'];    
+                  $kib['TglPerubahan'] = $kib['TglPembukuan'];    
                   $kib['changeDate'] = date("Y-m-d");
                   $kib['action'] = 'posting';
                   $kib['operator'] = $data['UserNm'];
