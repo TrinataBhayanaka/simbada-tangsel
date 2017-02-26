@@ -166,6 +166,7 @@ $menu_id = 10;
 										<option value="jaringan">KIB D - Jaringan</option>
 										<option value="asetlain">KIB E - Aset Tetap Lain</option>
 										<option value="kdp">KIB F - KDP</option>
+										<option value="twujud">ASET TAK BERWUJUD</option>
 									</select>
 								</li>
 							</ul>

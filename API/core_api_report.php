@@ -4772,17 +4772,18 @@ class core_api_report extends DB {
 		}else{
 			$paramSatker = "kodeSatker like '$skpd_id%'";
 		}
+
 		$kodeKelompok = '07.27.01.01.01';
 		$query = "select a.kodeSatker,a.kodeKelompok,k.Uraian,a.noRegister,a.TglPerolehan,a.TglPembukuan,
 						 a.NilaiPerolehan,a.Alamat,a.Info
 				   from aset as a 
 				   inner join kelompok as k on k.Kode = a.kodeKelompok
-				   where kodeKelompok = '{$kodeKelompok}' and kodeSatker like'{$paramSatker}%' 
+				   where kodeKelompok = '{$kodeKelompok}' and  $paramSatker
 				  and TglPerolehan >= '{$tglawalperolehan}' and TglPerolehan <='{$tglakhirperolehan}'
 				  and TglPembukuan >='{$tglawalperolehan}' and TglPembukuan <='{$tglakhirperolehan}'
 				  and kondisi = '3' and kodeKA = '1' and Status_Validasi_Barang = 1
 				  order by TglPerolehan";
-		// pr($query);
+		
 		$exe = $this->query($query) or die ($this->error('error'));
 		$ceck = mysql_num_rows($exe);
 		if($ceck){

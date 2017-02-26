@@ -19,10 +19,9 @@ if(isset($_GET['id'])){
 	$par_data_table="bup_tahun={$POST['bup_tahun']}&bup_nokontrak={$POST['bup_nokontrak']}&jenisaset={$POST['jenisaset'][0]}&kodeSatker={$POST['kodeSatker']}&page={$POST['page']}";
 
 } else{
-	$dataArr = $RETRIEVE_INVENTARISASI->importing_xls2html_kdp($_FILES,$_POST);
-
+	$dataArr = $RETRIEVE_INVENTARISASI->importing_xls2html_twujud($_FILES,$_POST);
 }
-
+//exit;
 ?>
 
 	<script>
@@ -58,7 +57,7 @@ if(isset($_GET['id'])){
 
                     "bProcessing": true,
                     "bServerSide": true,
-                    "sAjaxSource": "<?=$url_rewrite?>/api_list/api_import_xls_kibf.php?<?php echo $par_data_table?>"
+                    "sAjaxSource": "<?=$url_rewrite?>/api_list/api_import_xls_kib_twujud.php?<?php echo $par_data_table?>"
                }
                   );
 	        
@@ -108,18 +107,18 @@ if(isset($_GET['id'])){
 		  if ($("#Form2 input:checkbox:checked").length > 0)
 			{
 			    
-			    updDataCheckbox('XLSIMPKDP');
+			    updDataCheckbox('XLSIMPWJD');
 
 			    setTimeout(function() {
-			    	getTotalValue('XLSIMPKDP');
+			    	getTotalValue('XLSIMPWJD');
 				}, 500);
 			}
 			else
 			{
 			   
-			   updDataCheckbox('XLSIMPKDP');
+			   updDataCheckbox('XLSIMPWJD');
 			   setTimeout(function() {
-			    	getTotalValue('XLSIMPKDP');
+			    	getTotalValue('XLSIMPWJD');
 				}, 500);
 			}}, 100);
 		}
@@ -157,7 +156,7 @@ if(isset($_GET['id'])){
 					</div>
 			<div style="height:5px;width:100%;clear:both"></div>
 				<form action="" name="checks" ID="Form2">
-					<p><a href="hasil_kibf.php?id=<?=$_GET['id']?>"><button type="button" class="btn btn-success btn-small" id="btn-dis" disabled><i class="icon-plus-sign icon-white"></i>&nbsp;&nbsp;Import</button></a>
+					<p><a href="hasil_kibtwujud.php?id=<?=$_GET['id']?>"><button type="button" class="btn btn-success btn-small" id="btn-dis" disabled><i class="icon-plus-sign icon-white"></i>&nbsp;&nbsp;Import</button></a>
 							&nbsp;</p>
 
 						<div id="demo">
@@ -192,7 +191,7 @@ if(isset($_GET['id'])){
 						<input type="hidden" name="kontrakid" value="<?=$_POST['kontrakid']?>">
 						<input type="hidden" name="jenisaset" value="<?=$_POST['jenisaset']?>">
 						</form>
-			<div class="spacer"></div>
+			<!--<div class="spacer"></div>
 			    <style type="text/css">
 					/* Start by setting display:none to make this hidden.
 				   Then we position it in relation to the viewport window
@@ -225,7 +224,7 @@ if(isset($_GET['id'])){
 					    display: block;
 					}
 					</style>
-					<div class="modal"></div>
+					<div class="modal"></div>-->
 		</section> 
 		     
 	</section>

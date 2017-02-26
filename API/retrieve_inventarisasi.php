@@ -1605,7 +1605,7 @@ class RETRIEVE_INVENTARISASI extends RETRIEVE{
           $sql = "DELETE FROM tmp_kdp WHERE UserNm = '{$_SESSION['ses_uoperatorid']}'";
           $execquery = $this->query($sql);
 
-          $sql = "DELETE FROM apl_userasetlist WHERE UserNm = '{$_SESSION['ses_uoperatorid']}' AND aset_action = 'XLSIMPC'";
+          $sql = "DELETE FROM apl_userasetlist WHERE UserNm = '{$_SESSION['ses_uoperatorid']}' AND aset_action = 'XLSIMPKDP'";
           $execquery = $this->query($sql);
 
         $sql = "INSERT INTO log_import (`noKontrak`, `desc`, `totalPerolehan`, `user`, `status`) VALUES ('{$post['noKontrak']}','{$files['myFile']['name']}',0,'{$_SESSION['ses_uname']}',0)";
@@ -1619,7 +1619,7 @@ class RETRIEVE_INVENTARISASI extends RETRIEVE{
         $counttosleep = 0;
         for ($i=10; $i<=$baris; $i++)
         {
-            if($data->val($i,13) != "" || $data->val($i,13) != 0){
+            if($data->val($i,9) != "" || $data->val($i,9) != 0){
                   $counttosleep++;
                   if($counttosleep == 201 ){
                     $counttosleep = 1;
@@ -1693,6 +1693,105 @@ class RETRIEVE_INVENTARISASI extends RETRIEVE{
         }
         $this->commit();
         echo "<meta http-equiv=\"Refresh\" content=\"0; url={$url_rewrite}/module/inventarisasi/import/kdp.php\">";
+        
+        exit;
+    }
+
+
+    public function importing_xls2html_twujud($files,$post)
+    {
+        global $url_rewrite;
+        $this->begin();
+
+        //delete old data
+          $sql = "DELETE FROM tmp_twujud WHERE UserNm = '{$_SESSION['ses_uoperatorid']}'";
+          $execquery = $this->query($sql);
+
+          $sql = "DELETE FROM apl_userasetlist WHERE UserNm = '{$_SESSION['ses_uoperatorid']}' AND aset_action = 'XLSIMPC'";
+          $execquery = $this->query($sql);
+
+        $sql = "INSERT INTO log_import (`noKontrak`, `desc`, `totalPerolehan`, `user`, `status`) VALUES ('{$post['noKontrak']}','{$files['myFile']['name']}',0,'{$_SESSION['ses_uname']}',0)";
+        $exec = $this->query($sql);
+        $data = new Spreadsheet_Excel_Reader($files['myFile']['tmp_name']);
+        
+        // membaca jumlah baris dari data excel
+        $baris = $data->rowcount($sheet_index=0);
+
+        $no = 0;
+        $counttosleep = 0;
+        for ($i=10; $i<=$baris; $i++)
+        {
+            if($data->val($i,4) != "" || $data->val($i,4) != 0){
+                  $counttosleep++;
+                  if($counttosleep == 201 ){
+                    $counttosleep = 1;
+                    sleep(1);
+                  } 
+                  $xlsdata[$no]['kodeSatker'] = $post['kodeSatker'];
+                  $kodeSatker = explode(".",$post['kodeSatker']);
+                  $xlsdata[$no]['TglPerolehan'] = $data->val($i, 5);
+                  $xlsdata[$no]['TglPembukuan'] = $data->val($i, 6);
+                  // $myDateTime = DateTime::createFromFormat('Y-m-d', $tgl);
+                  // $xlsdata[$no]['TglPerolehan'] = $myDateTime->format('Y-m-d');
+                  $xlsdata[$no]['Tahun'] = substr($xlsdata[$no]['TglPerolehan'], 0,4);
+                  $xlsdata[$no]['kodeLokasi'] = "12.11.33.".$kodeSatker[0].".".$kodeSatker[1].".".substr($xlsdata[$no]['Tahun'],-2).".".$kodeSatker[2].".".$kodeSatker[3];      
+                  $xlsdata[$no]['kodeKelompok'] = $data->val($i, 3);
+                  $kib = explode(".", $xlsdata[$no]['kodeKelompok']);
+                  //if($kib[0] == "07"){
+                    $xlsdata[$no]['TipeAset'] = 'G';
+                  /*} elseif ($kib[0] == "08") {
+                    $xlsdata[$no]['TipeAset'] = 'H';
+                  }*/
+                  $sql = mysql_query("SELECT uraian FROM kelompok WHERE kode='{$data->val($i, 3)}' LIMIT 1");
+                    while ($namaaset = mysql_fetch_assoc($sql)){
+                            $uraian = $namaaset['uraian'];
+                        }   
+                  $xlsdata[$no]['uraian'] = $uraian;
+
+                  $xlsdata[$no]['noKontrak'] = $post['noKontrak'];
+                  $xlsdata[$no]['AsalUsul'] = $data->val($i,11);
+                  $xlsdata[$no]['Info'] = $data->val($i,10);
+                  $xlsdata[$no]['kodeRuangan'] = $post['kodeRuangan'];
+                  $xlsdata[$no]['kondisi'] = '3';
+                  $xlsdata[$no]['Alamat'] = $data->val($i,9);
+                  $xlsdata[$no]['Jumlah'] = $data->val($i,4);
+                  $xlsdata[$no]['UserNm'] = $_SESSION['ses_uoperatorid'];
+                  $xlsdata[$no]['Sess'] = $baris-9;
+
+                  $wordRM = array(","," ",".","*");
+                  $nilaiTrim = str_replace($wordRM,"",$data->val($i,7));
+
+                  $xlsdata[$no]['NilaiPerolehan'] = $nilaiTrim;
+                  $xlsdata[$no]['NilaiTotal'] = $nilaiTrim*$data->val($i,4);
+
+                  if($xlsdata[$no]['NilaiPerolehan'] == '' || $xlsdata[$no]['NilaiPerolehan'] == 0){
+                    $xlsdata[$no]['other'] = "hidden"; $xlsdata[$no]['style'] = "disabled";
+                  } else $xlsdata[$no]['other'] = "checkbox";
+
+                  unset($tmpfield); unset($tmpvalue);
+
+                    foreach ($xlsdata[$no] as $key => $val) {
+                        $tmpfield[] = $key;
+                        $tmpvalue[] = "'$val'";
+                    }
+                    $field = implode(',', $tmpfield);
+                    $value = implode(',', $tmpvalue);
+
+                    $query = "INSERT INTO tmp_twujud ({$field}) VALUES ({$value})";
+                   
+                    $execquery = $this->query($query);
+                    logFile($query);
+                    if(!$execquery){
+                      $this->rollback();
+                      echo "<script>alert('Data gagal masuk. Silahkan coba lagi');</script><meta http-equiv=\"Refresh\" content=\"0; url={$url_rewrite}/module/inventarisasi/importmenu.php\">";
+                      exit;
+                    }
+
+                  $no++;
+            }
+        }
+        $this->commit();
+        echo "<meta http-equiv=\"Refresh\" content=\"0; url={$url_rewrite}/module/inventarisasi/import/twujud.php\">";
         
         exit;
     }
