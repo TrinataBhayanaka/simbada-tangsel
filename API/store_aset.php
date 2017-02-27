@@ -1548,7 +1548,18 @@ $id_kapitalisasi_aset=  get_auto_increment("KapitalisasiAset");
                 } else {
                     $tblAset['kodeKA'] = 1;
                 }
-            } else {
+            }elseif ($data['TipeAset'] == 'E') {
+                if($tblAset['Tahun'] >= 2016){
+                    if(($tmpKode == '05.17.01' || $tmpKode == '05.17.02') 
+                        && $tblAset['NilaiPerolehan'] >= 100000){
+                        $tblAset['kodeKA'] = 1;       
+                    }else{
+                        $tblAset['kodeKA'] = 0;
+                    }
+                }else{
+                    $tblAset['kodeKA'] = 0;
+                }  
+            }else {
                 $tblAset['kodeKA'] = 0;
             }
         // }
@@ -2301,7 +2312,7 @@ $id_kapitalisasi_aset=  get_auto_increment("KapitalisasiAset");
     public function store_inventarisasi($data)
     {
 
- 
+        //pr($data);
         global $url_rewrite;
         $this->begin();
         // pr($data);exit;
@@ -2326,9 +2337,9 @@ $id_kapitalisasi_aset=  get_auto_increment("KapitalisasiAset");
             $tblAset['kondisi'] = 3;
             $tblAset['Status_Validasi_Barang'] = 1;
         }
-        // if(intval($tblAset['Tahun']) < 2008){
-        //     $tblAset['kodeKA'] = 1;
-        // }else {
+        $tmpKode = substr($tblAset['kodeKelompok'],0,8);
+
+
             if($data['TipeAset'] == 'B'){
                 if($tblAset['NilaiPerolehan'] < 1000000){
                     $tblAset['kodeKA'] = 0;
@@ -2341,7 +2352,19 @@ $id_kapitalisasi_aset=  get_auto_increment("KapitalisasiAset");
                 } else {
                     $tblAset['kodeKA'] = 1;
                 }
-            } else {
+            }elseif ($data['TipeAset'] == 'E') {
+                if($tblAset['Tahun'] >= 2016){
+                    if(($tmpKode == '05.17.01' || $tmpKode == '05.17.02') 
+                        && $tblAset['NilaiPerolehan'] >= 100000){
+                        $tblAset['kodeKA'] = 1;       
+                    }else{
+                        $tblAset['kodeKA'] = 0;
+                    }
+                }else{
+                    $tblAset['kodeKA'] = 0;
+                }  
+            } 
+            else {
                 $tblAset['kodeKA'] = 0;
             }
         // }

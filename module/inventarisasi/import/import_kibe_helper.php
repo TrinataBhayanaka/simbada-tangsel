@@ -120,25 +120,28 @@ function store_aset($data,$link,$totaldata)
         $tblAset['UserNm'] = $data['UserNm'];
         $tblAset['TipeAset'] = $data['TipeAset'];
         $tblAset['GUID'] = $data['GUID'];
-        // if(intval($tblAset['Tahun']) < 2008){
-            // $tblAset['kodeKA'] = 1;
-        // }else {
-            if($data['TipeAset'] == 'B'){
-                if($tblAset['NilaiPerolehan'] < 1000000){
+        
+        $tmpKode = substr($tblAset['kodeKelompok'],0,8);
+        
+        /*echo "TipeAset =".$data['TipeAset']."\n";   
+        echo "Tahun =".$tblAset['Tahun']."\n";   
+        echo "NilaiPerolehan =".$tblAset['NilaiPerolehan']."\n";*/   
+        
+            if ($data['TipeAset'] == 'E') {
+                if($tblAset['Tahun'] >= 2016){
+                    if(($tmpKode == '05.17.01' || $tmpKode == '05.17.02') 
+                        && $tblAset['NilaiPerolehan'] >= 100000){
+                        $tblAset['kodeKA'] = 1;       
+                    }else{
+                        $tblAset['kodeKA'] = 0;
+                    }
+                }else{
                     $tblAset['kodeKA'] = 0;
-                } else {
-                    $tblAset['kodeKA'] = 1;
-                }
-            } elseif ($data['TipeAset'] == 'C') {
-                if($tblAset['NilaiPerolehan'] < 20000000){
-                    $tblAset['kodeKA'] = 0;
-                } else {
-                    $tblAset['kodeKA'] = 1;
-                }
-            } else {
-            	$tblAset['kodeKA'] = 1;
+                }  
             }
-        // }
+
+        //echo "kodeKA =".$tblAset['kodeKA']."\n";   
+        
         $tblAset['AsalUsul'] = $data['AsalUsul'];
 
         if(isset($data['xls'])) {
@@ -185,7 +188,7 @@ function store_aset($data,$link,$totaldata)
             $field = implode(',', $tmpfield);
             $value = implode(',', $tmpvalue);
             $query = "INSERT INTO aset ({$field}) VALUES ({$value})" or die("Error in the consult.." . mysqli_error($link));
-            
+            //echo "query".$query."\n";   
             $exec = $link->query($query);
             $tblKib['Aset_ID'] = mysqli_insert_id($link);
 
@@ -309,7 +312,7 @@ function store_aset($data,$link,$totaldata)
             $field = implode(',', $tmpfield2);
             $value = implode(',', $tmpvalue2);
             $query = "INSERT INTO {$tabel} ({$field}) VALUES ({$value})" or die("Error in the consult.." . mysqli_error($link));
-            
+            //echo "query1=".$query."\n"; 
             if($tabel!="aset"){
                 $exec = $link->query($query);
                 $kib[$idkey] = mysqli_insert_id($link);
@@ -407,7 +410,7 @@ function store_aset($data,$link,$totaldata)
 
                         $sql = "INSERT INTO log_{$tabel} ({$fileldImp}) VALUES ({$dataImp})" or die("Error in the consult.." . mysqli_error($link));
                        	$exec = $link->query($sql);
-
+                        //echo "query2=".$sql."\n";
                        	echo "Baris selesai : ".$xlsxount."\n";
                        	echo "Jumlah data yang masuk : ".$totaldata."\n";
 
