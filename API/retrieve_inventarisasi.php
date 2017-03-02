@@ -705,7 +705,7 @@ class RETRIEVE_INVENTARISASI extends RETRIEVE{
         $counttosleep = 0;
         for ($i=10; $i<=$baris; $i++)
         {
-            if($data->val($i,11) != "" || $data->val($i,11) != 0){
+            if($data->val($i,9) != "" || $data->val($i,9) != 0){
                   $counttosleep++;
                   if($counttosleep == 201 ){
                     $counttosleep = 1;
@@ -1113,7 +1113,7 @@ class RETRIEVE_INVENTARISASI extends RETRIEVE{
         $counttosleep = 0;
         for ($i=10; $i<=$baris; $i++)
         {
-            if($data->val($i,13) != "" || $data->val($i,13) != 0){
+            if($data->val($i,11) != "" || $data->val($i,11) != 0){
                   $counttosleep++;
                   if($counttosleep == 201 ){
                     $counttosleep = 1;
@@ -1316,7 +1316,7 @@ class RETRIEVE_INVENTARISASI extends RETRIEVE{
         $counttosleep = 0;
         for ($i=10; $i<=$baris; $i++)
         {
-            if($data->val($i,13) != "" || $data->val($i,13) != 0){
+            if($data->val($i,11) != "" || $data->val($i,11) != 0){
                   $counttosleep++;
                   if($counttosleep == 201 ){
                     $counttosleep = 1;
@@ -1546,8 +1546,13 @@ class RETRIEVE_INVENTARISASI extends RETRIEVE{
           $xlsdata[$no]['noKontrak'] = $_POST['noKontrak'];
           $xlsdata[$no]['Info'] = $data->val($i,18);
           $xlsdata[$no]['kodeRuangan'] = $_POST['kodeRuangan'];
-          $xlsdata[$no]['NilaiPerolehan'] = $data->val($i,16);
-          $xlsdata[$no]['NilaiTotal'] = $data->val($i,16);
+          //$xlsdata[$no]['NilaiPerolehan'] = $data->val($i,16);
+          //$xlsdata[$no]['NilaiTotal'] = $data->val($i,16);
+          $wordRM = array(","," ",".","*");
+          $nilaiTrim = str_replace($wordRM,"",$data->val($i,16));
+          $xlsdata[$no]['NilaiPerolehan'] = $nilaiTrim;
+          $xlsdata[$no]['NilaiTotal'] = $nilaiTrim*$data->val($i,15);
+          
           $xlsdata[$no]['Merk'] = $data->val($i,4);
           $xlsdata[$no]['Model'] = $data->val($i,5);
           $xlsdata[$no]['Ukuran'] = $data->val($i,6);
