@@ -531,7 +531,8 @@ public function retrieve_html_liat_dftr_aset($dataArr,$skpd_id,$gambar,$tipe){
 									   
 								  </tr>
 							  </thead>";
-					$no = 1;			  
+					$no = 1;
+					$Total = 0;			  
 					foreach ($dataArr as $val => $data)
 					{
 								$perolehan = number_format($data->NilaiPerolehan,2,",",".");
@@ -557,13 +558,15 @@ public function retrieve_html_liat_dftr_aset($dataArr,$skpd_id,$gambar,$tipe){
 								}elseif($data->Status_Validasi_Barang == '1'){
 									$ket = "Terdistribusi";
 								}
+								$Total += $data->NilaiPerolehan;
+								$TotalFix = number_format($Total,2,",",".");
 								$html.="
 								<tr>
 									 <td style=\"text-align: center; \">$no</td>
 									   <td style=\"text-align: ; \">$data->noKontrak</td>
 									   <td style=\"text-align: center; \">$noReg</td>
 									   <td style=\"text-align: ; \">$data->kodeKelompok /<br>$NamaKelompok</td>
-									   <td style=\"text-align: center; \">$perolehan</td>
+									   <td style=\"text-align: right; \">$perolehan</td>
 									   <td style=\"text-align: center; \">$tglPrlhn</td>
 									   <td style=\"text-align: center; \">$tglPmbkn</td>
 									   <td style=\"text-align: center; \">$data->Tahun</td>
@@ -574,7 +577,11 @@ public function retrieve_html_liat_dftr_aset($dataArr,$skpd_id,$gambar,$tipe){
 								$no++;
 								
 					}
-                                         
+                        $html.="<tr>
+                        			<td colspan='4'>&nbsp;</td>
+                        			<td style=\"text-align: right; \">$TotalFix</td>
+                        			<td colspan='5'>&nbsp;</td>
+                        		</tr>";	                 
 						$html.="</table></body></html>";		
 					
 						$get_html[]=$html;

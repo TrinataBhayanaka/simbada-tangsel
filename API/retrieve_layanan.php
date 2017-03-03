@@ -8,6 +8,84 @@ class RETRIEVE_LAYANAN extends RETRIEVE{
 
 	}
 	
+    function retrieve_detail_aset($data,$debug=false)
+    {
+
+        $jenisaset = $data['jenisaset'];
+        $Aset_ID = $data['id'];
+        
+        $listTableAbjad = array('A'=>1,'B'=>2,'C'=>3,'D'=>4,'E'=>5,'F'=>6);
+
+        // pr($data);
+        $filter = "";
+        if ($data['logid']) $filter .= " AND log_id = '{$data['logid']}'";
+
+        $getTable = $this->getTableKibAlias($listTableAbjad[$jenisaset]);
+        $listTable = $getTable['listTable'];
+        $listTableAlias = $getTable['listTableAlias'];
+
+        if ($Aset_ID) $filter .= " AND {$listTableAlias}.Aset_ID = '{$Aset_ID}' ";
+
+        $sqlAset = array(
+                'table'=>"aset AS a",
+                'field'=>"*",
+                'condition' => "a.Aset_ID = {$Aset_ID} ",
+                );
+
+        $resAset = $this->db->lazyQuery($sqlAset,$debug);
+
+        $sqlKib = array(
+                'table'=>"{$listTable}",
+                'field'=>"*",
+                'condition' => "{$listTableAlias}.Aset_ID = {$Aset_ID} ",
+                );
+
+        $resKib = $this->db->lazyQuery($sqlKib,$debug);
+        
+        $sql = array(
+                'table'=>"log_{$listTable}, kelompok AS k, ref_riwayat AS r",
+                'field'=>"{$listTableAlias}.*, k.Uraian, r.Nm_Riwayat",
+                'condition' => "1  {$filter} ORDER BY log_id DESC",
+                'limit' => '100',
+                'joinmethod' => 'LEFT JOIN',
+                'join' => "{$listTableAlias}.kodeKelompok = k.Kode, {$listTableAlias}.Kd_Riwayat=r.Kd_Riwayat"
+                );
+
+        $resLog = $this->db->lazyQuery($sql,$debug);
+       
+        if ($resLog){
+
+            foreach ($resLog as $key => $value) {
+
+                $sqlAwal = array(
+                        'table'=>"aset a, kelompok AS k",
+                        'field'=>"a.kodeSatker, k.Uraian",
+                        'condition' => "a.Aset_ID = '{$resLog[0]['Aset_ID_Penambahan']}'",
+                        'limit' => '1',
+                        'joinmethod' => 'LEFT JOIN',
+                        'join' => "a.kodeKelompok = k.Kode"
+                        );
+
+                $resLog[$key]['data_awal'] = $this->db->lazyQuery($sqlAwal,$debug);
+                $sql = array(
+                        'table'=>"satker AS s",
+                        'field'=>"s.NamaSatker",
+                        'condition' => "s.kode = '{$value['kodeSatker']}' AND s.Kd_Ruang IS NULL",
+                        'limit' => '100',
+                        );
+
+                $resLog[$key]['NamaSatker'] = $this->db->lazyQuery($sql,$debug);
+            }
+
+            
+        } 
+
+        $res['aset'] = $resAset;
+        $res['kib'] = $resKib;
+        $res['log'] = $resLog;
+        return $res;
+    }
+
 
 	public function retrieve_layanan_aset_daftar($data,$debug=false)
     {

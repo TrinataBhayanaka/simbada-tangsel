@@ -11,18 +11,18 @@ define('_MPDF_URI',"$url_rewrite/function/mpdf/"); 	// must be  a relative or ab
 include "../../report_engine.php";
 require_once('../../../function/mpdf/mpdf.php');
 // pr($_GET);
-$no_kontrak = $_GET['no_kontrak]'];
+/*$no_kontrak = $_GET['no_kontrak]'];
 $tahun = $_GET['tahun'];
 $Satker_ID = $_GET['Satker_ID'];
 $status = $_GET['status'];
 $jns_aset = $_GET['jns_aset'];
-$tipe=$_GET['tipe'];
+$tipe=$_GET['tipe'];*/
 
 $REPORT=new report_engine();
 
 $gambar = $FILE_GAMBAR_KABUPATEN;
 
-if($no_kontrak !=''){
+/*if($no_kontrak !=''){
 	$query_noKontrak = "noKontrak='{$no_kontrak}' AND";
 }else{
 	$query_noKontrak="";
@@ -71,15 +71,57 @@ for ($i = 0; $i < $count; $i++){
 		$dataArr[] = $data;
 	}
 		
+}*/
+$tahun = $_GET['tahun'];
+$jenisaset = $_GET['jns_aset'];
+$kodeSatker = $_GET['Satker_ID'];
+$kodeKelompok = $_GET['kodeKelompok'];
+$statusaset = $_GET['status'];
+$tipe=$_GET['tipe'];
+//pr($_GET);
+$param = '';
+//param tahun
+if ($tahun != "") {
+  $param.=" AND Tahun ='$tahun' ";
 }
-// pr($dataArr);
-// exit;
+
+//param kodekelompok
+if ($kodeKelompok != "") {
+  $param.=" AND kodeKelompok ='$kodeKelompok' ";
+}
+
+if($statusaset!=""){
+  switch ($statusaset) {
+    case "1":
+      //masuk neraca  StatusValidasi=1 dan Status_Validasi_Barang=1
+     // tahun berjalan dan tgl
+      $aset_status= " StatusValidasi=1 AND Status_Validasi_Barang=1";
+      break;
+    case "0":
+      //baru masuk kontrak atau inventarisasi  StatusValidasi=1 dan Status_Validasi_Barang=0
+      $aset_status= " (StatusValidasi=1 AND (Status_Validasi_Barang=0 or Status_Validasi_Barang is null))";
+      break; 
+   } 
+}
+
+$sWhere = "WHERE $aset_status AND kodeSatker='$kodeSatker' AND TipeAset='$jenisaset' {$param}";
+//pr($sWhere);
+$query = "SELECT noKontrak,noRegister,kodeKelompok,kodeSatker,Info,TglPerolehan,TglPembukuan,Tahun,
+				 NilaiPerolehan,StatusValidasi,Status_Validasi_Barang 
+	  	  from aset {$sWhere} order by kodeKelompok,noRegister asc";
+//r($query);
+$exe = mysql_query($query);
+while ($data = mysql_fetch_object($exe)){
+	$dataArr[] = $data;
+}
+//pr($dataArr);
+//exit;
 //mendeklarasikan report_engine. FILE utama untuk reporting
 // pr($gambar);
 $html=$REPORT->retrieve_html_liat_dftr_aset($dataArr,$Satker_ID,$gambar,$tipe);
 
-/*$count = count($html);
-for ($i = 0; $i < $count; $i++) {
+$count = count($html);
+/*for ($i = 0; $i < $count; $i++) {
 		 echo $html[$i];     
 	}
 exit;*/
@@ -110,9 +152,9 @@ $count = count($html);
 	}
 
 $waktu=date("d-m-y_h-i-s");
-$namafile="$path/report/output/Daftar Aset $waktu.pdf";
+$namafile="$path/report/output/Daftar_Aset_$waktu.pdf";
 $mpdf->Output("$namafile",'F');
-$namafile_web="$url_rewrite/report/output/Daftar Aset $waktu.pdf";
+$namafile_web="$url_rewrite/report/output/Daftar_Aset_$waktu.pdf";
 echo "<script>window.location.href='$namafile_web';</script>";
 exit;	
 }
