@@ -233,7 +233,7 @@ while ($aRow = mysql_fetch_array($rResult)) {
         $checkbox="";   
       }
     }  
-   
+    //echo "tes";
      $row[] ="<center>".$no."</center>";
      $row[] = "<center>".$checkbox."</center>";  
      $row[] = "<center>".$noRegister."</center>";
