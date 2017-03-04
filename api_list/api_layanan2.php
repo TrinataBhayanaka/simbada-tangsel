@@ -227,7 +227,7 @@ while ($aRow = mysql_fetch_array($rResult)) {
     if($statusaset == '0'){
       $checkbox="<input type=\"checkbox\" id=\"checkbox\" class=\"icheck-input checkbox\" onchange=\"return AreAnyCheckboxesChecked();\" name=\"Layanan[]\" value=\"{$Aset_ID}\">";   
     }elseif ($statusaset == '1') {
-      if($TahunAset == $tahun_aktif){
+      if($TahunAset >= $tahun_aktif){
         $checkbox="<input type=\"checkbox\" id=\"checkbox\" class=\"icheck-input checkbox\" onchange=\"return AreAnyCheckboxesChecked();\" name=\"Layanan[]\" value=\"{$Aset_ID}\">";
       }else{
         $checkbox="";   
