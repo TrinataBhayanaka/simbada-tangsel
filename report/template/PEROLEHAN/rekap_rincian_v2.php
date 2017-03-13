@@ -728,6 +728,7 @@ if($gol == 'mesin_ori'){
 					 and TglPerolehan <= '$param_tgl' 
 					 and TglPembukuan <='$param_tgl' 
 					 and kodeLokasi like '12%' 
+					  and kondisi != '3'	
 					 and $paramSatker";
 	 
 	 if($gol == 'jaringan_ori'){
@@ -1181,7 +1182,7 @@ foreach ($data_akhir_alone as $tipe => $value) {
     $data_akhir[$tipe]['nb']=0;
     $data_akhir[$tipe]['mutasi_jml_tambah']=$value['jml'];
     $data_akhir[$tipe]['mutasi_nilai_tambah']=$value['nilai'];
-    $data_akhir[$tipe]['mutasi_ap_tambah']=$akumulasi_sblm;//$value['AP'];
+    $data_akhir[$tipe]['mutasi_ap_tambah']=$bp;//$akumulasi_sblm;//$value['AP'];
     $data_akhir[$tipe]['mutasi_pp_tambah']=$value['PP'];
     $data_akhir[$tipe]['mutasi_nb_tambah']=$value['NB'];
     
@@ -1191,7 +1192,7 @@ foreach ($data_akhir_alone as $tipe => $value) {
     $data_akhir[$tipe]['mutasi_pp_kurang']=0;
     $data_akhir[$tipe]['mutasi_nb_kurang']=0;
     
-    $data_akhir[$tipe]['bp']=$bp;//$value['AP'];
+    $data_akhir[$tipe]['bp']=0;//$bp;//$value['AP'];
     
     $data_akhir[$tipe]['nilai_akhir']=$value['nilai'];
     $data_akhir[$tipe]['jml_akhir']=$value['jml'];
