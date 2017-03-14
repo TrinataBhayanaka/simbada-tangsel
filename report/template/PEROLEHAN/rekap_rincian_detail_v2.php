@@ -262,6 +262,9 @@ $splitKodeSatker = explode ('.',$param_satker);
 		$paramSatker = "kodeSatker like '$param_satker%'";
 	}
 $param_tgl = $tglakhirperolehan ;
+$tmp_perubahan=explode("-",$param_tgl);
+$tgl_perubahan_aset=$tmp_perubahan[0]."-01-01";
+
 
         
 
@@ -304,7 +307,8 @@ $param_tgl = $tglakhirperolehan ;
                 $data_akhir=  subsub($kode_golongan, $q_gol_final, $ps, "$tahun_neraca-12-31");
                 $data_hilang=subsub_hapus($kode_golongan, $q_gol_final, $ps, "$tahun_neraca-12-31",$pt);
 		//exit();
-                $hasil=  group_data($data_awal, $data_akhir,$data_hilang);
+
+                $hasil=  group_data($data_awal, $data_akhir,$data_hilang,$tgl_perubahan_aset);
                //echo "<pre>";
                //print_r($hasil);
               // exit();
@@ -939,8 +943,9 @@ else
 	echo $html; 
 }
 
-function group_data($data_awal_perolehan,$data_akhir_perolehan,$data_hapus_awal){
-    
+function group_data($data_awal_perolehan,$data_akhir_perolehan,$data_hapus_awal,$tgl_perubahan_aset){
+
+
     //tes
  $data_awal = array();
 
@@ -1182,7 +1187,15 @@ foreach ($data_akhir_alone as $tipe => $value) {
     $data_akhir[$tipe]['nb']=0;
     $data_akhir[$tipe]['mutasi_jml_tambah']=$value['jml'];
     $data_akhir[$tipe]['mutasi_nilai_tambah']=$value['nilai'];
-    $data_akhir[$tipe]['mutasi_ap_tambah']=$bp;//$akumulasi_sblm;//$value['AP'];
+   // $TglPerubahan="";
+    $temp=explode("-",$tgl_perubahan_aset);
+    $tahun_aset=$temp[0];
+    list($Akm,$status)=get_data_log_data_aset($Aset_ID,$tgl_perubahan_aset,$tipe,3);
+    if($status==1)
+        $data_akhir[$tipe]['mutasi_ap_tambah']=$Akm;//$akumulasi_sblm;//$value['AP'];
+    else
+        $data_akhir[$tipe]['mutasi_ap_tambah']=0;
+
     $data_akhir[$tipe]['mutasi_pp_tambah']=$value['PP'];
     $data_akhir[$tipe]['mutasi_nb_tambah']=$value['NB'];
     
@@ -1191,9 +1204,12 @@ foreach ($data_akhir_alone as $tipe => $value) {
     $data_akhir[$tipe]['mutasi_ap_kurang']=0;
     $data_akhir[$tipe]['mutasi_pp_kurang']=0;
     $data_akhir[$tipe]['mutasi_nb_kurang']=0;
-    
-    $data_akhir[$tipe]['bp']=0;//$bp;//$value['AP'];
-    
+
+    if($tahun_aset==$TahunPenyusutan)
+        $data_akhir[$tipe]['bp']=$value['PP'];//$bp;//$value['AP'];
+    else
+        $data_akhir[$tipe]['bp']=$tahun_aset;
+
     $data_akhir[$tipe]['nilai_akhir']=$value['nilai'];
     $data_akhir[$tipe]['jml_akhir']=$value['jml'];
     $data_akhir[$tipe]['ap_akhir']=$value['AP'];
@@ -1482,6 +1498,52 @@ function get_uraian($kode,$level){
     return $Uraian;
 }
 
+function get_data_log_data_aset($Aset_ID,$TglPerubahan,$kelompok,$kd_riwayat){
+    $gol=  explode(".", $kelompok);
+    switch ($gol[0]) {
+        case "1":
+            $nama_log="log_tanah";
+            break;
+        case "2":
+            $nama_log="log_mesin";
+            break;
+        case "3":
+            $nama_log="log_bangunan";
+            break;
+        case "4":
+            $nama_log="log_jaringan";
+            break;
+        case "5":
+            $nama_log="log_asetlain";
+            break;
+        case "6":
+            $nama_log="log_kdp";
+            break;
+
+        default:
+            break;
+    }
+   // echo "nama==$nama_log<br/>";
+    $Tahun = $TahunPenyusutan - 1;
+    $query = "select AkumulasiPenyusutan from $nama_log where "
+        . "kd_riwayat in($kd_riwayat) and TglPerubahan>='$TglPerubahan' "
+        . " and Aset_ID='$Aset_ID' ";
+    /*echo $query;
+    echo "<br/>";*/
+    $status = 0;
+    $result = mysql_query($query) or die(mysql_error());
+    $AkumulasiPenyusutan = 0;
+    while ($row = mysql_fetch_array($result)) {
+        $AkumulasiPenyusutan = $row['AkumulasiPenyusutan'];
+     $status = 1;
+    }
+    if($gol[0]!="2" && $gol[0]!="3" && $gol[0]!="4"){
+        $AkumulasiPenyusutan=0;
+    }
+
+
+    return array($AkumulasiPenyusutan,$status);
+}
 function get_akumulasi_sblm($Aset_ID,$TahunPenyusutan,$kelompok){
     $gol=  explode(".", $kelompok);
     //echo "$kelompok<pre>";
