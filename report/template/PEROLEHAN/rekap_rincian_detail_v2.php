@@ -61,8 +61,8 @@ $skpd_id);
 //begin 
 //head satker
 $detailSatker = $REPORT->get_satker($skpd_id);
-// pr($detailSatker);
-// exit;
+ /*pr($detailSatker);
+ exit;*/
 $NoBidang = $detailSatker[0];
 $NoUnitOrganisasi = $detailSatker[1];
 $NoSubUnitOrganisasi = $detailSatker[2];
@@ -86,7 +86,7 @@ $UPB = $detailSatker[4][3];
    
 $ex = explode('.',$skpd_id);
 $hit = count($ex);
-if($hit == 1){
+/*if($hit == 1){
 	$header = "<tr>
           <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
@@ -141,7 +141,27 @@ if($hit == 1){
           <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
           <td style=\"width: 873px; font-weight: bold;\">$UPB</td>
         </tr>";
-}
+}*/
+$header = "<tr>
+          <td style=\"width: 200px; font-weight: bold; text-align: left;\">BIDANG</td>
+          <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
+          <td style=\"width: 873px; font-weight: bold;\">$Bidang</td>
+        </tr>
+		<tr>
+          <td style=\"width: 200px; font-weight: bold; text-align: left;\">UNIT ORGANISASI</td>
+          <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
+          <td style=\"width: 873px; font-weight: bold;\">$UnitOrganisasi</td>
+        </tr>
+		<tr>
+          <td style=\"width: 200px; font-weight: bold; text-align: left;\">SUB UNIT ORGANISASI</td>
+          <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
+          <td style=\"width: 873px; font-weight: bold;\">$SubUnitOrganisasi</td>
+        </tr>
+		<tr>
+          <td style=\"width: 200px; font-weight: bold; text-align: left;\">UPB</td>
+          <td style=\"text-align: center; font-weight: bold; width: 10px;\">:</td>
+          <td style=\"width: 873px; font-weight: bold;\">$UPB</td>
+        </tr>";
 // echo $head;
 // exit;
 //start
@@ -1190,6 +1210,7 @@ foreach ($data_akhir_alone as $tipe => $value) {
    // $TglPerubahan="";
     $temp=explode("-",$tgl_perubahan_aset);
     $tahun_aset=$temp[0];
+    $nb_sblm=get_nb_penyusutan_sblm($Aset_ID,$tahun_aset,$tipe);
     list($Akm,$status)=get_data_log_data_aset($Aset_ID,$tgl_perubahan_aset,$tipe,3);
     if($status==1)
         $data_akhir[$tipe]['mutasi_ap_tambah']=$Akm;//$akumulasi_sblm;//$value['AP'];
@@ -1206,9 +1227,14 @@ foreach ($data_akhir_alone as $tipe => $value) {
     $data_akhir[$tipe]['mutasi_nb_kurang']=0;
 
     if($tahun_aset==$TahunPenyusutan)
-        $data_akhir[$tipe]['bp']=$value['PP'];//$bp;//$value['AP'];
+	{
+		if($nb_sblm!=0)
+			$data_akhir[$tipe]['bp']=$value['PP'];//$bp;//$value['AP'];
+		else
+			$data_akhir[$tipe]['bp']=0;
+	}        
     else
-        $data_akhir[$tipe]['bp']=$tahun_aset;
+        $data_akhir[$tipe]['bp']=0;
 
     $data_akhir[$tipe]['nilai_akhir']=$value['nilai'];
     $data_akhir[$tipe]['jml_akhir']=$value['jml'];
@@ -1496,6 +1522,55 @@ function get_uraian($kode,$level){
         $Uraian=$row[Uraian];
     }
     return $Uraian;
+}
+
+function get_nb_penyusutan_sblm($Aset_ID,$TahunPenyusutan,$kelompok){
+    $gol=  explode(".", $kelompok);
+    switch ($gol[0]) {
+        case "1":
+            $nama_log="log_tanah";
+            break;
+        case "2":
+            $nama_log="log_mesin";
+            break;
+        case "3":
+            $nama_log="log_bangunan";
+            break;
+        case "4":
+            $nama_log="log_jaringan";
+            break;
+        case "5":
+            $nama_log="log_asetlain";
+            break;
+        case "6":
+            $nama_log="log_kdp";
+            break;
+
+        default:
+            break;
+    }
+   // echo "nama==$nama_log<br/>";
+    if($gol[0]!="2" && $gol[0]!="3" && $gol[0]!="4"){
+        $NilaiBuku=0;
+    }else{
+		    $TahunPenyusutan=$TahunPenyusutan-1;
+		    $query = "select NilaiBuku from $nama_log where TahunPenyusutan='$TahunPenyusutan' and "
+		        . "kd_riwayat in(50,51,52) and TglPerubahan!='0000-00-00 00:00:00' and TglPerubahan is not null "
+		        . " and Aset_ID='$Aset_ID' ";
+		    /*echo $query;
+		    echo "<br/>";*/
+		    $status = 0;
+		    $result = mysql_query($query) or die(mysql_error());
+		    $AkumulasiPenyusutan = 0;
+		    while ($row = mysql_fetch_array($result)) {
+		        $NilaiBuku = $row['NilaiBuku'];
+		     $status = 1;
+		    }
+	}
+    
+
+
+    return $NilaiBuku;
 }
 
 function get_data_log_data_aset($Aset_ID,$TglPerubahan,$kelompok,$kd_riwayat){
