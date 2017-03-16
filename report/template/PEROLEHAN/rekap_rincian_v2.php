@@ -1210,11 +1210,17 @@ foreach ($data_akhir_alone as $tipe => $value) {
    // $TglPerubahan="";
     $temp=explode("-",$tgl_perubahan_aset);
     $tahun_aset=$temp[0];
-    $nb_sblm=get_nb_penyusutan_sblm($Aset_ID,$tahun_aset,$tipe);
-    list($Akm,$status)=get_data_log_data_aset($Aset_ID,$tgl_perubahan_aset,$tipe,3);
-    if($status==1)
-        $data_akhir[$tipe]['mutasi_ap_tambah']=$Akm;//$akumulasi_sblm;//$value['AP'];
+    list($AkmBaru,$status_pembukuan,$NilaiBuku)=get_data_log_data_aset($Aset_ID,$tgl_perubahan_aset,$tipe,0);
+    //$status_pembukuan=get_status_asetbaru($Aset_ID);
+    if($tahun_aset==$Tahun ||$status_pembukuan==1 )
+      $nb_sblm=1;
     else
+      $nb_sblm=get_nb_penyusutan_sblm($Aset_ID,$tahun_aset,$tipe);
+    list($Akm,$status,$NilaiBuku_Transfer)=get_data_log_data_aset($Aset_ID,$tgl_perubahan_aset,$tipe,3);
+    if($status==1){
+        $data_akhir[$tipe]['mutasi_ap_tambah']=$Akm;//$akumulasi_sblm;//$value['AP'];
+        $nb_sblm=$NilaiBuku_Transfer;
+    }else
         $data_akhir[$tipe]['mutasi_ap_tambah']=0;
 
     $data_akhir[$tipe]['mutasi_pp_tambah']=$value['PP'];
@@ -1225,17 +1231,24 @@ foreach ($data_akhir_alone as $tipe => $value) {
     $data_akhir[$tipe]['mutasi_ap_kurang']=0;
     $data_akhir[$tipe]['mutasi_pp_kurang']=0;
     $data_akhir[$tipe]['mutasi_nb_kurang']=0;
+    //echo "$Aset_ID||==$tahun_aset==$TahunPenyusutan <br/>";
 
     if($tahun_aset==$TahunPenyusutan)
   {
+    //echo "masuk===$Aset_ID | Thn=$Tahun |TahunPenyusutan=$TahunPenyusutan|$nb_sblm<br/>";
     if($nb_sblm!=0)
-      $data_akhir[$tipe]['bp']=$value['PP'];//$bp;//$value['AP'];
+    { $data_akhir[$tipe]['bp']=$value['PP'];//$bp;//$value['AP'];
+      //echo "bp={$value['PP']}<br/>";
+    }
     else
       $data_akhir[$tipe]['bp']=0;
   }        
-    else
-        $data_akhir[$tipe]['bp']=0;
-
+    else{
+        if($nb_sblm!=0)
+            $data_akhir[$tipe]['bp']=0;
+        else
+            $data_akhir[$tipe]['bp']=$value['PP'];
+ }
     $data_akhir[$tipe]['nilai_akhir']=$value['nilai'];
     $data_akhir[$tipe]['jml_akhir']=$value['jml'];
     $data_akhir[$tipe]['ap_akhir']=$value['AP'];
@@ -1557,7 +1570,8 @@ function get_nb_penyusutan_sblm($Aset_ID,$TahunPenyusutan,$kelompok){
         $query = "select NilaiBuku from $nama_log where TahunPenyusutan='$TahunPenyusutan' and "
             . "kd_riwayat in(50,51,52) and TglPerubahan!='0000-00-00 00:00:00' and TglPerubahan is not null "
             . " and Aset_ID='$Aset_ID' ";
-        /*echo $query;
+
+       /* echo $query;
         echo "<br/>";*/
         $status = 0;
         $result = mysql_query($query) or die(mysql_error());
@@ -1600,7 +1614,7 @@ function get_data_log_data_aset($Aset_ID,$TglPerubahan,$kelompok,$kd_riwayat){
     }
    // echo "nama==$nama_log<br/>";
     $Tahun = $TahunPenyusutan - 1;
-    $query = "select AkumulasiPenyusutan from $nama_log where "
+    $query = "select AkumulasiPenyusutan,NilaiBuku from $nama_log where "
         . "kd_riwayat in($kd_riwayat) and TglPerubahan>='$TglPerubahan' "
         . " and Aset_ID='$Aset_ID' ";
     /*echo $query;
@@ -1610,14 +1624,16 @@ function get_data_log_data_aset($Aset_ID,$TglPerubahan,$kelompok,$kd_riwayat){
     $AkumulasiPenyusutan = 0;
     while ($row = mysql_fetch_array($result)) {
         $AkumulasiPenyusutan = $row['AkumulasiPenyusutan'];
+        $NilaiBuku=$row['NilaiBuku'];
      $status = 1;
     }
     if($gol[0]!="2" && $gol[0]!="3" && $gol[0]!="4"){
         $AkumulasiPenyusutan=0;
+        $NilaiBuku=0;
     }
 
 
-    return array($AkumulasiPenyusutan,$status);
+    return array($AkumulasiPenyusutan,$status,$NilaiBuku);
 }
 function get_akumulasi_sblm($Aset_ID,$TahunPenyusutan,$kelompok){
     $gol=  explode(".", $kelompok);
