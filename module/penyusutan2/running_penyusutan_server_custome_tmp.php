@@ -663,7 +663,7 @@ for($i=0;$i<2;$i++){
             //akhir untuk log sblm penyusutan
           
           
-        /*
+        
         //untuk mengecek bila ada trasaksi
              $query_perubahan="select kd_riwayat,log_id,kodeKelompok,kodeSatker,Aset_ID,NilaiPerolehan,NilaiPerolehan_Awal,Tahun,Kd_Riwayat,"
                      . "(NilaiPerolehan-NilaiPerolehan_Awal) as selisih,AkumulasiPenyusutan,"
@@ -988,7 +988,7 @@ for($i=0;$i<2;$i++){
                  $count++;
                  
              }
-             */
+             
              if($status_transaksi!=1){
                  echo "tidak masuk log \n";
                  //bila tidak ada transaksi
