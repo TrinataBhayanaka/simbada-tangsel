@@ -33,12 +33,12 @@ $LAYANAN = new RETRIEVE_LAYANAN;
 	<section id="main">
 		<ul class="breadcrumb">
 			  <li><a href="#"><i class="fa fa-home fa-2x"></i>  Home</a> <span class="divider"><b>&raquo;</b></span></li>
-			  <li><a href="#">Layanan Aset</a><span class="divider"><b>&raquo;</b></span></li>
-			  <li class="active">Detail data Aset</li>
+			  <li><a href="#">Log Aset</a><span class="divider"><b>&raquo;</b></span></li>
+			  <li class="active">Detail Log  Aset</li>
 			  <?php SignInOut();?>
 			</ul>
 			<div class="breadcrumb">
-				<div class="title">Layanan Aset</div>
+				<div class="title">Log Aset</div>
 				<div class="subtitle">Detail data Aset</div>
 			</div>	
 
@@ -84,19 +84,26 @@ $LAYANAN = new RETRIEVE_LAYANAN;
 			<table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
 				<thead>
 					<tr>
-						<th>Aset ID</th>
+						<th>Log ID</th>
 						<th>Informasi Tambahan</th>
+						<th>Tanggal Perubahan</th>
 						<th>Keterangan Log</th>
 						<th>Nilai Perolehan Awal</th>
 						<th>Nilai Perolehan</th>
+						<th>Selisih Nilai</th>
+						<th>Nilai Buku</th>
+						<th>AkumulasiPenyusutan</th>
+						<th>PenyusutanPertahun</th>
+						<th>TahunPenyusutan</th>
+						<th>Masa Manfaat</th>
+						<th>Umur Ekonomis</th>
+
+
 						<th>Kondisi</th>
 						<th>Kode KA</th>
-						<th>NilaiBuku</th>
-						<th>AkumulasiPenyusutan</th>
-						<th>Penyusutan Pertahun</th>
 						<th>Tanggal Perolehan</th>
 						<th>Tanggal Pembukuan</th>
-						<th>Tanggal Perubahan</th>
+						
 						<th>Info</th>
 						<th>Aksi</th>
 					</tr>
@@ -106,23 +113,41 @@ $LAYANAN = new RETRIEVE_LAYANAN;
 					if($data['log']){
 						$i = 1;
 						foreach ($data['log'] as $key => $value) {
-							
+						//pr($value);
+						$TglPerubahan=$value['TglPerubahan'];
+						if($TglPerubahan!="0000-00-00 00:00:00" && $TglPerubahan!=""   ){
 						
 				?>
 					<tr class="gradeA">
-						<td><?=$value['Aset_ID']?></td>
-						<td><?=$value['data_awal'][0]['kodeSatker']. " - " .$value['data_awal'][0]['Uraian']?></td>
+						<td><?=$value['log_id']?></td>
+						<td><?=$value['data_awal'][0]['kodeSatker']. " - " .$value['data_awal'][0]['Uraian']?><br/>
+								<?=$value['kodeSatker']?>
+							</td>
+						<td><?=$value['TglPerubahan']?></td>
 						<td><?="[Kode ". $value['Kd_Riwayat'] .'] - '. $value['Nm_Riwayat']?></td>
+						
 						<td class="center"><?=number_format($value['NilaiPerolehan_Awal'])?></td>
 						<td class="center"><?=number_format($value['NilaiPerolehan'])?></td>
+						<?php
+							$Selisih=0;//andreas
+							if($value['NilaiPerolehan_Awal']!=""||$value['NilaiPerolehan_Awal']!=0){
+								$Selisih=$value['NilaiPerolehan']-$value['NilaiPerolehan_Awal'];
+							}
+						?>
+						<td class="center"><?=$Selisih?></td>
+						
+						<td><?=number_format($value['NilaiBuku'])?></td>
+						<td><?=number_format($value['AkumulasiPenyusutan'])?></td>
+						<td><?=number_format($value['PenyusutanPerTahun'])?></td>
+						<td><?=$value['TahunPenyusutan']?></td>
+						<td><?=$value['MasaManfaat']?></td>
+						<td><?=$value['UmurEkonomis']?></td>
+
 						<td><?=$value['kondisi']?></td>
 						<td><?=$value['kodeKA']?></td>
-						<td><?=$value['NilaiBuku']?></td>
-						<td><?=$value['AkumulasiPenyusutan']?></td>
-						<td><?=$value['PenyusutanPertahun']?></td>
 						<td><?=$value['TglPerolehan']?></td>
 						<td><?=$value['TglPembukuan']?></td>
-						<td><?=$value['TglPerubahan']?></td>
+						
 						<td><?=$value['Info']?></td>
 						<td>
 							<?php if (in_array($value['Kd_Riwayat'], $rollbackID)):?>
@@ -132,6 +157,7 @@ $LAYANAN = new RETRIEVE_LAYANAN;
 						</td>
 					</tr>
 				<?php
+					}
 						$i++;
 						}
 					}

@@ -780,6 +780,29 @@ for($i=0;$i<2;$i++){
                         $Sisa_Masa_Manfaat=$Umur_Ekonomis_Final-1;
                         
                         
+                         $cetak_informasi="\n------AWAL KAPITALISASI------\n".
+                     "Data Kapitalisasi untuk Aset_ID=$Aset_ID\n Data Awal \n"
+                    . "NilaiPerolehan = $Nilai_Perolehan_awal_log\n"
+                    . "Masa Manfaat= $MasaManfaat\n"
+                    . "Umur Ekonomis= $UmurEkonomis \n"
+                    . "AkumulasiPenyusutan $AkumulasiPenyusutan \n"
+                    . "NilaiBuku=$nb_buku_log\n"
+                    . "----NILAI KAPITALISASI $Aset_ID ---"
+                    . "Nilai Kapitalisasi = $selisih \n"
+                    . "Persentase =$persen --> ( $selisih/$Nilai_Perolehan_awal_log )*100\n"
+                    . "Penambahan masa Manfaat $penambahan_masa_manfaat\n"
+                    . "Umur Ekonomis Final $Umur_Ekonomis_Final\n"
+                    . "Nilai Yang Disusutkan $NilaiYgDisusutkan --> ($nb_buku_log+$selisih) \n"
+                    . "Beban Penyusutan $PenyusutanPerTahun_hasil -->(( $NilaiYgDisusutkan/$Umur_Ekonomis_Final ))\n"
+                    . "----FINAL----\n"
+                    . "Nilai Perolehan $NP \n"
+                    . "Akumulasi Penyusutan Akhir $AkumulasiPenyusutan_hasil-->($AkumulasiPenyusutan+$PenyusutanPerTahun_hasil) \n"
+                    . "Nilai Buku Akhir $NilaiBuku_hasil--> ($NP-$AkumulasiPenyusutan_hasil)\n"
+                    . "Umur Ekonomis Akhir $Sisa_Masa_Manfaat\n"
+                    . "-------AKHIR KAPITALISASI $Aset_ID----\n\n";
+
+            echo "$cetak_informasi\ --lama\n";
+
                          
                          echo "Kapitalisasi\n Aset_ID=$Aset_ID log_id=$log_id\n"
                                  . "kodeKelompok \t=$kodeKelompok_log \n"
