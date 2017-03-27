@@ -1313,15 +1313,15 @@ class RETRIEVE_INVENTARISASI extends RETRIEVE{
         $baris = $data->rowcount($sheet_index=0);
 
         $no = 0;
-        $counttosleep = 0;
+        //$counttosleep = 0;
         for ($i=10; $i<=$baris; $i++)
         {
             if($data->val($i,11) != "" || $data->val($i,11) != 0){
-                  $counttosleep++;
+                  /*$counttosleep++;
                   if($counttosleep == 201 ){
                     $counttosleep = 1;
                     sleep(1);
-                  } 
+                  }*/ 
                   $xlsdata[$no]['kodeSatker'] = $post['kodeSatker'];
                   $kodeSatker = explode(".",$post['kodeSatker']);
                   $xlsdata[$no]['TglPerolehan'] = $data->val($i, 12);
