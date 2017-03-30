@@ -78,7 +78,8 @@ foreach ($clearList as $value) {
 	$AddField = "action,changeDate,TglPerubahan,Kd_Riwayat";
 	$action = "77";
 	$changeDate = date('Y-m-d');
-	$TglPerubahan = $changeDate;
+	//$TglPerubahan = $changeDate;
+	$TglPerubahan = '2016-12-31';
 	$Kd_Riwayat = '77';
 	//insert log
 	$QueryLog  = "INSERT INTO {$tableLog} ($implodeField,$AddField)
