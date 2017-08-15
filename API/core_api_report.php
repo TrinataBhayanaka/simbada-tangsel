@@ -2753,6 +2753,8 @@ class core_api_report extends DB {
                                                   break;
 												  case '7':
 												  {
+												  //pr($parameter_sql);
+												  //exit();
 												  //intra
 												  if($parameter_sql != ''){
 														// $Tgl = $tglperolehan;
@@ -2806,7 +2808,7 @@ class core_api_report extends DB {
 														$KodeKaCondt1_mesin = "AND M.kodeKA = 1";
 														$KodeKaCondt1_bangunan = "AND B.kodeKA = 1";
 														if($thnFix < $thnIntraDefault){
-															// echo "tahun < 2007";
+															//echo "tahun < 2007";
 															$query_01 = "select SUM(T.NilaiPerolehan) as Nilai, 
 																			GROUP_CONCAT(T.noRegister) as noReg,T.kodeSatker,T.kodeKelompok, T.Tahun,T.NilaiPerolehan, T.AsalUsul,T.Info, T.TglPerolehan,T.TglPembukuan,T.Alamat,T.LuasTotal,T.HakTanah, T.NoSertifikat, T.TglSertifikat, T.Penggunaan,T.kodeRuangan,T.kodeLokasi,
 																			K.Kode, K.Uraian
@@ -2938,10 +2940,14 @@ class core_api_report extends DB {
 															// echo "kurang dari 2008";
 															
 														}else{
-															// echo "tahun >= 2008";
+															echo "tahun >= 2008";
+															pr($thnceck);
+															pr($thnIntraDefault);
+															pr($thnFix);
+															//exit();
 															//2007-01-01 sampe 2013-01-01
 															if($thnceck < $thnIntraDefault){
-																// echo "sini kan";
+																echo "sini kan";
 																$extQuery_A_default = "AND T.TglPembukuan >='$tglAwalDefault' AND T.TglPembukuan <='$tglAkhirDefault'";
 																$extQuery_B_default = "M.TglPerolehan >= '$tglAwalDefault' AND M. TglPerolehan < '$tglIntraDefault' 
 																					   AND M.TglPembukuan >='$tglAwalDefault' AND M.TglPembukuan <='$tglAkhirDefault' $satker_02";
@@ -2975,8 +2981,6 @@ class core_api_report extends DB {
 																$extQuery_F_default = "AND KDPA.TglPembukuan >='$tglAwalDefault' AND KDPA.TglPembukuan <='$tglAkhirDefault'";
 																
 															}
-															
-															
 															$query_01 = "select SUM(T.NilaiPerolehan) as Nilai,
 																			GROUP_CONCAT(T.noRegister) as noReg,
 																			T.kodeSatker,T.kodeKelompok, T.Tahun,T.NilaiPerolehan, T.AsalUsul,T.Info, T.TglPerolehan,T.TglPembukuan,T.Alamat,T.LuasTotal,T.HakTanah, T.NoSertifikat, T.TglSertifikat, T.Penggunaan,T.kodeRuangan,T.kodeLokasi,
@@ -3151,7 +3155,7 @@ class core_api_report extends DB {
 																	order by KDPA.kodeKelompok";	
 																	
 															if($thnceck < $thnIntraDefault){
-																// echo "sini aja";
+																echo "sini aja";
 																$dataQuery = array($query_01,$query_02_default,$query_02_condt,$query_03_default,$query_03_condt,$query_04,$query_05,$query_06);
 																// $dataQuery = array($query_02_default,$query_02_condt);
 															}elseif($thnceck >= $thnIntraDefault || $thnceck < $thnFix){
@@ -3161,8 +3165,8 @@ class core_api_report extends DB {
 																// echo "tahun awal sama tahun akhir";
 																$dataQuery = array($query_01,$query_02_default,$query_02_condt,$query_03_default,$query_03_condt,$query_04,$query_05,$query_06);
 															}
-															// pr($dataQuery);
-															// exit;
+															pr($dataQuery);
+															exit;
 															$query = $dataQuery;
 															// echo "lebih dari 2008";
 															// pr($query);
@@ -4809,7 +4813,8 @@ class core_api_report extends DB {
 					order by k.Kode ";
 			}elseif($paramGol == 'Lain'){
 				// echo "Lain";
-				$query ="select k.Kode, k.Golongan, k.Bidang, k.Uraian from kelompok k where (k.kode not like '01%' and k.kode not like '07.21%' and k.kode not like '07.22%' and k.kode not like '07.23%' and k.kode not like '08%') and k.Bidang is not null and k.Kelompok is null and k.Sub is null and k.SubSub is null order by k.Kode ";		
+				/*$query ="select k.Kode, k.Golongan, k.Bidang, k.Uraian from kelompok k where (k.kode not like '01%' and k.kode not like '07.21%' and k.kode not like '07.22%' and k.kode not like '07.23%' and k.kode not like '08%') and k.Bidang is not null and k.Kelompok is null and k.Sub is null and k.SubSub is null order by k.Kode ";*/
+				$query ="select k.Kode, k.Golongan, k.Bidang, k.Uraian from kelompok k where (k.kode not like '07.21%' and k.kode not like '07.22%' and k.kode not like '07.23%' and k.kode not like '08%') and k.Bidang is not null and k.Kelompok is null and k.Sub is null and k.SubSub is null order by k.Kode ";		
 			}elseif($paramGol == 'NonAset'){
 				$query ="select k.Kode, k.Golongan, k.Bidang, k.Uraian from kelompok k where (k.kode like '02%' or k.kode like '03%') and k.Bidang is not null and k.Kelompok is null and k.Sub is null and k.SubSub is null order by k.Kode ";		
 			}	
@@ -4821,7 +4826,7 @@ class core_api_report extends DB {
 			{
 				$datagol[$data->Kode] = $data->Uraian;
 			}
-			// pr($datagol);
+			//pr($datagol);
 			// exit;
 			$tgldefault = "2008-01-01";
 			$thnDefault ="2008";
@@ -4948,8 +4953,8 @@ class core_api_report extends DB {
 										and (a.NilaiPerolehan < 20000000)
 										group by a.kodeKelompok";
 						}
-						// echo $queryok ; 	
-						// echo "<br>";
+						//echo $queryok ; 	
+						//echo "<br>";
 						// echo "<br>";
 						// exit;
 						
@@ -5026,7 +5031,7 @@ class core_api_report extends DB {
 						// exit;
 					}
 				}
-				// pr($getdata);
+				//pr($getdata);
 				// exit;
 		return 	$getdata;
 	}
@@ -6743,12 +6748,25 @@ class core_api_report extends DB {
 										a.CaraPerolehan, a.TglPakai, a.Konstruksi, a.Beton, a.JumlahLantai, a.LuasLantai, a.Dinding, a.Lantai, a.LangitLangit, a.Atap, 
 										a.NoSurat, a.TglSurat, a.NoIMB, a.TglIMB, a.StatusTanah, a.NoSertifikat, a.TglSertifikat, a.Tanah_ID, a.Tmp_Tingkat, a.Tmp_Beton, a.Tmp_Luas, 
 										a.KelompokTanah_ID, a.GUID, a.TglPembangunan, a.MasaManfaat, 
-										if(a.AkumulasiPenyusutan_Awal is not null and a.AkumulasiPenyusutan_Awal !=0,a.AkumulasiPenyusutan_Awal,a.AkumulasiPenyusutan), if(a.NilaiBuku_Awal is not null and a.NilaiBuku_Awal !=0,a.NilaiBuku_Awal,a.NilaiBuku), if(a.PenyusutanPerTahun_Awal is not null and a.PenyusutanPerTahun_Awal !=0,a.PenyusutanPerTahun_Awal,a.PenyusutanPerTahun)  
+										
+										if(a.AkumulasiPenyusutan_Awal is not null and a.AkumulasiPenyusutan_Awal !=0 and a.Kd_Riwayat in(7,21,281),a.AkumulasiPenyusutan_Awal,a.AkumulasiPenyusutan), 
+										
+										if(a.NilaiBuku_Awal is not null and (a.NilaiPerolehan_Awal=a.AkumulasiPenyusutan_Awal or a.NilaiBuku_Awal!=0 or a.Kd_Riwayat in(2)) ,a.NilaiBuku_Awal,a.NilaiBuku), 
+
+										if(a.PenyusutanPerTahun_Awal is not null and a.PenyusutanPerTahun_Awal !=0,a.PenyusutanPerTahun_Awal,a.PenyusutanPerTahun)  
 									from log_bangunan a
 									inner join bangunan t on t.Aset_ID=a.Aset_ID
 									inner join bangunan t_2 on t_2.Aset_ID=t.Aset_ID and t.Aset_ID is not null and t.Aset_ID != 0
 									where $paramLog";
-					
+					/*
+					if(a.AkumulasiPenyusutan_Awal is not null and a.AkumulasiPenyusutan_Awal !=0,a.AkumulasiPenyusutan_Awal,a.AkumulasiPenyusutan), if(a.NilaiBuku_Awal is not null and a.NilaiBuku_Awal !=0,a.NilaiBuku_Awal,a.NilaiBuku), if(a.PenyusutanPerTahun_Awal is not null and a.PenyusutanPerTahun_Awal !=0,a.PenyusutanPerTahun_Awal,a.PenyusutanPerTahun)  
+					=====================
+					if(a.AkumulasiPenyusutan_Awal is not null and a.AkumulasiPenyusutan_Awal !=0 and a.Kd_Riwayat in(7,21,281),a.AkumulasiPenyusutan_Awal,a.AkumulasiPenyusutan), 
+										
+										if(a.NilaiBuku_Awal is not null and (a.NilaiPerolehan_Awal=a.AkumulasiPenyusutan_Awal or a.NilaiBuku_Awal!=0 or a.Kd_Riwayat in(2)) ,a.NilaiBuku_Awal,a.NilaiBuku), 
+
+										if(a.PenyusutanPerTahun_Awal is not null and a.PenyusutanPerTahun_Awal !=0,a.PenyusutanPerTahun_Awal,a.PenyusutanPerTahun)
+					*/
 					$queryAlter = "ALTER table bangunan_ori add primary key(Bangunan_ID)";	
 					
 					$queryKib_Rplctn 		= "create temporary table bangunan_Rplctn as
@@ -9402,9 +9420,9 @@ class core_api_report extends DB {
 			
 				for ($i = 0; $i < count($AllTableTemp); $i++)
 				{
-					// echo "query_$i =".$AllTableTemp[$i];
-					// echo "<br>";
-					// echo "<br>";
+					/*echo "query_$i =".$AllTableTemp[$i];
+					echo "<br>";
+					echo "<br>";*/
 					// exit;
 					$resultQuery = $this->query($AllTableTemp[$i]) or die ($this->error('error dataQuery'));
 				}
