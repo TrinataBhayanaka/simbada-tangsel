@@ -2940,14 +2940,14 @@ class core_api_report extends DB {
 															// echo "kurang dari 2008";
 															
 														}else{
-															echo "tahun >= 2008";
-															pr($thnceck);
-															pr($thnIntraDefault);
-															pr($thnFix);
+															//echo "tahun >= 2008";
+															//pr($thnceck);
+															//pr($thnIntraDefault);
+															//pr($thnFix);
 															//exit();
 															//2007-01-01 sampe 2013-01-01
 															if($thnceck < $thnIntraDefault){
-																echo "sini kan";
+																//echo "sini kan";
 																$extQuery_A_default = "AND T.TglPembukuan >='$tglAwalDefault' AND T.TglPembukuan <='$tglAkhirDefault'";
 																$extQuery_B_default = "M.TglPerolehan >= '$tglAwalDefault' AND M. TglPerolehan < '$tglIntraDefault' 
 																					   AND M.TglPembukuan >='$tglAwalDefault' AND M.TglPembukuan <='$tglAkhirDefault' $satker_02";
@@ -3155,7 +3155,7 @@ class core_api_report extends DB {
 																	order by KDPA.kodeKelompok";	
 																	
 															if($thnceck < $thnIntraDefault){
-																echo "sini aja";
+																//echo "sini aja";
 																$dataQuery = array($query_01,$query_02_default,$query_02_condt,$query_03_default,$query_03_condt,$query_04,$query_05,$query_06);
 																// $dataQuery = array($query_02_default,$query_02_condt);
 															}elseif($thnceck >= $thnIntraDefault || $thnceck < $thnFix){
@@ -3165,8 +3165,8 @@ class core_api_report extends DB {
 																// echo "tahun awal sama tahun akhir";
 																$dataQuery = array($query_01,$query_02_default,$query_02_condt,$query_03_default,$query_03_condt,$query_04,$query_05,$query_06);
 															}
-															pr($dataQuery);
-															exit;
+															//pr($dataQuery);
+															//exit;
 															$query = $dataQuery;
 															// echo "lebih dari 2008";
 															// pr($query);
